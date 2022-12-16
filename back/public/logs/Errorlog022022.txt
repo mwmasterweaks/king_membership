@@ -1,0 +1,14 @@
+2022-02-16 14:03:36	--	1	--		--	BranchController	--	store	--	Error	--	SQLSTATE[HY000]: General error: 1364 Field 'name' doesn't have a default value (SQL: insert into `branches` (`updated_at`, `created_at`) values (2022-02-16 14:03:36, 2022-02-16 14:03:36))
+
+2022-02-16 14:10:46	--	1	--		--	BranchController	--	store	--	Error	--	SQLSTATE[HY000]: General error: 1364 Field 'name' doesn't have a default value (SQL: insert into `branches` (`updated_at`, `created_at`) values (2022-02-16 14:10:46, 2022-02-16 14:10:46))
+
+2022-02-16 14:13:18	--	1	--		--	BranchController	--	store	--	Error	--	SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Test' for key 'name' (SQL: insert into `branches` (`name`, `description`, `updated_at`, `created_at`) values (Test, Test, 2022-02-16 14:13:18, 2022-02-16 14:13:18))
+
+2022-02-16 14:50:13	--	1	--		--	EmployeeController	--	store	--	Error	--	SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'branch_id' cannot be null (SQL: insert into `employees` (`branch_id`, `first_name`, `middle_name`, `last_name`, `updated_at`, `created_at`) values (?, ?, ?, ?, 2022-02-16 14:50:13, 2022-02-16 14:50:13))
+
+2022-02-16 14:59:05	--	1	--		--	EmployeeController	--	update	--	Error	--	No query results for model [App\Employee] undefined
+
+2022-02-20 11:53:43	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Error
+
+2022-02-20 17:32:00	--	1	--		--	BranchController	--	store	--	Error	--	SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Test Main' for key 'name' (SQL: insert into `branches` (`name`, `description`, `updated_at`, `created_at`) values (Test Main, For test only, 2022-02-20 17:32:00, 2022-02-20 17:32:00))
+

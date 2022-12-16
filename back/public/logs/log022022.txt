@@ -1,0 +1,98 @@
+2022-02-16 14:15:34	--	1	--		--	BranchController	--	store	--	message	--	Create new Branch: {"name":"Test","description":"Test","updated_at":"2022-02-16 14:15:34","created_at":"2022-02-16 14:15:34","id":4}
+
+2022-02-16 14:15:49	--		--		--		--	BranchController	--	destroy	--	message
+
+2022-02-16 14:16:02	--	1	--		--		--	BranchController	--	update	--	message
+
+2022-02-16 14:17:48	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 1
+From: {"name":"Main Branch","description":"Davao Main Branch"}
+To: {"id":1,"name":"Main Branch 1","description":"Main Branch 1","created_at":"2022-02-16 14:08:05","updated_at":"2022-02-16 14:17:48"}
+
+2022-02-16 14:54:19	--	1	--		--	EmployeeController	--	store	--	message	--	Create new User: 1
+Employee: {"branch_id":1,"first_name":"Test","middle_name":"Test","last_name":"Test","updated_at":"2022-02-16 14:54:19","created_at":"2022-02-16 14:54:19","id":11001}
+
+2022-02-16 14:57:16	--	1	--		--	EmployeeController	--	store	--	message	--	Create new User: 1
+Employee: {"branch_id":1,"first_name":"Test","middle_name":"Test","last_name":"Test","updated_at":"2022-02-16 14:57:16","created_at":"2022-02-16 14:57:16","id":11002}
+
+2022-02-16 15:21:44	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 11001
+From: {"branch_id":1,"first_name":"Test","middle_name":"Test","last_name":"Test"}
+To: {"id":11001,"branch_id":1,"first_name":"Daryl","middle_name":"Test","last_name":"Test","created_at":"2022-02-16 14:54:19","updated_at":"2022-02-16 15:21:44"}
+
+2022-02-16 15:25:51	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 11001
+From: {"branch_id":1,"first_name":"Daryl","middle_name":"Test","last_name":"Test"}
+To: {"id":11001,"branch_id":1,"first_name":"Daryl","middle_name":"Kate","last_name":"Good","created_at":"2022-02-16 14:54:19","updated_at":"2022-02-16 15:25:51"}
+
+2022-02-16 15:25:56	--		--		--		--	EmployeeController	--	destroy	--	message
+
+2022-02-20 11:56:41	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 12:15:51	--	1	--		--	kingmpc	--	UserController	--	update	--	message
+
+2022-02-20 13:40:58	--	1	--		--	EmployeeController	--	store	--	message	--	Create new User: 1
+Employee: {"branch_id":1,"first_name":"Sub","middle_name":"Admin","last_name":"1","updated_at":"2022-02-20 13:40:58","created_at":"2022-02-20 13:40:58","id":2}
+
+2022-02-20 13:42:16	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 13:42:54	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 15:58:37	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 2
+From: {"branch_id":1,"first_name":"Sub","middle_name":"Admin","last_name":"1"}
+To: {"id":2,"branch_id":1,"first_name":"Sub","middle_name":"Admin","last_name":"2","created_at":"2022-02-20 13:40:58","updated_at":"2022-02-20 15:58:37"}
+
+2022-02-20 15:59:21	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 16:18:21	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 16:19:49	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 16:21:16	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 16:21:56	--		--		--		--	EmployeeController	--	destroy	--	message
+
+2022-02-20 16:22:34	--	1	--		--	EmployeeController	--	store	--	message	--	Create new User: 1
+Employee: {"branch_id":1,"first_name":"Mice","middle_name":"Montte","last_name":"MOtra","updated_at":"2022-02-20 16:22:34","created_at":"2022-02-20 16:22:34","id":3}
+
+2022-02-20 16:22:42	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 17:23:48	--	1	--		--	BranchController	--	store	--	message	--	Create new Branch: {"name":"Tagum","description":"Tagum","updated_at":"2022-02-20 17:23:48","created_at":"2022-02-20 17:23:48","id":2}
+
+2022-02-20 17:24:04	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 2
+From: {"name":"Tagum","description":"Tagum"}
+To: {"id":2,"name":"Tagum 123","description":"Tagum 123","created_at":"2022-02-20 17:23:48","updated_at":"2022-02-20 17:24:04"}
+
+2022-02-20 17:24:11	--		--		--		--	BranchController	--	destroy	--	message
+
+2022-02-20 17:24:29	--	1	--		--	EmployeeController	--	store	--	message	--	Create new User: 1
+Employee: {"branch_id":1,"first_name":"Juan","middle_name":"Dela","last_name":"Cruz","updated_at":"2022-02-20 17:24:29","created_at":"2022-02-20 17:24:29","id":11000}
+
+2022-02-20 17:25:44	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 17:28:15	--	1	--		--	BranchController	--	store	--	message	--	Create new Branch: {"name":"Tagum","description":"Tagum","updated_at":"2022-02-20 17:28:15","created_at":"2022-02-20 17:28:15","id":3}
+
+2022-02-20 17:30:12	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 3
+From: {"name":"Tagum","description":"Tagum"}
+To: {"id":3,"name":"Tagum Main","description":"Tagum Main","created_at":"2022-02-20 17:28:15","updated_at":"2022-02-20 17:30:12"}
+
+2022-02-20 17:30:37	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 1
+From: {"name":"Main Branch","description":"Davao Main Branch"}
+To: {"id":1,"name":"Main Branch 1","description":"Main Branch 1","created_at":"2022-02-20 16:25:55","updated_at":"2022-02-20 17:30:37"}
+
+2022-02-20 17:31:44	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 1
+From: {"name":"Main Branch 1","description":"Main Branch 1"}
+To: {"id":1,"name":"Main Branch 1","description":"Davao City Main","created_at":"2022-02-20 16:25:55","updated_at":"2022-02-20 17:31:44"}
+
+2022-02-20 17:32:00	--	1	--		--	BranchController	--	store	--	message	--	Create new Branch: {"name":"Test Main","description":"For test only","updated_at":"2022-02-20 17:32:00","created_at":"2022-02-20 17:32:00","id":4}
+
+2022-02-20 17:32:26	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 4
+From: {"name":"Test Main","description":"For test only"}
+To: {"id":4,"name":"Test Main","description":"For test only123","created_at":"2022-02-20 17:32:00","updated_at":"2022-02-20 17:32:26"}
+
+2022-02-20 17:32:32	--		--		--		--	BranchController	--	destroy	--	message
+
+2022-02-20 17:32:47	--	1	--		--	BranchController	--	store	--	message	--	Create new Branch: {"name":"test branch name","description":"test branch desc","updated_at":"2022-02-20 17:32:47","created_at":"2022-02-20 17:32:47","id":6}
+
+2022-02-20 17:33:16	--	1	--		--	kingmpc	--	EmployeeController	--	updateRoles	--	Message
+
+2022-02-20 17:33:40	--	1	--		--	EmployeeController	--	store	--	message	--	Create new User: 1
+Employee: {"branch_id":3,"first_name":"Test","middle_name":"Sub","last_name":"Admin","updated_at":"2022-02-20 17:33:40","created_at":"2022-02-20 17:33:40","id":2}
+

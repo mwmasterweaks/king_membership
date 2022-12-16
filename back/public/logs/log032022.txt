@@ -1,0 +1,58 @@
+2022-03-01 19:10:13	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 1
+From: {"branch_id":1,"first_name":"Test","middle_name":"Admin","last_name":"1"}
+To: {"id":1,"branch_id":0,"first_name":"Test","middle_name":"Admin","last_name":"1","created_at":"2022-02-20 16:25:55","updated_at":"2022-03-01 19:10:13"}
+
+2022-03-01 19:24:55	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 2
+From: {"branch_id":3,"first_name":"Test","middle_name":"Sub","last_name":"Admin"}
+To: {"id":2,"branch_id":3,"first_name":"Test","middle_name":"Sub","last_name":"Admin","created_at":"2022-02-20 17:33:40","updated_at":"2022-02-20 17:33:40"}
+
+2022-03-01 19:31:12	--	1	--		--	Admin	--	UserController	--	update	--	message
+
+2022-03-01 20:03:39	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 1
+From: {"branch_id":0,"first_name":"Test","middle_name":"Admin","last_name":"1"}
+To: {"id":1,"branch_id":6,"first_name":"Test","middle_name":"Admin","last_name":"1","created_at":"2022-02-20 16:25:55","updated_at":"2022-03-01 20:03:39"}
+
+2022-03-01 20:03:45	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 1
+From: {"branch_id":6,"first_name":"Test","middle_name":"Admin","last_name":"1"}
+To: {"id":1,"branch_id":6,"first_name":"Test","middle_name":"Admin","last_name":"1","created_at":"2022-02-20 16:25:55","updated_at":"2022-03-01 20:03:39"}
+
+2022-03-01 20:23:09	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 1
+From: {"branch_id":6,"first_name":"Test","middle_name":"Admin","last_name":"1"}
+To: {"id":1,"branch_id":0,"first_name":"Test","middle_name":"Admin","last_name":"1","created_at":"2022-02-20 16:25:55","updated_at":"2022-03-01 20:23:09"}
+
+2022-03-01 20:23:24	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 1
+From: {"branch_id":0,"first_name":"Test","middle_name":"Admin","last_name":"1"}
+To: {"id":1,"branch_id":6,"first_name":"Test","middle_name":"Admin","last_name":"1","created_at":"2022-02-20 16:25:55","updated_at":"2022-03-01 20:23:24"}
+
+2022-03-01 20:44:22	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 1
+From: {"branch_id":6,"first_name":"Test","middle_name":"Admin","last_name":"1"}
+To: {"id":1,"branch_id":0,"first_name":"Test","middle_name":"Admin","last_name":"1","created_at":"2022-02-20 16:25:55","updated_at":"2022-03-01 20:44:22"}
+
+2022-03-01 20:45:24	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:47:33	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:52:34	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:53:00	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:53:34	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:53:40	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:54:01	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 20:54:13	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 21:38:20	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 21:38:53	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Message
+
+2022-03-01 22:16:47	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 2
+From: {"branch_id":3,"first_name":"Test","middle_name":"Sub","last_name":"Admin"}
+To: {"id":2,"branch_id":0,"first_name":"Test","middle_name":"Sub","last_name":"Admin","created_at":"2022-02-20 17:33:40","updated_at":"2022-03-01 22:16:47"}
+
+2022-03-01 22:17:17	--	1	--		--	EmployeeController	--	update	--	message	--	update Employee id 2
+From: {"branch_id":0,"first_name":"Test","middle_name":"Sub","last_name":"Admin"}
+To: {"id":2,"branch_id":1,"first_name":"Test","middle_name":"Sub","last_name":"Admin","created_at":"2022-02-20 17:33:40","updated_at":"2022-03-01 22:17:17"}
+

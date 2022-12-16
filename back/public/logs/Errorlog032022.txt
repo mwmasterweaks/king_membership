@@ -1,0 +1,12 @@
+2022-03-01 19:24:35	--	1	--		--	EmployeeController	--	update	--	Error	--	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'employee__id' in 'where clause' (SQL: update `users` set `email` = SubAdmin, `updated_at` = 2022-03-01 19:24:35 where `employee__id` = 2)
+
+2022-03-01 21:48:48	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Error
+
+2022-03-01 21:49:51	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Error
+
+2022-03-01 21:50:59	--	1	--		--	Admin	--	EmployeeController	--	updateRoles	--	Error
+
+2022-03-01 21:55:53	--		--		--		--	EmployeeController	--	updateRoles	--	Error
+
+2022-03-01 21:56:30	--		--		--		--	EmployeeController	--	updateRoles	--	Error
+

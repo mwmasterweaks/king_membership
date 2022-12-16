@@ -1,0 +1,259 @@
+Username: kingmcoop
+Password: kingmcoop123
+
+Default Username: last_name+'5_random_number'+first_name
+Default Password: 123456789
+
+email
+kingmcoop@gmail.com
+kingmcoop123
+
+ITEXT MO
+Client Name: King Multipurpose Cooperative
+Contact Number: 09675282651
+Email: kingmcoop@gmail.com
+Package: TRIAL
+=======================================================================
+ApiCode: TR-KINGM282651_7QR1M
+ApiPassword: @bresg)du9
+
+
+# filled member
+        member: {
+        branch_id: 1,
+        email: "micedianne@gmail.com",
+        acc_no: "EXIST-12345-678",
+        title: "Ms.",
+        nickname: "Maes",
+        first_name: "Mice Dianne",
+        mid_name: "Monte",
+        last_name: "Morta",
+        prev_last_name: "Morta",
+        suffix: "Jr",
+        resident: "No",
+        resident_citizenship: "filipino",
+        age: "23",
+        gender: "Female",
+        contact_no: "9092323127",
+        contact_last_update: "2021-06-01",
+        contact2_no: "9092323127",
+        contact2_last_update: "2021-06-01",
+        birthdate: "1998-06-01",
+        nationality: "Filipino",
+        birthcountry: "PH",
+        birthplace: "14",
+        civil_stat: "single",
+        membership_status: "New",
+        present_residential: "Dli makita St. Davao City",
+        monthly_present: "10,000",
+        occupied_present: "2000-01-01",
+        last_update_present: "2000-01-01",
+        permanent_address: "Dli makita St. Davao City",
+        monthly_permanent: "10,000",
+        occupied_permanent: "2000-01-01",
+        last_update_permanent: "2000-01-01",
+        member_id: 0,
+        dependents_no: 3,
+        children_no: 0,
+        household_no: 4,
+        spouse_name: "Song Kang",
+        spouse_age: "24",
+        spouse_occupation: "Korean Superstar",
+        spouse_employer: "Wa ko Kabalo",
+        spouse_address: "South Korea",
+        mother_first_name: "Lolet",
+        mother_mid_name: "Polbo",
+        mother_last_name: "Monte",
+        mother_suffix: "II",
+        father_first_name: "Realito",
+        father_mid_name: "Resurreccion",
+        father_last_name: "Morta",
+        father_suffix: "Jr.",
+        owned_properties: "2",
+        owned_cars: "2",
+        ownership_present: "Test",
+        ownership_permanent: "Test",
+        income_source: "Employment",
+        income_via: "ATM",
+        other_income_via: "",
+        emp_employer: "TEST",
+        emp_nature: "TEST",
+        emp_tin: "123-456",
+        emp_tel_no: "888-888",
+        emp_address: "TEST",
+        emp_position: "TEST",
+        emp_date_employed: "2000-01-01",
+        emp_gross: "100,000",
+        emp_currency: "TEST",
+        emp_annual: "150,000",
+        emp_occ_status: "EMPLOYED",
+        bn_name: "TEST",
+        bn_nature: "TEST",
+        bn_established: "2000-12-12",
+        bn_tin: "123-456",
+        bn_address: "TEST",
+        bn_contact: "888-8888",
+        sss: "123456789",
+        gsis: "00000000",
+        tin: "111111111",
+        otherID1_type: "test",
+        otherID1_number: "123-456",
+        otherID1_issued_date: "2000-12-12",
+        otherID1_expiry_date: "2000-12-12",
+        otherID1_issue_country: "Philippines",
+        otherID1_issue_by: "Test",
+        otherID1_last_update: "2000-12-12",
+        otherID2_type: "Test",
+        otherID2_number: "123-456",
+        otherID2_issued_date: "2000-12-12",
+        otherID2_expiry_date: "2000-12-12",
+        otherID2_issue_country: "",
+        otherID2_issue_by: "Test",
+        otherID2_last_update: "2000-12-12",
+        ref1_name: "Peter B",
+        ref1_address: "Davao City",
+        ref1_contact: "09123456789",
+        ref2_name: "Daryl G",
+        ref2_address: "Davao City",
+        ref2_contact: "09123456789"
+      },
+
+    #   empty member
+      member: {
+        branch_id: "",
+        email: "",
+        acc_no: "",
+        title: "",
+        nickname: "",
+        first_name: "",
+        mid_name: "",
+        last_name: "",
+        prev_last_name: "",
+        suffix: "",
+        resident: "",
+        resident_citizenship: "",
+        age: "",
+        gender: "",
+        contact_no: "",
+        contact_last_update: "",
+        contact2_no: "",
+        contact2_last_update: "",
+        birthdate: "",
+        nationality: "",
+        birthcountry: "",
+        birthplace: "",
+        civil_stat: "",
+        membership_status: "",
+        present_residential: "",
+        monthly_present: "",
+        occupied_present: "",
+        last_update_present: "",
+        permanent_address: "",
+        monthly_permanent: "",
+        occupied_permanent: "",
+        last_update_permanent: "",
+        member_id: 0,
+        dependents_no: 0,
+        children_no:0,
+        household_no: 0,
+        spouse_name: "",
+        spouse_age: "",
+        spouse_occupation: "",
+        spouse_employer: "",
+        spouse_address: "",
+        mother_first_name: "",
+        mother_mid_name: "",
+        mother_last_name: "",
+        mother_suffix: "",
+        father_first_name: "",
+        father_mid_name: "",
+        father_last_name: "",
+        father_suffix: "",
+        owned_properties: "",
+        owned_cars: "",
+        ownership_present: "",
+        ownership_permanent: "",
+        income_source: "",
+        income_via: "",
+        other_income_via: "",
+        emp_employer: "",
+        emp_nature: "",
+        emp_tin: "",
+        emp_tel_no: "",
+        emp_address: "",
+        emp_position: "",
+        emp_date_employed: "",
+        emp_gross: "",
+        emp_currency: "",
+        emp_annual: "",
+        emp_occ_status: "",
+        bn_name: "",
+        bn_nature: "",
+        bn_established: "",
+        bn_tin: "",
+        bn_address: "",
+        bn_contact: "",
+        sss: "",
+        gsis: "",
+        tin: "",
+        otherID1_type: "",
+        otherID1_number: "",
+        otherID1_issued_date: "",
+        otherID1_expiry_date: "",
+        otherID1_issue_country: "",
+        otherID1_issue_by: "",
+        otherID1_last_update: "",
+        otherID2_type: "",
+        otherID2_number: "",
+        otherID2_issued_date: "",
+        otherID2_expiry_date: "",
+        otherID2_issue_country: "",
+        otherID2_issue_by: "",
+        otherID2_last_update: "",
+        ref1_name: "",
+        ref1_address: "",
+        ref1_contact: "",
+        ref2_name: "",
+        ref2_address: "",
+        ref2_contact: ""
+      },
+#roles
+create_employee
+update_employee
+delete_employee
+create_branch
+update_branch
+delete_branch
+view_application
+update_application
+delete_application
+approve_application
+reject_application
+admin
+subadmin
+testrole
+
+
+>disabled:!update_application
+
+
+=======================================================================================================
+18-04-2022
+
+Membership Profile System
+Part I
+Previous Last Name - not mandatory (done)
+Suffix - not mandatory (done)
+Last Name (Maiden) - must be capslock (done)
+Suffix (Mothers Info) - not mandatory (done)
+Suffix (Fathers Info) - not mandatory (done)
+
+Part III - Contact Data
+Additional Contact Number & Last Update - optional (done)
+
+1. Subadmin has no approval (done, need to instruct user)
+2. Print Preview for Application Form (done)
+3. butangan nalang pud og validation ang mga required image (done)
+
+
+
