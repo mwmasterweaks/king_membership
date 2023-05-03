@@ -27,6 +27,13 @@ class CreateMembersTable extends Migration
             $table->string('resident')->nullable();
             $table->string('resident_citizenship')->nullable();
 
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('barangay')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+
             $table->integer('age');
             $table->string('gender');
             $table->string('contact_no');
@@ -56,6 +63,10 @@ class CreateMembersTable extends Migration
 
             $table->string('application_status')->default('Pending');
             $table->string('membership_status');
+            $table->string('approval_date')->nullable();
+            $table->string('enrollment_date')->nullable();
+
+
             $table->timestamps();
         });
     }

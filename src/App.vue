@@ -387,4 +387,41 @@ input {
   height: 100%;
   z-index: 5000;
 }
+
+@media screen {
+  #printSection {
+    display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printSection,
+  #printSection * {
+    visibility: visible;
+  }
+  #printSection {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .bottomfet {
+    color: white !important;
+    text-align: center;
+    background-color: rgba(0, 128, 0, 0.829) !important;
+    -webkit-print-color-adjust: exact;
+    font-size: 12px;
+    padding: 3px;
+  }
+  .modal-modi-bg {
+    background-color: silver !important;
+  }
+
+  @page {
+    size: 8.5in 13in;
+    orientation: portrait;
+  }
+}
 </style>

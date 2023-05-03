@@ -269,7 +269,20 @@
                       <p class="msg">Title:</p>
                     </div>
                     <div class="col-lg-9">
-                      <input
+                      <b-form-select
+                        name="title"
+                        ref="title"
+                        v-model="data.title"
+                        :options="title_options"
+                        size="sm"
+                        class="mt-3"
+                      ></b-form-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('title')"
+                        >This field is required.</small
+                      >
+                      <!-- <input
                         type="text"
                         name="title"
                         ref="title"
@@ -282,11 +295,7 @@
                         autofocus="on"
                         placeholder="Ex.:Mr./Ms./Mrs."
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('title')"
-                        >This field is required.</small
-                      >
+                      -->
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -510,6 +519,7 @@
                           autocomplete="off"
                           v-validate="'required'"
                           name="birthdate"
+                          @input="calcuAge(data.birthdate)"
                         ></date-picker>
                       </div>
                       <small
@@ -767,6 +777,53 @@
                     </div>
                   </div>
 
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Height(feet & inches):</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <input
+                        type="text"
+                        name="height"
+                        ref="height"
+                        class="form-control"
+                        v-model.trim="data.height"
+                        v-validate="'required'"
+                        v-b-tooltip.hover
+                        autocomplete="off"
+                        autofocus="on"
+                      />
+
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('height')"
+                        >This field is required.</small
+                      >
+                    </div>
+                    <div class="col-lg-2">
+                      <p class="msg">Weight(pounds/kilos):</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <input
+                        type="text"
+                        name="weight"
+                        ref="weight"
+                        class="form-control"
+                        v-model.trim="data.weight"
+                        v-validate="'required'"
+                        v-b-tooltip.hover
+                        autocomplete="off"
+                        autofocus="on"
+                      />
+
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('weight')"
+                        >This field is required.</small
+                      >
+                    </div>
+                  </div>
+
                   <hr />
 
                   <div class="rowFields mx-auto row">
@@ -826,6 +883,7 @@
                         class="form-control"
                         v-model.trim="data.household_no"
                         style="margin-top: 8px"
+                        v-validate="'required'"
                       />
                       <small
                         class="text-danger pull-left"
@@ -1022,7 +1080,20 @@
                       <p class="msg">Title:</p>
                     </div>
                     <div class="col-lg-9">
-                      <input
+                      <b-form-select
+                        name="mother_title"
+                        ref="mother_title"
+                        v-model="data.mother_title"
+                        :options="title_options"
+                        size="sm"
+                        class="mt-3"
+                      ></b-form-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('mother_title')"
+                        >This field is required.</small
+                      >
+                      <!-- <input
                         type="text"
                         name="mother_title"
                         ref="mother_title"
@@ -1036,12 +1107,7 @@
                         autocomplete="off"
                         autofocus="on"
                         style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('mother_title')"
-                        >This field is required.</small
-                      >
+                      /> -->
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -1160,7 +1226,20 @@
                       <p class="msg">Title:</p>
                     </div>
                     <div class="col-lg-9">
-                      <input
+                      <b-form-select
+                        name="father_title"
+                        ref="father_title"
+                        v-model="data.father_title"
+                        :options="title_options"
+                        size="sm"
+                        class="mt-3"
+                      ></b-form-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('father_title')"
+                        >This field is required.</small
+                      >
+                      <!-- <input
                         type="text"
                         name="father_title"
                         ref="father_title"
@@ -1175,11 +1254,7 @@
                         autofocus="on"
                         style="margin-top: 8px"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('father_title')"
-                        >This field is required.</small
-                      >
+                      -->
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -1304,7 +1379,6 @@
                       <input
                         type="text"
                         name="sss"
-                        v-validate="'required'"
                         v-model.trim="data.sss"
                         @input="data.sss = $event.target.value.toUpperCase()"
                         class="form-control"
@@ -1312,11 +1386,6 @@
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('sss')"
-                        >This field is required.</small
-                      >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -1327,7 +1396,6 @@
                       <input
                         type="text"
                         name="gsis"
-                        v-validate="'required'"
                         v-model.trim="data.gsis"
                         @input="data.gsis = $event.target.value.toUpperCase()"
                         class="form-control"
@@ -1335,11 +1403,6 @@
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('gsis')"
-                        >This field is required.</small
-                      >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -1350,18 +1413,12 @@
                       <input
                         type="text"
                         name="tin"
-                        v-validate="'required'"
                         v-model.trim="data.tin"
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('tin')"
-                        >This field is required.</small
-                      >
                     </div>
                   </div>
                   <br />
@@ -1379,16 +1436,10 @@
                           data.otherID1_type = $event.target.value.toUpperCase()
                         "
                         class="form-control"
-                        v-validate="'required'"
                         v-b-tooltip.hover
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID1_type')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">ID Number :</p>
@@ -1421,11 +1472,6 @@
                         placeholder="Select Date"
                         autocomplete="off"
                       ></date-picker>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID1_issued_date')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">Expiry Date:</p>
@@ -1476,11 +1522,6 @@
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID1_issue_country')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">Issued By:</p>
@@ -1499,11 +1540,6 @@
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID1_issue_by')"
-                        >This field is required.</small
-                      >
                     </div>
                   </div>
                   <br />
@@ -1521,16 +1557,10 @@
                           data.otherID2_type = $event.target.value.toUpperCase()
                         "
                         class="form-control"
-                        v-validate="'required'"
                         v-b-tooltip.hover
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID2_type')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">ID Number :</p>
@@ -1545,16 +1575,10 @@
                             $event.target.value.toUpperCase()
                         "
                         class="form-control"
-                        v-validate="'required'"
                         v-b-tooltip.hover
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID2_number')"
-                        >This field is required.</small
-                      >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -1570,11 +1594,6 @@
                         placeholder="Select Date"
                         autocomplete="off"
                       ></date-picker>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID2_issued_date')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">Expiry Date:</p>
@@ -1608,11 +1627,6 @@
                         placeholder="Select Date"
                         autocomplete="off"
                       ></date-picker>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID2_last_update')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">Issue Country:</p>
@@ -1627,11 +1641,6 @@
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID2_issue_country')"
-                        >This field is required.</small
-                      >
                     </div>
                     <div class="col-lg-2">
                       <p class="msg">Issued By:</p>
@@ -1650,11 +1659,6 @@
                         autocomplete="off"
                         autofocus="on"
                       />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('otherID2_issue_by')"
-                        >This field is required.</small
-                      >
                     </div>
                   </div>
                 </form>
@@ -1669,6 +1673,92 @@
               </div>
               <div class="elClr panel-body">
                 <form>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Country:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="countries"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="data.country"
+                        placeholder="Select Country"
+                        name="country"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('country')"
+                        >Country is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">City:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="cities"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="data.city"
+                        placeholder="Select City"
+                        name="city"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('city')"
+                        >City is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Barangay:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="barangays"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="data.barangay"
+                        placeholder="Select Barangay"
+                        name="barangay"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('barangay')"
+                        >Barangay is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Postal Code:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <input
+                        name="postal_code"
+                        ref="postal_code"
+                        v-validate="'required'"
+                        type="text"
+                        v-model.trim="data.postal_code"
+                        class="form-control"
+                        v-b-tooltip.hover
+                        autocomplete="off"
+                        autofocus="on"
+                      />
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('postal_code')"
+                        >This field is required.</small
+                      >
+                    </div>
+                  </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-3">
                       <p class="msg">
@@ -1881,6 +1971,20 @@
                         v-show="errors.has('permanent_address')"
                         >This field is required.</small
                       >
+                      <br />
+                      <b-form-checkbox
+                        id="checkbox-1"
+                        v-model="copyPresent"
+                        name="checkbox-1"
+                        value="copy"
+                        unchecked-value="not_copy"
+                        style="float: right"
+                        @input="checkCopy"
+                      >
+                        <label style="margin-top: 5px"
+                          >Copy Present Address</label
+                        >
+                      </b-form-checkbox>
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -2133,154 +2237,17 @@
               </div>
             </div>
             <div class="tab-pane" id="Info_4" role="tabpanel">
+              <div class="emp-heading" style="display: flex">
+                <label class="header text-success"> Source of Income</label>
+              </div>
               <div class="elClr panel-body">
                 <form>
-                  <div class="emp-heading" style="display: flex">
-                    <label class="header text-success"> Business Data</label>
-                  </div>
-                  <div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-3">
-                        <p class="msg">Company Trade Name (Employer)</p>
-                      </div>
-                      <div class="col-lg-8">
-                        <input
-                          type="text"
-                          name="bn_name"
-                          v-model.trim="data.bn_name"
-                          @input="
-                            data.bn_name = $event.target.value.toUpperCase()
-                          "
-                          class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
-                        />
-                        <small
-                          class="text-danger pull-left"
-                          v-show="errors.has('bn_name')"
-                          >This field is required.</small
-                        >
-                      </div>
-                    </div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-3">
-                        <p class="msg">Nature of Business(PSIC):</p>
-                      </div>
-                      <div class="col-lg-8">
-                        <input
-                          type="text"
-                          name="bn_nature"
-                          v-model.trim="data.bn_nature"
-                          @input="
-                            data.bn_nature = $event.target.value.toUpperCase()
-                          "
-                          class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
-                        />
-                        <small
-                          class="text-danger pull-left"
-                          v-show="errors.has('bn_nature')"
-                          >This field is required.</small
-                        >
-                      </div>
-                    </div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg">Date Established:</p>
-                      </div>
-                      <div class="col-lg-9">
-                        <div class="input-group">
-                          <date-picker
-                            name="bn_established"
-                            v-model.trim="data.bn_established"
-                            :config="Dateoptions"
-                            v-b-tooltip.hover
-                            placeholder="Select Date"
-                            autocomplete="off"
-                          ></date-picker>
-                          <small
-                            class="text-danger pull-left"
-                            v-show="errors.has('bn_established')"
-                            >This field is required.</small
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg">Company TIN:</p>
-                      </div>
-                      <div class="col-lg-9">
-                        <input
-                          type="text"
-                          name="bn_tin"
-                          v-model.trim="data.bn_tin"
-                          class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
-                        />
-                        <small
-                          class="text-danger pull-left"
-                          v-show="errors.has('bn_tin')"
-                          >This field is required.</small
-                        >
-                      </div>
-                    </div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg">Full Address:</p>
-                      </div>
-                      <div class="col-lg-9">
-                        <textarea
-                          rows="4"
-                          name="bn_address"
-                          class="form-control"
-                          v-model.trim="data.bn_address"
-                          @input="
-                            data.bn_address = $event.target.value.toUpperCase()
-                          "
-                          placeholder="Full Address
-                      (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
-                      Province, Country)"
-                        ></textarea>
-
-                        <small
-                          class="text-danger pull-left"
-                          v-show="errors.has('bn_address')"
-                          >This field is required.</small
-                        >
-                      </div>
-                    </div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg">Contact Number:</p>
-                      </div>
-                      <div class="col-lg-9">
-                        <input
-                          type="text"
-                          name="bn_contact"
-                          v-model.trim="data.bn_contact"
-                          class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
-                        />
-                        <small
-                          class="text-danger pull-left"
-                          v-show="errors.has('bn_contact')"
-                          >This field is required.</small
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Source of Income:</p>
+                      <p class="msg">
+                        <span class="red" @click="checker">*</span> Source of
+                        Income:
+                      </p>
                     </div>
                     <div class="col-lg-9">
                       <div
@@ -2288,10 +2255,9 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="radio"
                           name="income_source"
                           ref="income_source"
-                          v-validate="'required'"
+                          type="checkbox"
                           value="Business"
                           v-model.trim="data.income_source"
                         />
@@ -2305,10 +2271,9 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="radio"
                           name="income_source"
                           ref="income_source"
-                          v-validate="'required'"
+                          type="checkbox"
                           value="Employment"
                           v-model.trim="data.income_source"
                         />
@@ -2322,10 +2287,9 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="radio"
                           name="income_source"
                           ref="income_source"
-                          v-validate="'required'"
+                          type="checkbox"
                           value="Pension"
                           v-model.trim="data.income_source"
                         />
@@ -2339,10 +2303,9 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="radio"
                           name="income_source"
                           ref="income_source"
-                          v-validate="'required'"
+                          type="checkbox"
                           value="Remittance"
                           v-model.trim="data.income_source"
                         />
@@ -2356,10 +2319,9 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="radio"
                           name="income_source"
                           ref="income_source"
-                          v-validate="'required'"
+                          type="checkbox"
                           value="Agri"
                           v-model.trim="data.income_source"
                         />
@@ -2369,15 +2331,17 @@
                         </div>
                       </div>
                     </div>
-                    <small
+                    <!-- <small
                       class="text-danger pull-left"
-                      v-show="errors.has('income_source')"
+                      v-show="data.income_source"
                       >This field is required.</small
-                    >
+                    > -->
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Income Received Via:</p>
+                      <p class="msg">
+                        <span class="red">*</span> Income Received Via:
+                      </p>
                     </div>
                     <div class="col-lg-4">
                       <div
@@ -2385,7 +2349,7 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="radio"
+                          type="checkbox"
                           name="income_via"
                           ref="income_via"
                           v-validate="'required'"
@@ -2471,7 +2435,146 @@
                     >
                   </div>
                   <hr />
-                  <span v-if="data.income_source == 'Employment'">
+                  <!-- Business Data -->
+
+                  <span>
+                    <!-- <span v-if="income_sources.includes('Business')"> -->
+                    <div class="emp-heading" style="display: flex">
+                      <label class="header text-success"> Business Data</label>
+                    </div>
+                    <!-- Business Data -->
+                    <div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-3">
+                          <p class="msg">
+                            <span class="red">*</span> Company Trade Name
+                            (Employer)
+                          </p>
+                        </div>
+                        <div class="col-lg-8">
+                          <input
+                            type="text"
+                            name="bn_name"
+                            v-model.trim="data.bn_name"
+                            @input="
+                              data.bn_name = $event.target.value.toUpperCase()
+                            "
+                            class="form-control"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+                            autofocus="on"
+                          />
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-3">
+                          <p class="msg">
+                            <span class="red">*</span> Nature of Business(PSIC):
+                          </p>
+                        </div>
+                        <div class="col-lg-8">
+                          <input
+                            type="text"
+                            name="bn_nature"
+                            v-model.trim="data.bn_nature"
+                            @input="
+                              data.bn_nature = $event.target.value.toUpperCase()
+                            "
+                            class="form-control"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+                            autofocus="on"
+                          />
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg">
+                            <span class="red">*</span> Date Established:
+                          </p>
+                        </div>
+                        <div class="col-lg-9">
+                          <div class="input-group">
+                            <date-picker
+                              name="bn_established"
+                              v-model.trim="data.bn_established"
+                              :config="Dateoptions"
+                              v-b-tooltip.hover
+                              placeholder="Select Date"
+                              autocomplete="off"
+                            ></date-picker>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg">Company TIN:</p>
+                        </div>
+                        <div class="col-lg-9">
+                          <input
+                            type="text"
+                            name="bn_tin"
+                            v-model.trim="data.bn_tin"
+                            class="form-control"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+                            autofocus="on"
+                          />
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg">
+                            <span class="red">*</span> Full Address:
+                          </p>
+                        </div>
+                        <div class="col-lg-9">
+                          <textarea
+                            rows="4"
+                            name="bn_address"
+                            class="form-control"
+                            v-model.trim="data.bn_address"
+                            @input="
+                              data.bn_address =
+                                $event.target.value.toUpperCase()
+                            "
+                            placeholder="Full Address
+                        (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
+                        Province, Country)"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg">
+                            <span class="red">*</span> Contact Number:
+                          </p>
+                        </div>
+                        <div class="col-lg-9">
+                          <input
+                            type="text"
+                            name="bn_contact"
+                            v-model.trim="data.bn_contact"
+                            class="form-control"
+                            maxlength="11"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+                            autofocus="on"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('bn_contact')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                  </span>
+
+                  <!-- Employment Data -->
+                  <span>
+                    <!-- <span v-if="income_sources.includes('Employment')"> -->
                     <div class="emp-heading" style="display: flex">
                       <label class="header text-success">
                         Employment Data</label
@@ -2480,7 +2583,10 @@
                     <div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-3">
-                          <p class="msg">Company Trade Name ( Employer)</p>
+                          <p class="msg">
+                            <span class="red">*</span> Company Trade Name (
+                            Employer)
+                          </p>
                         </div>
                         <div class="col-lg-8">
                           <input
@@ -2506,7 +2612,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-3">
-                          <p class="msg">Nature of Company (PSIC):</p>
+                          <p class="msg">
+                            <span class="red">*</span> Nature of Company (PSIC):
+                          </p>
                         </div>
                         <div class="col-lg-8">
                           <input
@@ -2532,7 +2640,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Company TIN:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Company TIN:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <input
@@ -2557,7 +2667,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Contact Number:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Contact Number:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <input
@@ -2579,7 +2691,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Full Address:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Full Address:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <textarea
@@ -2606,7 +2720,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Position:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Position:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <input
@@ -2632,7 +2748,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Date Employed:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Date Employed:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <div class="input-group">
@@ -2655,7 +2773,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Gross Income:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Gross Income:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <input
@@ -2677,9 +2797,26 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Annual/Monthly:</p>
+                          <p class="msg">
+                            <span class="red">*</span>Pay period:
+                          </p>
                         </div>
-                        <div class="col-lg-9">
+                        <div class="col-lg-3">
+                          <b-form-select
+                            name="emp_period"
+                            ref="emp_period"
+                            v-validate="'required'"
+                            v-model="data.emp_period"
+                            :options="income_options"
+                            size="sm"
+                          ></b-form-select>
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('emp_period')"
+                            >This field is required.</small
+                          >
+                        </div>
+                        <div class="col-lg-6">
                           <input
                             type="text"
                             name="emp_annual"
@@ -2699,7 +2836,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Currency:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Currency:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <input
@@ -2721,7 +2860,9 @@
                       </div>
                       <div class="rowFields mx-auto row">
                         <div class="col-lg-2">
-                          <p class="msg">Occupational Status:</p>
+                          <p class="msg">
+                            <span class="red">*</span> Occupational Status:
+                          </p>
                         </div>
                         <div class="col-lg-9">
                           <input
@@ -2750,7 +2891,6 @@
                 </form>
               </div>
             </div>
-
             <div class="tab-pane" id="Info_5" role="tabpanel">
               <div class="emp-heading" style="display: flex">
                 <label class="header"> References</label>
@@ -3075,7 +3215,9 @@
                   <br />
                 </form>
               </div>
-              <div class="elClr panel-footer"></div>
+              <div class="elClr panel-footer">
+                <p>Signatories</p>
+              </div>
             </div>
           </div>
         </div>
@@ -3561,7 +3703,7 @@
                 <div class="rowFields mx-auto row">
                   <p class="data-print">
                     <b>Source of Income:</b>
-                    {{ data.income_source }}
+                    {{ income_sources }}
                   </p>
                 </div>
                 <div class="rowFields mx-auto row">
@@ -3691,12 +3833,21 @@
         <b-button
           size="sm"
           variant="success"
-          @click="btnApprove"
+          @click="btnAddDate"
           v-if="
             data.application_status == 'Pending' && roles.approve_application
           "
           >Approve</b-button
         >
+        <!-- <b-button
+          size="sm"
+          variant="success"
+          @click="btnApprove"
+          v-if="
+            data.application_status == 'Pending' && roles.approve_application
+          "
+          >Approve</b-button
+        > -->
         <b-button
           size="sm"
           variant="warning"
@@ -3718,12 +3869,55 @@
             Print a Copy</a
           ></b-button
         >
+
+        <!-- <b-button size="sm" variant="info">
+          <router-link tag="span" :to="'/printid/' + data.id + '/edit'">
+            Print IDs
+          </router-link>
+        </b-button> -->
+
+         <b-button size="sm" variant="info"  @click="printids()">
+            Print IDs
+        </b-button>
+        <!-- <b-button size="sm" variant="info">
+          <router-link tag="span" :to="'/items/' + data.id + '/edit'">
+            Print Form
+          </router-link>
+        </b-button> -->
+        <b-button size="sm" variant="info" @click="printform()">
+            Print Form
+        </b-button>
       </template>
     </b-modal>
 
-    <modal_print_preview v-bind:data="data"></modal_print_preview>
+
+    <b-modal id="ModalDate" title="Date of Membership">
+      <b-form-datepicker
+        id="example-datepicker"
+        v-model="data.enrollment_date"
+        class="mb-2"
+      ></b-form-datepicker>
+      <template slot="modal-footer" slot-scope="{}">
+        <b-button
+          size="sm"
+          variant="success"
+          @click="btnApprove"
+          v-if="
+            data.application_status == 'Pending' && roles.approve_application
+          "
+          >Approve</b-button
+        >
+      </template>
+    </b-modal>
+     <print_preview
+      v-bind:data="data">
+    </print_preview>
+     <print_ids
+      v-bind:data="data">
+    </print_ids>
   </div>
 </template>
+
 <script>
 import { ModelListSelect } from "vue-search-select";
 import swal from "sweetalert";
@@ -3732,18 +3926,22 @@ import datePicker from "vue-bootstrap-datetimepicker";
 import VueRangedatePicker from "vue-rangedate-picker";
 import PrettyRadio from "pretty-checkbox-vue/radio";
 import SingleDatePicker from "vue-single-date-picker";
-import modal_print_preview from "./modal_print_preview.vue";
 import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
+import Swal2 from "sweetalert2";
+
+import print_preview from "../routes/APPLICATIONS/PrintPreview.vue";
+import print_ids from "../routes/APPLICATIONS/PrintIDs.vue";
 
 export default {
   props: ["data"],
   components: {
+    print_preview,
+    print_ids,
     "model-list-select": ModelListSelect,
     "rangedate-picker": VueRangedatePicker,
     "p-check": PrettyCheck,
     "date-picker": datePicker,
     "p-radio": PrettyRadio,
-    modal_print_preview: modal_print_preview,
     SingleDatePicker,
   },
   data() {
@@ -3767,6 +3965,25 @@ export default {
 
       roles: [],
       branch_name: {},
+      title_options: [
+        { value: "", text: "Please select title" },
+        { value: "MS.", text: "MS." },
+        { value: "MRS.", text: "MRS." },
+        { value: "MR.", text: "MR." },
+      ],
+      income_options: [
+        { value: "", text: "Please select period" },
+        { value: "Weekly", text: "Weekly" },
+        { value: "Monthly", text: "Monthly" },
+        { value: "Annually", text: "Annually" },
+      ],
+      copyPresent: "not_copy",
+      income_sources: [],
+      sms_switch: false,
+      email_switch: false,
+      countries: [],
+      cities: [],
+      barangays: [],
     };
   },
   mounted() {
@@ -3777,8 +3994,33 @@ export default {
     this.user = this.$global.getUser();
     this.roles = this.$global.getRoles();
     this.branches = this.$global.getBranch();
+
+    this.loadSettings();
   },
   methods: {
+    loadSettings() {
+      if (this.$sms_switch.includes("enabled")) {
+        this.sms_switch = true;
+      } else {
+        this.sms_switch = false;
+      }
+
+      if (this.$email_switch.includes("enabled")) {
+        this.email_switch = true;
+      } else {
+        this.email_switch = false;
+      }
+
+      this.$http.get("api/getCountries").then(function (response) {
+        this.countries = response.body;
+      });
+      this.$http.get("api/getCities").then(function (response) {
+        this.cities = response.body;
+      });
+      this.$http.get("api/getBarangays").then(function (response) {
+        this.barangays = response.body;
+      });
+    },
     previewImage: function (e, image) {
       var fileName = e.target.files[0].name;
       var file_ext = fileName.split(".").pop();
@@ -3804,7 +4046,9 @@ export default {
         }
       };
     },
+
     update() {
+      var list = this.data.income_source;
       // if (this.imageData != "" || this.imageDataValid1) {
       this.data.picture = this.imageData;
       this.data.valid_id_1 = this.imageDataValid1;
@@ -3816,33 +4060,42 @@ export default {
       this.data.valid_id_2_text = this.valid_id_2_text;
       this.data.sketch_text = this.sketch_text;
       this.data.sketch_text2 = this.sketch_text2;
+      this.data.income_source = list.join(", ");
 
-      console.log(this.data);
-
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          this.$http
-            .post("api/UpdateMember", this.data)
-            .then((response) => {
-              console.log(response.body);
-              swal("This application has been updated!", {
-                icon: "success",
+      if (
+        this.data.sss == "" &&
+        this.data.gsis == "" &&
+        this.data.tin == "" &&
+        this.data.otherID1_number == "" &&
+        this.data.otherID2_number == ""
+      ) {
+        swal("Warning!", "Input at least one valid ID", "warning");
+      } else {
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.$http
+              .post("api/UpdateMember", this.data)
+              .then((response) => {
+                console.log(response.body);
+                swal("This application has been updated!", {
+                  icon: "success",
+                });
+                this.imageData = "";
+                this.$bvModal.hide("ModalEditApplication");
+                this.$root.$emit("Updated_list");
+              })
+              .catch((response) => {
+                swal({
+                  title: "Error",
+                  text: response.body.error,
+                  icon: "error",
+                  dangerMode: true,
+                });
               });
-              this.imageData = "";
-              this.$bvModal.hide("ModalEditApplication");
-              this.$root.$emit("Updated_list");
-            })
-            .catch((response) => {
-              swal({
-                title: "Error",
-                text: response.body.error,
-                icon: "error",
-                dangerMode: true,
-              });
-            });
-        } else
-          swal("Warning!", "Some data has invalid or no inputs.", "warning");
-      });
+          } else
+            swal("Warning!", "Some data has invalid or no inputs.", "warning");
+        });
+      }
     },
     Delete() {
       swal({
@@ -3879,21 +4132,54 @@ export default {
         }
       });
     },
+    btnAddDate() {
+      this.$bvModal.show("ModalDate");
+    },
     btnApprove() {
-      this.$http.post("api/member/accept/" + this.data.id).then((response) => {
+      var data = {
+        id: this.data.id,
+        enrollment_date: this.data.enrollment_date,
+        sms_switch: this.sms_switch,
+        email_switch: this.email_switch,
+      };
+      console.log(data);
+      swal({
+        title: "Are you sure?",
+        text: "Do you really want to approve this application",
+        icon: "info",
+        buttons: ["No", "Yes"],
+        dangerMode: true,
+      }).then((approve) => {
+        if (approve) {
+
+            this.$root.$emit("pageLoading");
+        this.$http.post("api/member/accept", data).then((response) => {
         console.log(response.body);
 
+            this.$root.$emit("pageLoaded");
         swal("Member Application #" + this.data.id + "has been approved!", {
           icon: "success",
         });
 
         this.$bvModal.hide("ModalEditApplication");
+        this.$bvModal.hide("ModalDate");
         this.$root.$emit("Counter");
         this.$root.$emit("Updated_list");
       });
+        }
+
+            this.$root.$emit("pageLoaded");
+      });
     },
     btnReject() {
-      this.$http.post("api/member/reject/" + this.data.id).then((response) => {
+      var data = {
+        id: this.data.id,
+        enrollment_date: this.data.enrollment_date,
+        sms_switch: this.sms_switch,
+        email_switch: this.email_switch,
+      };
+
+      this.$http.post("api/member/reject", data).then((response) => {
         swal("Member Application #" + this.data.id + "has been rejected!", {
           icon: "warning",
         });
@@ -3901,6 +4187,18 @@ export default {
         this.$root.$emit("Counter");
         this.$root.$emit("Updated_list");
       });
+    },
+    calcuAge(dateString) {
+      console.log(dateString);
+
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      this.data.age = age;
     },
     print() {
       // this.$htmlToPaper("printable-app");
@@ -3912,6 +4210,27 @@ export default {
     viewAttachment(file) {
       window.open(this.$img_path + file);
     },
+    checkCopy() {
+      if (this.copyPresent == "copy") {
+        this.data.permanent_address = this.data.present_residential;
+      } else {
+        this.data.permanent_address = "";
+      }
+    },
+    checker() {
+      console.log(this.data.income_source);
+    },
+    printform()
+    {
+      this.$bvModal.show("ModalPrintPreview");
+    },
+    printids()
+    {
+      this.$bvModal.show("ModalPrintIDs");
+      // let route = this.$router.resolve({ path: "/printid/"+id+"/edit" });
+      // window.open(route.href);
+    },
+
   },
 };
 </script>
@@ -4237,6 +4556,11 @@ img.preview-id {
   text-align: left;
   float: left;
   margin-top: 1px;
+}
+
+.swal2-overflow {
+  overflow-x: visible;
+  overflow-y: visible;
 }
 </style>
 <style lang="css">

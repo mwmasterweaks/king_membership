@@ -20,6 +20,21 @@ class BranchController extends Controller
         return response()->json($tbl);
     }
 
+    public function getCountries()
+    {
+        $tbl = DB::table('countries')->get();
+        return $tbl;
+    }
+    public function getCities()
+    {
+        $tbl = DB::table('cities')->get();
+        return $tbl;
+    }
+    public function getBarangays()
+    {
+        $tbl = DB::table('barangays')->get();
+        return $tbl;
+    }
 
     public function create()
     {
@@ -71,9 +86,9 @@ class BranchController extends Controller
 
     public function UpdateBranch(Request $request)
     {
-        $id = $request->id;
         try {
 
+            $id = $request->id;
             $cmd  = branch::findOrFail($id);
             $logFrom = $cmd->replicate();
             $input = $request->all();
@@ -88,7 +103,7 @@ class BranchController extends Controller
                 $this->cname,
                 "update",
                 "message",
-                "update Branch id " . $id . "\nFrom: " . $logFrom . "\nTo: " . $logTo
+                "update Branch id " . $id . "\r\nFrom: " . $logFrom . "\r\nTo: " . $logTo
             );
 
             return $this->index();

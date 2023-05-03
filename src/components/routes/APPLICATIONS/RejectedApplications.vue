@@ -72,7 +72,7 @@
     <div class="elClr panel-footer">
       <div class="row" style="background-color: ; padding: 15px">
         <div class="col-md-8" style="background-color: ">
-          <span class="elClr">{{ totalRows }} item/s found.</span>
+          <span class="elClr">{{ totalRows }} application/s.</span>
         </div>
 
         <div class="col-md-4" style="background-color: ">
@@ -104,7 +104,6 @@ export default {
     return {
       tblisBusy: true,
       fields: [
-        { key: "id", sortable: true },
         { key: "membership_status", label: "Status", sortable: true },
         {
           key: "Name",

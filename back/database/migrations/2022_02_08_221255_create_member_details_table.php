@@ -49,6 +49,7 @@ class CreateMemberDetailsTable extends Migration
             $table->string('emp_date_employed')->nullable();
             $table->string('emp_gross')->nullable();
             $table->string('emp_currency')->nullable();
+            $table->string('emp_period')->nullable();
             $table->string('emp_annual')->nullable();
             $table->string('emp_occ_status')->nullable();
             $table->string('bn_name')->nullable();
@@ -57,6 +58,15 @@ class CreateMemberDetailsTable extends Migration
             $table->string('bn_tin')->nullable();
             $table->string('bn_address')->nullable();
             $table->integer('bn_contact')->nullable();
+
+            $table->string('benef_name_1')->nullable();
+            $table->string('benef_age_1')->nullable();
+            $table->string('benef_relation_1')->nullable();
+            $table->string('benef_contact_1')->nullable();
+            $table->string('benef_name_2')->nullable();
+            $table->string('benef_age_2')->nullable();
+            $table->string('benef_relation_2')->nullable();
+            $table->string('benef_contact_2')->nullable();
         });
     }
 

@@ -32,7 +32,7 @@
                     ref="email"
                     name="email"
                     class="form-control fields"
-                    placeholder="Email"
+                    placeholder="Username"
                     v-model.trim="email"
                     v-validate="'required'"
                     autocomplete="off"
@@ -290,6 +290,7 @@ export default {
     },
 
     login() {
+      console.log("login");
       var data = {
         client_id: 2,
         client_secret: "p12BgfjKL8E0WYn9mtUQCOCPc4wWaYkWGTS0mFoU",
@@ -306,7 +307,7 @@ export default {
             response.body.expires_in + Date.now()
           );
           this.$global.setEmail(this.email);
-          window.location.href = "/";
+          window.location.href = this.$sys_path;
         })
         .catch((response) => {
           this.$refs.email.focus();

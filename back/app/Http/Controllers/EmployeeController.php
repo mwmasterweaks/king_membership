@@ -31,6 +31,7 @@ class EmployeeController extends Controller
 
             $user_role = User::with(['roles'])
                 ->where('employee_id', $item->id)
+                ->orWhere('member_id', $item->id)
                 ->first();
             $item->roles  = $user_role->roles;
 

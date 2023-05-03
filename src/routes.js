@@ -8,6 +8,7 @@ import ApproveApplication from "./components/routes/APPLICATIONS/ApproveApplicat
 import PendingApplication from "./components/routes/APPLICATIONS/PendingApplications.vue";
 import RejectedApplication from "./components/routes/APPLICATIONS/RejectedApplications.vue";
 import PrintPreview from "./components/routes/APPLICATIONS/PrintPreview.vue";
+import PrintIDs from "./components/routes/APPLICATIONS/PrintIDs.vue";
 
 // -----------------MANAGEMENT-------------
 import Employee from "./components/routes/MANAGEMENT/Employee.vue";
@@ -109,6 +110,20 @@ const router = new VueRouter({
         //     forAuth: true
         //   }
         // },
+        {
+            path: "/print",
+            component: PrintPreview,
+            meta: {
+                forAuth: true
+            }
+        },
+        {
+            path: "/printid/:item/edit",
+            component: PrintIDs,
+            meta: {
+                forAuth: true
+            }
+        },
 
         {
             path: "/items/:item/edit",
@@ -119,7 +134,8 @@ const router = new VueRouter({
         }
     ],
 
-    mode: "history"
+    mode: "history",
+    base: '/Membership/',
 });
 
 export default router;

@@ -17,6 +17,9 @@ Route::get('/test', function () {
 Route::get('/testSms', 'MemberController@testSms');
 Route::resource('Branch', 'BranchController');
 Route::resource('Member', 'MemberController');
+Route::get('getCountries', 'BranchController@getCountries');
+Route::get('getCities', 'BranchController@getCities');
+Route::get('getBarangays', 'BranchController@getBarangays');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', function (Request $request) {
@@ -31,8 +34,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('member/subIndex/{branch_id}', 'MemberController@subIndex');
 
     Route::get('member/counter/{branch_id}', 'MemberController@counter');
-    Route::post('member/accept/{member}', 'MemberController@approve');
-    Route::post('member/reject/{member}', 'MemberController@reject');
+    Route::post('member/accept', 'MemberController@approve');
+    Route::post('member/reject', 'MemberController@reject');
     Route::get('member/getApprove/{branch_id}', 'MemberController@getApprove');
     Route::get('member/getRejected/{branch_id}', 'MemberController@getRejected');
     Route::get('member/getPending/{branch_id}', 'MemberController@getPending');
@@ -53,4 +56,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('UpdateUser', 'UserController@UpdateUser');
     Route::post('UpdateEmployee', 'EmployeeController@UpdateEmployee');
     Route::get('test', 'MemberController@testMail');
+
+
 });

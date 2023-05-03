@@ -145,6 +145,50 @@
           </div>
         </div>
 
+        <div class="rowFields mx-auto row">
+          <div class="col-lg-3">
+            <p class="textLabel">Branch Email Address:</p>
+          </div>
+          <div class="col-lg-9">
+            <input
+              type="text"
+              name="email"
+              class="form-control"
+              v-b-tooltip.hover
+              title="Email of the Branch"
+              v-validate="'required'"
+              placeholder="Email Address"
+              v-model.trim="item_add.email"
+              autocomplete="off"
+            />
+            <small class="text-danger pull-left" v-show="errors.has('email')"
+              >Email Address is required.</small
+            >
+          </div>
+        </div>
+
+        <div class="rowFields mx-auto row">
+          <div class="col-lg-3">
+            <p class="textLabel">Branch Contact Number:</p>
+          </div>
+          <div class="col-lg-9">
+            <input
+              type="text"
+              name="contact"
+              class="form-control"
+              v-b-tooltip.hover
+              title="Contact Number of the Branch"
+              v-validate="'required'"
+              placeholder="Contact Number"
+              v-model.trim="item_add.contact"
+              autocomplete="off"
+            />
+            <small class="text-danger pull-left" v-show="errors.has('contact')"
+              >Branch Contact Number is required.</small
+            >
+          </div>
+        </div>
+
         <!-- /form -->
         <template slot="modal-footer" slot-scope="{}">
           <b-button
@@ -217,7 +261,49 @@
             >
           </div>
         </div>
+        <div class="rowFields mx-auto row">
+          <div class="col-lg-3">
+            <p class="textLabel">Branch Email Address:</p>
+          </div>
+          <div class="col-lg-9">
+            <input
+              type="text"
+              name="email"
+              class="form-control"
+              v-b-tooltip.hover
+              title="Email of the Branch"
+              v-validate="'required'"
+              placeholder="Email Address"
+              v-model.trim="item_edit.email"
+              autocomplete="off"
+            />
+            <small class="text-danger pull-left" v-show="errors.has('email')"
+              >Email Address is required.</small
+            >
+          </div>
+        </div>
 
+        <div class="rowFields mx-auto row">
+          <div class="col-lg-3">
+            <p class="textLabel">Branch Contact Number:</p>
+          </div>
+          <div class="col-lg-9">
+            <input
+              type="text"
+              name="contact"
+              class="form-control"
+              v-b-tooltip.hover
+              title="Contact Number of the Branch"
+              v-validate="'required'"
+              placeholder="Contact Number"
+              v-model.trim="item_edit.contact"
+              autocomplete="off"
+            />
+            <small class="text-danger pull-left" v-show="errors.has('contact')"
+              >Branch Contact Number is required.</small
+            >
+          </div>
+        </div>
         <!-- /form -->
         <template slot="modal-footer" slot-scope="{}">
           <b-button
@@ -254,22 +340,28 @@ export default {
       fields: [
         { key: "name", sortable: true },
         { key: "description", label: "Description", sortable: true },
+        { key: "email", label: "Email", sortable: true },
+        { key: "contact", label: "Contact", sortable: true },
         { key: "created_at", sortable: true },
         { key: "updated_at", sortable: true },
       ],
       items: [],
       tblFilter: null,
       totalRows: 1,
-      currentPage: 2,
+      currentPage: 1,
       perPage: 10,
       pageOptions: [10, 25, 50, 100],
       item_add: {
         name: "",
         description: "",
+        email: "",
+        contact: "",
       },
       item_edit: {
         name: "",
         description: "",
+        email: "",
+        contact: "",
       },
       roles: [],
     };
@@ -318,7 +410,6 @@ export default {
     btnUpdate() {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          this.tblisBusy = true;
           swal({
             title: "Are you sure?",
             text: "Do you want to Update this item?",
@@ -326,15 +417,20 @@ export default {
             buttons: true,
             dangerMode: true,
           }).then((update) => {
+            this.tblisBusy = true;
             if (update) {
-              var tempdata = {
-                name: this.item_edit.name,
-                description: this.item_edit.description,
-                user_id: this.user.id,
-                id: this.item_edit.id,
-              };
+              // var tempdata = {
+              //   name: this.item_edit.name,
+              //   description: this.item_edit.description,
+              //   email: this.item_edit.email,
+              //   contact: this.item_edit.contact,
+              //   user_id: this.user.id,
+              //   id: this.item_edit.id,
+              // };
+              this.item_edit.user_id = this.user.id;
+              console.log(this.item_edit);
               this.$http
-                .post("api/UpdateBranch", tempdata)
+                .post("api/UpdateBranch", this.item_edit)
                 .then((response) => {
                   console.log(response.body);
                   this.$global.setBranch(response.body);
@@ -367,6 +463,8 @@ export default {
           var tempdata = {
             name: this.item_add.name,
             description: this.item_add.description,
+            email: this.item_add.email,
+            contact: this.item_add.contact,
             user_id: this.user.id,
           };
           this.$http
@@ -379,7 +477,9 @@ export default {
               this.totalRows = this.items.length;
               this.item_add = {
                 name: "",
-                desc: "",
+                description: "",
+                email: "",
+                contact: "",
               };
 
               this.$bvModal.hide("ModelAdd");

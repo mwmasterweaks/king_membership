@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto col-md-12 modified-continer">
-    <div class="row" style="margin-top:50px;height:120px">
+    <div class="row" style="margin-top: 50px; height: 120px">
       <div class="col-xl-4 col-sm-6 mb-6">
         <div class="card text-white bg-warning o-hidden h-100">
           <div class="card-body">
@@ -61,7 +61,7 @@
 
     <div class="elClr panel-body">
       <div>
-        <b-row style="margin:10px;">
+        <b-row style="margin: 10px">
           <b-col md="5" class="my-1">
             <b-form-group label-cols-sm="2" label="Filter" class="mb-0">
               <b-input-group>
@@ -115,12 +115,12 @@
       </div>
     </div>
     <div class="elClr panel-footer">
-      <div class="row" style="background-color:; padding:15px;">
-        <div class="col-md-8" style="background-color:;">
-          <span class="elClr">{{ totalRows }} item/s found.</span>
+      <div class="row" style="background-color: ; padding: 15px">
+        <div class="col-md-8" style="background-color: ">
+          <span class="elClr">{{ totalRows }} application/s.</span>
         </div>
 
-        <div class="col-md-4" style="background-color:;">
+        <div class="col-md-4" style="background-color: ">
           <b-pagination
             v-model="currentPage"
             :total-rows="totalRows"
@@ -145,13 +145,13 @@ export default {
   components: {
     "model-list-select": ModelListSelect,
     modal_edit_application: modal_edit_application,
-    modal_application: modal_application
+    modal_application: modal_application,
   },
   data() {
     return {
       tblisBusy: true,
       fields: [
-        { key: "id", sortable: true },
+        { key: "branch.name", label: "Branch", sortable: true },
         { key: "membership_status", label: "Status", sortable: true },
         {
           key: "Name",
@@ -170,16 +170,16 @@ export default {
               item.suffix
             );
           },
-          sortable: true
+          sortable: true,
         },
 
         {
           key: "application_status",
           label: "Application Status",
-          sortable: true
+          sortable: true,
         },
         { key: "created_at", sortable: true },
-        { key: "updated_at", sortable: true }
+        { key: "updated_at", sortable: true },
       ],
       items: [],
       tblFilter: null,
@@ -189,7 +189,7 @@ export default {
       pageOptions: [10, 25, 50, 100],
       item_add: {
         name: "",
-        description: ""
+        description: "",
       },
       member: {},
       roles: [],
@@ -197,7 +197,8 @@ export default {
       pendingCount: 0,
       approvedCount: 0,
       rejectedCount: 0,
-      authenticatedUser: {}
+      authenticatedUser: {},
+      income_sources: [],
     };
   },
   beforeCreate() {
@@ -231,7 +232,7 @@ export default {
       var branch_id = this.authenticatedUser.employee.branch_id;
       this.$http
         .get("api/member/counter/" + branch_id)
-        .then(function(response) {
+        .then(function (response) {
           this.pendingCount = response.body.pending;
           this.approvedCount = response.body.approved;
           this.rejectedCount = response.body.rejected;
@@ -241,16 +242,16 @@ export default {
       var branch_id = this.authenticatedUser.employee.branch_id;
       this.$http
         .get("api/member/subIndex/" + branch_id)
-        .then(function(response) {
+        .then(function (response) {
           this.items = response.body;
           this.totalRows = this.items.length;
           this.tblisBusy = false;
-          console.log(response.body);
+          // console.log(response.body);
         });
     },
     load() {
-      this.$nextTick(function() {
-        setTimeout(function() {}, 100);
+      this.$nextTick(function () {
+        setTimeout(function () {}, 100);
       });
     },
     create() {
@@ -272,20 +273,32 @@ export default {
     },
     tblRowClicked(item, index, event) {
       var id = item.id;
-      this.$http.get("api/Member/" + id).then(response => {
+      this.$http.get("api/Member/" + id).then((response) => {
         this.member = response.body;
+
+        this.income_sources = [];
+        const income_sources = [];
+        if (this.member.income_source != null) {
+          const temp = this.member.income_source.split(", ");
+          temp.forEach((src) => {
+            src = src.replace(/\/-/g, "");
+
+            income_sources.push(src);
+          });
+        }
+        this.member.income_source = income_sources;
+
         this.$bvModal.show("ModalEditApplication");
         console.log(this.member);
-        // this.$bvModal.show("ModalPrintPreview");
       });
     },
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();
     },
     exportTable(tbl) {
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         setTimeout(
-          function() {
+          function () {
             var tab_text =
               "<table><tr><th colspan='2' style='font-size: large;'>All Applications</th></tr>" +
               "<tr></tr><tr>" +
@@ -340,11 +353,11 @@ export default {
       });
     },
     testMail() {
-      this.$http.get("api/test").then(response => {
+      this.$http.get("api/test").then((response) => {
         console.log(response.body);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

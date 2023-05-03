@@ -1,9 +1,8 @@
 <template>
   <div>
+     <b-modal id="ModalPrintPreview"
+      size="xl">
     <div id="printFSR" class="printFSR" style="color: black;">
-      <b-button class="proceed-btn" size="sm" @click="printPreview">
-        <i class="fas fa-solid fa-print"></i> Print
-      </b-button>
       <table class="parent printable" style="width:100%" id="printable-app">
         <tr style="background-color: rgba(255, 255, 255, 0.8)">
           <td>
@@ -11,10 +10,10 @@
               src="../../../img/1st_page.png"
               style="  width: 97%;
                 max-height: 95%;
-                margin: 0;
                 padding: 0;
                 background-size: 100% ;
-                background-repeat: no-repeat;"
+                background-repeat: no-repeat;
+                margin-top:-25px"
               class="firstPage"
             />
           </td>
@@ -24,7 +23,7 @@
           <td>
             <div
               style="font-family:   Arial;
-  font-size: 11px;margin-top:20px"
+              font-size: 11px;margin-top:20px"
             >
               <div class="rowFields mx-auto row">
                 <p class="textLabel-2">
@@ -488,7 +487,7 @@
                 <table
                   class="table table-bordered"
                   style="font-family:   Arial;
-  font-size: 11px;color:"
+                  font-size: 11px;color:"
                 >
                   <thead class="tbl-head">
                     <tr>
@@ -562,7 +561,7 @@
                 <table
                   class="table table-bordered"
                   style="font-family:   Arial;
-  font-size: 11px;color:"
+                  font-size: 11px;color:"
                 >
                   <tbody class="tbl-body">
                     <tr>
@@ -591,7 +590,7 @@
                 <table
                   class="table table-bordered"
                   style="font-family:   Arial;
-  font-size: 11px;color:"
+                  font-size: 11px;color:"
                 >
                   <tbody class="tbl-body">
                     <tr>
@@ -641,7 +640,7 @@
                 <table
                   class="table table-bordered"
                   style="font-family:   Arial;
-  font-size: 11px;color:"
+                  font-size: 11px;color:"
                 >
                   <tbody class="tbl-body">
                     <tr>
@@ -836,7 +835,7 @@
                 <table
                   class="table"
                   style="font-family:   Arial;
-  font-size: 11px;color:"
+                  font-size: 11px;color:"
                 >
                   <thead class="tbl-head">
                     <tr>
@@ -947,7 +946,12 @@
           </td>
         </tr>
       </table>
+
+      <b-button class="proceed-btn" size="sm" @click="printElement('printFSR')">
+        <i class="fas fa-solid fa-print"></i> Print
+      </b-button>
     </div>
+    </b-modal>
   </div>
 </template>
 <script>
@@ -957,6 +961,9 @@ import PrettyCheck from "pretty-checkbox-vue/check";
 import PrettyRadio from "pretty-checkbox-vue/radio";
 
 export default {
+  props: [
+    "data"
+  ],
   components: {
     "model-list-select": ModelListSelect,
     "date-picker": datePicker,
@@ -988,7 +995,7 @@ export default {
   // },
 
   beforeMount() {
-    this.getItem();
+    //this.getItem();
   },
   mounted() {},
   methods: {
@@ -1009,18 +1016,18 @@ export default {
     },
 
     getItem() {
-      this.$http.get("api/Member/" + this.$route.params.item).then(response => {
+      this.$http.get("api/Member/" + this.id).then(response => {
         // console.log(response.body.branch.name);
         this.data = response.body;
         this.branch = response.body.branch.name;
 
         $(".page-loader-wrapper").fadeOut();
       });
-    },
-    printPreview() {
-      window.print();
-      // this.$htmlToPaper("printable");
     }
+    // printPreview() {
+    //   window.print();
+    //   // this.$htmlToPaper("printable");
+    // }
   }
 };
 </script>

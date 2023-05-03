@@ -13,7 +13,7 @@ class Logger
         $filenameDate = date("mY");
         $myfile = fopen("logs/log" . $filenameDate . ".txt", "a") or die("Unable to open file!");
         $txt = $date . "\t--\t" . $userID . "\t--\t" .  "\t--\t" . $ControllerName .
-            "\t--\t" . $functionName . "\t--\t" . $logType . "\t--\t" . $message . "\n\n";
+            "\t--\t" . $functionName . "\t--\t" . $logType . "\t--\t" . $message . "\r\n\r\n";
         fwrite($myfile, $txt);
         fclose($myfile);
         return "ok";
@@ -24,7 +24,7 @@ class Logger
         $filenameDate = date("mY");
         $myfile = fopen("logs/Errorlog" . $filenameDate . ".txt", "a") or die("Unable to open file!");
         $txt = $date . "\t--\t" . $userID . "\t--\t" . "\t--\t" . $ControllerName .
-            "\t--\t" . $functionName . "\t--\t" . $logType . "\t--\t" . $message . "\n\n";
+            "\t--\t" . $functionName . "\t--\t" . $logType . "\t--\t" . $message . "\r\n\r\n";
         fwrite($myfile, $txt);
         fclose($myfile);
         return "ok";
@@ -79,9 +79,10 @@ class Logger
         $mail->send();
     }
 
-    public function mailerGmail($subject, $message, $sender, $senderName, $sendTo, $recipient)
+    public function mailerGmail($subject, $message, $sender, $senderName, $sendTo, $recipient, $CCTO = [], $BCC = [], $ReplyTo = [], $attachment = null)
     {
-
+        //$admin_email = 'jay.boco.kmpc@gmail.com';
+        //$admin_name = 'jay.boco.kmpc';
 
 
         $mail = new PHPMailer();
@@ -99,7 +100,33 @@ class Logger
 
         $mail->setFrom('kingmcoop@gmail.com', $senderName . " " . $sender);
         $mail->addAddress($sendTo, $recipient);
+        if ($CCTO != null)
+            if (is_array($CCTO)) {
+                foreach ($CCTO as $item) {
+                    $item = (object) $item;
+                    $mail->addCC($item->email, $item->name);
+                }
+            } else
+                $mail->addCC($CCTO);
+        if ($BCC != null)
+            if (is_array($BCC)) {
+                foreach ($BCC as $item) {
+                    $item = (object) $item;
+                    $mail->addBCC($item->email);
+                }
+            } else
+                $mail->addCC($BCC);
 
+        if ($ReplyTo != null)
+            if (is_array($ReplyTo)) {
+                foreach ($ReplyTo as $item) {
+                    $item = (object) $item;
+                    $mail->addReplyTo($item->email);
+                }
+            } else
+                $mail->addCC($ReplyTo);
+        if ($attachment != null)
+            $mail->addAttachment($attachment);
         $mail->isHTML(true);                                                                     // Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body    = $message;
@@ -146,6 +173,8 @@ class Logger
 
         if (!$ret) {
             return file_get_contents($smsgatewaydata);
+        } else {
+            return $ret;
         }
 
 

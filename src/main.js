@@ -21,12 +21,12 @@ import VueHtmlToPaper from "vue-html-to-paper";
 //import DateRangePicker from "vue2-daterange-picker";
 
 const options = {
-  name: "_blank",
-  specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
-  styles: [
-    "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
-    "https://unpkg.com/kidlat-css/css/kidlat.css"
-  ]
+    name: "_blank",
+    specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
+    styles: [
+        "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+        "https://unpkg.com/kidlat-css/css/kidlat.css"
+    ]
 };
 // const doc = new jsPDF();
 // doc.text("Hello world!", 10, 10);
@@ -43,57 +43,63 @@ Vue.component("downloadExcel", JsonExcel);
 Vue.use(Auth);
 Vue.use(Global);
 Vue.use(VeeValidate, {
-  fieldsBagName: "veeFields"
+    fieldsBagName: "veeFields"
 });
 
 function getEnvVal(str) {
-  const indexOfSpace = str.indexOf("=");
-  if (indexOfSpace === -1) {
-    return "";
-  }
-  return str.substring(indexOfSpace + 1);
+    const indexOfSpace = str.indexOf("=");
+    if (indexOfSpace === -1) {
+        return "";
+    }
+    return str.substring(indexOfSpace + 1);
 }
 async function fetchenv() {
-  await fetch("settings.env")
-    .then(response => response.text())
-    .then(function(text) {
-      var data = text.split("\n");
-      data.forEach(item => {
-        const varr = item.split("=")[0];
-        if (varr == "root") Vue.http.options.root = getEnvVal(item);
-        if (varr == "img_path") Vue.prototype.$img_path = getEnvVal(item);
-        if (varr == "sys_path") Vue.prototype.$sys_path = getEnvVal(item);
-        if (varr == "attachment_path")
-          Vue.prototype.$attachment_path = getEnvVal(item);
-      });
-    });
+    await fetch("settings.env")
+        .then(response => response.text())
+        .then(function(text) {
+            var data = text.split("\n");
+            data.forEach(item => {
+                const varr = item.split("=")[0];
+                if (varr == "root") Vue.http.options.root = getEnvVal(item);
+                if (varr == "img_path") Vue.prototype.$img_path = getEnvVal(item);
+                if (varr == "sys_path") Vue.prototype.$sys_path = getEnvVal(item);
+                if (varr == "attachment_path")
+                    Vue.prototype.$attachment_path = getEnvVal(item);
+                if (varr == "sms_switch") {
+                    Vue.prototype.$sms_switch = getEnvVal(item);
+                }
+                if (varr == "email_switch") {
+                    Vue.prototype.$email_switch = getEnvVal(item);
+                }
+            });
+        });
 }
 
 async function loadKeycloak() {
-  await fetchenv();
-  Vue.http.headers.common["Authorization"] = "Bearer " + Vue.auth.getToken();
+    await fetchenv();
+    Vue.http.headers.common["Authorization"] = "Bearer " + Vue.auth.getToken();
 
-  Router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.forVisitors)) {
-      if (Vue.auth.isAuthenticated()) {
-        next({
-          path: "/home"
-        });
-      } else next();
-    } else if (to.matched.some(record => record.meta.forAuth)) {
-      if (!Vue.auth.isAuthenticated()) {
-        next({
-          path: "/login"
-        });
-      } else next();
-    } else next();
-  });
+    Router.beforeEach((to, from, next) => {
+        if (to.matched.some(record => record.meta.forVisitors)) {
+            if (Vue.auth.isAuthenticated()) {
+                next({
+                    path: "/home"
+                });
+            } else next();
+        } else if (to.matched.some(record => record.meta.forAuth)) {
+            if (!Vue.auth.isAuthenticated()) {
+                next({
+                    path: "/login"
+                });
+            } else next();
+        } else next();
+    });
 
-  new Vue({
-    el: "#app",
-    render: h => h(App),
-    router: Router
-  });
+    new Vue({
+        el: "#app",
+        render: h => h(App),
+        router: Router
+    });
 }
 loadKeycloak();
 
