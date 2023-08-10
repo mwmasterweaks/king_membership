@@ -110,6 +110,27 @@
             <b-spinner class="align-middle"></b-spinner>
             <strong>Loading...</strong>
           </div>
+          <span slot="membership_status" slot-scope="data" v-html="data.value"></span>
+          <template v-slot:cell(membership_status)="row">
+            <span v-if="row.item.membership_status == 'A'">
+             Active
+            </span>
+            <span v-if="row.item.membership_status == 'I'">
+             Pending/Inactive
+            </span>
+            <span v-if="row.item.membership_status == 'C'">
+             Closed
+            </span>
+            <span v-if="row.item.membership_status == 'W'">
+             Withdrawn
+            </span>
+            <span v-if="row.item.membership_status == 'D'">
+             Deceased
+            </span>
+            <span v-if="row.item.membership_status == 'L'">
+             Delisted
+            </span>
+          </template>
           <template slot="table-caption"></template>
         </b-table>
       </div>
@@ -191,7 +212,124 @@ export default {
         name: "",
         description: "",
       },
-      member: {},
+      member: {
+        branch_id: "",
+        email: "",
+        acc_no: "",
+        title: "",
+        nickname: "",
+        first_name: "",
+        mid_name: "",
+        last_name: "",
+        prev_last_name: "",
+        suffix: "",
+        resident: "",
+        resident_citizenship: "",
+        age: "",
+        gender: "",
+        contact_no: "",
+        contact_last_update: "",
+        contact2_no: "",
+        contact2_last_update: "",
+        birthdate: "",
+        nationality: "",
+        birthcountry: "",
+        birthplace: "",
+        civil_stat: "",
+        membership_status: "",
+        monthly_present: "",
+        occupied_present: "",
+        last_update_present: "",
+        permanent_address: "",
+        monthly_permanent: "",
+        occupied_permanent: "",
+        last_update_permanent: "",
+        member_id: 0,
+        dependents_no: 0,
+        children_no: 0,
+        household_no: 0,
+        spouse_name: "",
+        spouse_age: "",
+        spouse_occupation: "",
+        spouse_employer: "",
+        spouse_address: "",
+        mother_title: "",
+        mother_first_name: "",
+        mother_mid_name: "",
+        mother_last_name: "",
+        mother_suffix: "",
+        father_title: "",
+        father_first_name: "",
+        father_mid_name: "",
+        father_last_name: "",
+        father_suffix: "",
+        owned_properties: 0,
+        owned_cars: 0,
+        ownership_present: "",
+        ownership_permanent: "",
+        income_source: "",
+        income_source_arr: [],
+        income_via: "",
+        other_income_via: "",
+        emp_employer: "",
+        emp_nature: "",
+        emp_tin: "",
+        emp_tel_no: "",
+        emp_address: "",
+        emp_position: "",
+        emp_date_employed: "",
+        emp_gross: "",
+        emp_currency: "",
+        emp_period: "",
+        emp_annual: "",
+        emp_occ_status: "",
+        bn_name: "",
+        bn_nature: "",
+        bn_established: "",
+        bn_tin: "",
+        bn_address: "",
+        bn_contact: "",
+        sss: "",
+        gsis: "",
+        tin: "",
+        otherID1_type: "",
+        otherID1_number: "",
+        otherID1_issued_date: "",
+        otherID1_expiry_date: "",
+        otherID1_issue_country: "",
+        otherID1_issue_by: "",
+        otherID1_last_update: "",
+        otherID2_type: "",
+        otherID2_number: "",
+        otherID2_issued_date: "",
+        otherID2_expiry_date: "",
+        otherID2_issue_country: "",
+        otherID2_issue_by: "",
+        otherID2_last_update: "",
+        ref1_name: "",
+        ref1_address: "",
+        ref1_contact: "",
+        ref2_name: "",
+        ref2_address: "",
+        ref2_contact: "",
+        height: "",
+        weight: "",
+        approval_date: "",
+        enrollment_date: "",
+        street: "",
+        postal_code: "",
+        benef_name_1: "",
+        benef_age_1: "",
+        benef_relation_1: "",
+        benef_contact_1: "",
+        benef_name_2: "",
+        benef_age_2: "",
+        benef_relation_2: "",
+        benef_contact_2: "",
+        barangay_object: { name: ""},
+        city_object: { name: ""},
+        country_object: { name: ""}
+      },
       roles: [],
       branches: [],
       pendingCount: 0,
@@ -272,24 +410,33 @@ export default {
       this.currentPage = 1;
     },
     tblRowClicked(item, index, event) {
+      this.$root.$emit("pageLoading");
       var id = item.id;
       this.$http.get("api/Member/" + id).then((response) => {
-        this.member = response.body;
+        // this.member = response.body;
 
-        this.income_sources = [];
-        const income_sources = [];
-        if (this.member.income_source != null) {
-          const temp = this.member.income_source.split(", ");
-          temp.forEach((src) => {
-            src = src.replace(/\/-/g, "");
+        // this.income_sources = []; BINOHAT NI MICE
+        // const income_sources = [];
+        // if (this.member.income_source != null) {
+        //   const temp = this.member.income_source.split(", ");
+        //   temp.forEach((src) => {
+        //     src = src.replace(/\/-/g, "");
 
-            income_sources.push(src);
-          });
-        }
-        this.member.income_source = income_sources;
-
+        //     income_sources.push(src);
+        //   });
+        // }
+        // this.member.income_source = income_sources;
+        var temp = response.body;//BINOHAT NI MWEAK
+        const incomeSourceValue = temp.income_source;
+        if (incomeSourceValue === "")
+          temp.income_source_arr = [];
+        else
+          temp.income_source_arr = incomeSourceValue.split(", ");
+        console.log(temp);
+        this.member = temp;
         this.$bvModal.show("ModalEditApplication");
         console.log(this.member);
+        this.$root.$emit("pageLoaded");
       });
     },
     handleOk(bvModalEvt) {

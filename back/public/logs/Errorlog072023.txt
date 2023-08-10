@@ -1,0 +1,4 @@
+2023-07-31 00:51:17	--		--		--	MemberController	--	store	--	Error	--	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'acc_no ' in 'where clause' (SQL: select * from `members` where `acc_no ` = 101-9876009)
+
+2023-07-31 00:54:41	--		--		--	MemberController	--	store	--	Error	--	SQLSTATE[01000]: Warning: 1265 Data truncated for column 'member_id' at row 1 (SQL: insert into `users` (`created_at`, `email`, `member_id`, `password`, `remember_token`, `updated_at`) values (2023-07-31 00:54:41, 101-7799921, 101-7799921, $2y$10$Qx79DMyaHQQ2Q78WZkl79OJsTSHWppueSAM1mcV8nMG1GQPiVHdea, rXX6emMzRc, 2023-07-31 00:54:41))
+

@@ -144,6 +144,27 @@
             >
           </div>
         </div>
+        <div class="rowFields mx-auto row">
+          <div class="col-lg-3">
+            <p class="textLabel">Branch Code:</p>
+          </div>
+          <div class="col-lg-9">
+            <input
+              type="text"
+              name="branchCode"
+              class="form-control"
+              v-b-tooltip.hover
+              title="Branch Code for identity of the account"
+              v-validate="'required'"
+              placeholder="Branch Code"
+              v-model.trim="item_add.code"
+              autocomplete="off"
+            />
+            <small class="text-danger pull-left" v-show="errors.has('branchCode')"
+              >Branch Code is required.</small
+            >
+          </div>
+        </div>
 
         <div class="rowFields mx-auto row">
           <div class="col-lg-3">
@@ -263,6 +284,27 @@
         </div>
         <div class="rowFields mx-auto row">
           <div class="col-lg-3">
+            <p class="textLabel">Branch Code:</p>
+          </div>
+          <div class="col-lg-9">
+            <input
+              type="text"
+              name="branchCode"
+              class="form-control"
+              v-b-tooltip.hover
+              title="Branch Code for identity of the account"
+              v-validate="'required'"
+              placeholder="Branch Code"
+              v-model.trim="item_edit.code"
+              autocomplete="off"
+            />
+            <small class="text-danger pull-left" v-show="errors.has('branchCode')"
+              >Branch Code is required.</small
+            >
+          </div>
+        </div>
+        <div class="rowFields mx-auto row">
+          <div class="col-lg-3">
             <p class="textLabel">Branch Email Address:</p>
           </div>
           <div class="col-lg-9">
@@ -340,6 +382,7 @@ export default {
       fields: [
         { key: "name", sortable: true },
         { key: "description", label: "Description", sortable: true },
+        { key: "code", label: "Code", sortable: true },
         { key: "email", label: "Email", sortable: true },
         { key: "contact", label: "Contact", sortable: true },
         { key: "created_at", sortable: true },
@@ -354,16 +397,19 @@ export default {
       item_add: {
         name: "",
         description: "",
+        code: "",
         email: "",
         contact: "",
       },
       item_edit: {
         name: "",
         description: "",
+        code: "",
         email: "",
         contact: "",
       },
       roles: [],
+      user: null
     };
   },
   beforeCreate() {
@@ -460,15 +506,9 @@ export default {
     btnAdd() {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          var tempdata = {
-            name: this.item_add.name,
-            description: this.item_add.description,
-            email: this.item_add.email,
-            contact: this.item_add.contact,
-            user_id: this.user.id,
-          };
+          this.item_add.user_id = this.user.id;
           this.$http
-            .post("api/Branch", tempdata)
+            .post("api/Branch", this.item_add)
             .then((response) => {
               console.log(response.body);
               swal("Notification", "Added successfully", "success");

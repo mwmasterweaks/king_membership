@@ -22,22 +22,23 @@ class MemberController extends Controller
 
     public function __construct()
     {
-        $this->mainComand = member::with(['branch', 'member_details',  'member_reference', 'member_valid']);
+        $this->mainComand = member::with(['barangay_object', 'city_object', 'country_object', 'branch', 'member_details',  'member_reference', 'member_valid', 'membership_type']);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         try {
             $tbl = (clone $this->mainComand)
                 ->get();
-
-
             return response()->json($tbl);
         } catch (\Exception $ex) {
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "index",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
@@ -62,6 +63,14 @@ class MemberController extends Controller
 
             return response()->json($tbl);
         } catch (\Exception $ex) {
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "subIndex",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
@@ -84,11 +93,17 @@ class MemberController extends Controller
             }
             return response()->json($tbl);
         } catch (\Exception $ex) {
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "getApprove",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
-
-
     public function getRejected($branch_id)
     {
         try {
@@ -107,6 +122,14 @@ class MemberController extends Controller
             }
             return response()->json($tbl);
         } catch (\Exception $ex) {
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "getRejected",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
@@ -129,33 +152,27 @@ class MemberController extends Controller
 
             return response()->json($tbl);
         } catch (\Exception $ex) {
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "getPending",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly cr
-     eated resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // return $request;
+        //return $request;
         try {
             //set_time_limit(0);
-            //DB::beginTransaction();
+            DB::beginTransaction();
             $income_source = implode(",", $request->income_source);
 
             $image1_fileName = "";
@@ -174,6 +191,7 @@ class MemberController extends Controller
             } elseif (empty($request->sketch2_text)) {
                 return response()->json(['error' => 'Please upload required images!'], 505);
             } else {
+
                 if (!empty($request->valid_id_1_text)) {
                     $exploded2 = explode(',', $request->valid_id_1);
                     $decoded2 = base64_decode($exploded2[1]);
@@ -204,7 +222,7 @@ class MemberController extends Controller
                 $decoded4 = base64_decode($exploded4[1]);
                 $decoded5 = base64_decode($exploded5[1]);
 
-
+                $branch = branch::where("id", $request->branch_id)->first();
 
                 $image1_fileName = str_random() . rand(100000, 999999) . "." . $request->picture_text;
                 // $image2_fileName = str_random() . rand(100000, 999999) . "." . $request->valid_id_1_text;
@@ -224,10 +242,18 @@ class MemberController extends Controller
                 file_put_contents($path4, $decoded4);
                 file_put_contents($path5, $decoded5);
 
-                $acc_no = random_int(1000000, 9999999);
+                $chk_acc_no = true;
+                while ($chk_acc_no) {
+                    $acc_no = $branch->code . "-" . random_int(1000000, 9999999);
+                    $temp = DB::table("members")->where("acc_no", $acc_no)->first();
+
+                    if ($temp == null)
+                        $chk_acc_no = false;
+                }
 
                 $data = member::create($request->except(['acc_no', 'image', 'image_id_1', 'image_id_2', 'image_sketch', 'image_sketch_2']) + (["acc_no" => $acc_no, "image" => $image1_fileName, "image_id_1" => $image2_fileName, "image_id_2" => $image3_fileName, "image_sketch" => $image4_fileName, "image_sketch_2" => $image5_fileName]));
-
+                // DB::rollBack();
+                // return "ok";
                 $filenameDate = date("Ym");
                 $fh = fopen("logs/application$filenameDate.log", 'a') or exit();
                 fwrite($fh, "\r\n------\r\n" .  date('Y-m-d H:i ') .  " done create member");
@@ -251,7 +277,6 @@ class MemberController extends Controller
                     ]
                 ]);
 
-                $branch = branch::where("id", $request->branch_id)->first();
                 // NOTIFICATIONS
                 $subject = "Online Membership Application";
                 $recipient = $request->first_name . ' ' . $request->mid_name . ' ' .  $request->last_name;
@@ -321,7 +346,7 @@ class MemberController extends Controller
                     fwrite($fh, "\r\nSMS(admin) return: $textreturn1");
                     fclose($fh);
                 }
-                //DB::commit();
+                DB::commit();
                 $fh = fopen("logs/application$filenameDate.log", 'a') or exit();
                 fwrite($fh, "\r\nbefore return");
                 fclose($fh);
@@ -330,17 +355,18 @@ class MemberController extends Controller
 
             // return $this->index();
         } catch (\Exception $ex) {
-            //DB::rollBack();
+            DB::rollBack();
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "store",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\member  $member
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         // return $id;
@@ -356,33 +382,15 @@ class MemberController extends Controller
 
         return response()->json($result);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\member  $member
-     * @return \Illuminate\Http\Response
-     */
     public function edit(member $member)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\member  $member
-     * @return \Illuminate\Http\Response
-     */
     public function UpdateMember(Request $request)
     {
         $id = $request->id;
-
         try {
-
             // return $request;
-
             $image1_fileName = "";
             $image2_fileName = "";
             $image3_fileName = "";
@@ -436,6 +444,8 @@ class MemberController extends Controller
             $member_details  = member_detail::where('member_id', $id)->first();
             $member_valid_id  = member_valid_id::where('member_id', $id)->first();
             $member_reference  = member_reference::where('member_id', $id)->first();
+            //$income_source = implode(",", $request->income_source);
+
             // unset($member_details->income_source);
             // $member_details->income_source = $income_source;
 
@@ -456,15 +466,19 @@ class MemberController extends Controller
 
             return "updated!";
         } catch (\Exception $ex) {
+            //DB::rollBack();
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "UpdateMember",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\member  $member
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         try {
@@ -475,6 +489,15 @@ class MemberController extends Controller
 
             return "deleted!";
         } catch (\Exception $ex) {
+            //DB::rollBack();
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "destroy",
+                "Error",
+                $ex->getMessage()
+            );
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
@@ -505,29 +528,31 @@ class MemberController extends Controller
     public function approve(Request $request)
     {
 
-        $data = $request;
-        DB::table('members')
-            ->where('id', $data->id)
-            ->update([
-                'application_status' => "Approved",
-                'membership_status'  => "Active",
-                'enrollment_date' => $data->enrollment_date,
-                'updated_at' => \Carbon\Carbon::now()
-            ]);
+        try {
+            $data = $request;
+            DB::table('members')
+                ->where('id', $data->id)
+                ->update([
+                    'application_status' => "Approved",
+                    'membership_status'  => "A",
+                    'enrollment_date' => $data->enrollment_date,
+                    'membership_type_id' => $data->membership_type_id,
+                    'updated_at' => \Carbon\Carbon::now()
+                ]);
 
-        $request = member::where('id', $data->id)->first();
+            $request = member::where('id', $data->id)->first();
 
-        $subject = "Online Membership Application";
-        $recipient = $request->first_name . ' ' . $request->mid_name . ' ' .  $request->last_name;
-        $sendTo = $request->email;
+            $subject = "Online Membership Application";
+            $recipient = $request->first_name . ' ' . $request->mid_name . ' ' .  $request->last_name;
+            $sendTo = $request->email;
 
-        $sender = "ONLINE MEMBERSHIP APPLICATION";
-        $senderName = "King Multipurpose Cooperative";
+            $sender = "ONLINE MEMBERSHIP APPLICATION";
+            $senderName = "King Multipurpose Cooperative";
 
-        $number = $request->contact_no;
-        $message = "Good day! We're pleased to inform you that your application has been approved. Thank you!";
+            $number = $request->contact_no;
+            $message = "Good day! We're pleased to inform you that your application has been approved. Thank you!";
 
-        $msg = "
+            $msg = "
             <html>
             <head>
             </head>
@@ -541,46 +566,59 @@ class MemberController extends Controller
             </body>
             </html>";
 
-        if ($data->sms_switch == true) {
-            \Logger::instance()->send_text(
-                $number,
-                $message
-            );
-        }
-        if ($data->email_switch == true) {
-            return \Logger::instance()->mailerGmail(
-                $subject,
-                $msg,
-                $sender,
-                $senderName,
-                $sendTo,
-                $recipient
-            );
-        }
+            if ($data->sms_switch == true) {
+                \Logger::instance()->send_text(
+                    $number,
+                    $message
+                );
+            }
+            if ($data->email_switch == true) {
+                return \Logger::instance()->mailerGmail(
+                    $subject,
+                    $msg,
+                    $sender,
+                    $senderName,
+                    $sendTo,
+                    $recipient
+                );
+            }
 
-        return "success!";
+            return "success!";
+        } catch (\Exception $ex) {
+            //DB::rollBack();
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "approve",
+                "Error",
+                $ex->getMessage()
+            );
+            return response()->json(['error' => $ex->getMessage()], 500);
+        }
     }
     public function reject(Request $request)
     {
-        $data = $request;
-        DB::table('members')
-            ->where('id', $data->id)
-            ->update([
-                'application_status' => "Rejected",
-                'updated_at' => \Carbon\Carbon::now()
-            ]);
+        try {
+            $data = $request;
+            DB::table('members')
+                ->where('id', $data->id)
+                ->update([
+                    'application_status' => "Rejected",
+                    'updated_at' => \Carbon\Carbon::now()
+                ]);
 
-        $request = member::where('id', $data->id)->first();
+            $request = member::where('id', $data->id)->first();
 
-        $subject = "Online Membership Application";
-        $recipient = $request->first_name . ' ' . $request->mid_name . ' ' .  $request->last_name;
-        $sendTo = $request->email;
+            $subject = "Online Membership Application";
+            $recipient = $request->first_name . ' ' . $request->mid_name . ' ' .  $request->last_name;
+            $sendTo = $request->email;
 
-        $sender = "MEMBERSHIP PROFILE SYSTEM";
-        $senderName = "King Multipurpose Cooperative";
+            $sender = "MEMBERSHIP PROFILE SYSTEM";
+            $senderName = "King Multipurpose Cooperative";
 
 
-        $msg = "
+            $msg = "
               <html>
                     <head>
                     </head>
@@ -593,24 +631,36 @@ class MemberController extends Controller
                     </body>
                     </html>";
 
-        $number = $request->contact_no;
-        $message = "Good day! We're sorry to inform you that your application has been rejected. Thank you!";
+            $number = $request->contact_no;
+            $message = "Good day! We're sorry to inform you that your application has been rejected. Thank you!";
 
-        if ($data->sms_switch == true) {
-            \Logger::instance()->send_text(
-                $number,
-                $message
+            if ($data->sms_switch == true) {
+                \Logger::instance()->send_text(
+                    $number,
+                    $message
+                );
+            }
+            if ($data->email_switch == true) {
+                return \Logger::instance()->mailerGmail(
+                    $subject,
+                    $msg,
+                    $sender,
+                    $senderName,
+                    $sendTo,
+                    $recipient
+                );
+            }
+        } catch (\Exception $ex) {
+            //DB::rollBack();
+            \Logger::instance()->logError(
+                Carbon::now(),
+                "",
+                $this->cname,
+                "reject",
+                "Error",
+                $ex->getMessage()
             );
-        }
-        if ($data->email_switch == true) {
-            return \Logger::instance()->mailerGmail(
-                $subject,
-                $msg,
-                $sender,
-                $senderName,
-                $sendTo,
-                $recipient
-            );
+            return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
 

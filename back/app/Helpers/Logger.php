@@ -33,7 +33,7 @@ class Logger
     public function mailer($subject, $message, $sender, $senderName, $sendTo, $recipient)
     {
 
-        $mail = new PHPMailer(true);
+
         // // Server settings
         // // $mail->SMTPDebug = 0;
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -62,7 +62,7 @@ class Logger
         // $mail->Subject = $subject;
         // $mail->Body    = $message;
         // $mail->send();
-
+        $mail = new PHPMailer(true);
         $mail->isSMTP(); // tell to use smtp
         $mail->CharSet = "utf-8"; // set charset to utf8
         $mail->SMTPAuth = true;  // use smpt auth

@@ -30,7 +30,7 @@
                   <input
                     type="radio"
                     name="membership_status"
-                    value="New"
+                    value="I"
                     v-model.trim="member.membership_status"
                     v-validate="'required'"
                   />
@@ -46,7 +46,7 @@
                   <input
                     type="radio"
                     name="membership_status"
-                    value="Existing"
+                    value="A"
                     v-model.trim="member.membership_status"
                     v-validate="'required'"
                   />
@@ -70,7 +70,7 @@
             <br />
             <div
               class="rowFields mx-auto row"
-              v-if="member.membership_status == 'Existing'"
+              v-if="member.membership_status == 'A'"
             >
               <div class="col-lg-2">
                 <p class="msg">Account No.:</p>
@@ -416,7 +416,7 @@
                         type="number"
                         name="age"
                         ref="age"
-                        v-validate="'required'"
+                        v-validate="'required|between:3,200'"
                         class="form-control"
                         v-model.trim="member.age"
                         @input="member.age = $event.target.value.toUpperCase()"
@@ -442,7 +442,7 @@
                           type="radio"
                           name="gender"
                           ref="gender"
-                          value="Male"
+                          value="M"
                           v-model.trim="member.gender"
                           v-validate="'required'"
                         />
@@ -460,7 +460,7 @@
                           type="radio"
                           name="gender"
                           ref="gender"
-                          value="Female"
+                          value="F"
                           v-model.trim="member.gender"
                           v-validate="'required'"
                         />
@@ -642,7 +642,7 @@
                         ref="resident_citizenship"
                         v-model.trim="member.resident_citizenship"
                         @input="
-                          member.Citizenship = $event.target.value.toUpperCase()
+                          member.resident_citizenship = $event.target.value.toUpperCase()
                         "
                         class="form-control"
                         v-validate="'required'"
@@ -676,7 +676,7 @@
                         <input
                           type="radio"
                           name="Civil_status"
-                          value="single"
+                          value="Single"
                           v-model.trim="member.civil_stat"
                           v-validate="'required'"
                         />
@@ -692,7 +692,7 @@
                         <input
                           type="radio"
                           name="Civil_status"
-                          value="married"
+                          value="MAR"
                           v-model.trim="member.civil_stat"
                           v-validate="'required'"
                         />
@@ -708,7 +708,7 @@
                         <input
                           type="radio"
                           name="Civil_status"
-                          value="widowed"
+                          value="WID"
                           v-model.trim="member.civil_stat"
                           v-validate="'required'"
                         />
@@ -724,7 +724,7 @@
                         <input
                           type="radio"
                           name="Civil_status"
-                          value="separated"
+                          value="SEP"
                           v-model.trim="member.civil_stat"
                           v-validate="'required'"
                         />
@@ -740,7 +740,7 @@
                         <input
                           type="radio"
                           name="Civil_status"
-                          value="live-in"
+                          value="WLIVE"
                           v-model.trim="member.civil_stat"
                           v-validate="'required'"
                         />
@@ -1759,7 +1759,7 @@
                         :list="countries"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="member.country"
+                        v-model.trim="country_object"
                         placeholder="Select Country"
                         name="country"
                         v-validate="'required'"
@@ -1773,14 +1773,14 @@
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">City:</p>
+                      <p class="msg">Municipality/City:</p>
                     </div>
                     <div class="col-lg-9">
                       <model-list-select
                         :list="cities"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="member.city"
+                        v-model.trim="city_object"
                         placeholder="Select City"
                         name="city"
                         v-validate="'required'"
@@ -1801,7 +1801,7 @@
                         :list="barangays"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="member.barangay"
+                        v-model.trim="barangay_object"
                         placeholder="Select Barangay"
                         name="barangay"
                         v-validate="'required'"
@@ -1810,6 +1810,32 @@
                         class="text-danger pull-left"
                         v-show="errors.has('barangay')"
                         >Barangay is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Street/House No./Block No:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <input
+                        name="street"
+                        title="Street/House No./Block No./Subdivision"
+                        placeholder="Street/House No./Block No./Subdivision"
+                        v-validate="'required'"
+                        type="text"
+                        v-model.trim="member.street"
+                        @input="
+                          member.street =
+                            $event.target.value.toUpperCase()
+                        "
+                        class="form-control"
+                        v-b-tooltip.hover
+                      />
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('street')"
+                        >This field is required.</small
                       >
                     </div>
                   </div>
@@ -1826,8 +1852,6 @@
                         v-model.trim="member.postal_code"
                         class="form-control"
                         v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
                       />
                       <small
                         class="text-danger pull-left"
@@ -1845,15 +1869,12 @@
                     </div>
                     <div class="col-lg-8">
                       <textarea
+                        disabled
                         rows="4"
                         name="present_residential_address"
                         class="form-control"
                         v-validate="'required'"
-                        v-model.trim="member.present_residential"
-                        @input="
-                          member.present_residential =
-                            $event.target.value.toUpperCase()
-                        "
+                        v-model.trim="present_residential"
                         placeholder="Full Address
                         (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
                         Province, Country)"
@@ -2046,6 +2067,7 @@
                     </div>
                     <div class="col-lg-9">
                       <textarea
+                       :disabled="copyPresent"
                         rows="4"
                         name="permanent_address"
                         class="form-control"
@@ -2069,8 +2091,8 @@
                         id="checkbox-1"
                         v-model="copyPresent"
                         name="checkbox-1"
-                        value="copy"
-                        unchecked-value="not_copy"
+                        :value="true"
+                        :unchecked-value="false"
                         style="float: right"
                         @input="checkCopy"
                       >
@@ -2464,7 +2486,7 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="checkbox"
+                          type="radio"
                           name="income_via"
                           ref="income_via"
                           v-validate="'required'"
@@ -2550,8 +2572,10 @@
                     >
                   </div>
                   <hr />
+
+
                   <!-- Business Data -->
-                  <span v-show="member.income_source.includes('Business')">
+                  <span v-if="member.income_source.includes('Business')">
                     <div class="emp-heading" style="display: flex">
                       <label class="header text-success"> Business Data</label>
                     </div>
@@ -2713,7 +2737,7 @@
                   </span>
 
                   <!-- Employment Data -->
-                  <span v-show="member.income_source.includes('Employment')">
+                  <span v-if="member.income_source.includes('Employment')">
                     <div class="emp-heading" style="display: flex">
                       <label class="header text-success">
                         Employment Data</label
@@ -2806,7 +2830,7 @@
                           <input
                             type="text"
                             name="Company_Contact_number"
-                            v-validate="'required'"
+                            v-validate="'required|max:11'"
                             v-model.trim="member.emp_tel_no"
                             class="form-control"
                             v-b-tooltip.hover
@@ -2816,7 +2840,7 @@
                           <small
                             class="text-danger pull-left"
                             v-show="errors.has('Company_Contact_number')"
-                            >This field is required.</small
+                            >This field is required and has a maximum of 11 characters.</small
                           >
                         </div>
                       </div>
@@ -3028,6 +3052,7 @@
                       </div>
                     </div>
                   </span>
+
                 </form>
               </div>
             </div>
@@ -3391,7 +3416,6 @@ export default {
         birthplace: "",
         civil_stat: "",
         membership_status: "",
-        present_residential: "",
         monthly_present: "",
         occupied_present: "",
         last_update_present: "",
@@ -3466,14 +3490,11 @@ export default {
         ref2_name: "",
         ref2_address: "",
         ref2_contact: "",
-
         height: "",
         weight: "",
         approval_date: "",
         enrollment_date: "",
-        barangay: "",
-        city: "",
-        country: "",
+        street: "",
         postal_code: "",
         benef_name_1: "",
         benef_age_1: "",
@@ -3482,7 +3503,19 @@ export default {
         benef_name_2: "",
         benef_age_2: "",
         benef_relation_2: "",
-        benef_contact_2: "",
+        benef_contact_2: ""
+      },
+      barangay_object: {
+        name: "",
+        id: ""
+      },
+      city_object: {
+        name: "",
+        id: ""
+      },
+      country_object: {
+        name: "",
+        id: ""
       },
       data: [],
       Dateoptions: {
@@ -3520,13 +3553,29 @@ export default {
       valid_id_2_text: "",
       sketch_text: "",
       sketch2_text: "",
-      copyPresent: "not_copy",
+      copyPresent: false,
       sms_switch: false,
       email_switch: false,
       countries: [],
       cities: [],
       barangays: [],
+
     };
+  },
+  computed: {
+  present_residential() {
+    return (
+      this.member.street +
+      " BRGY " +
+      this.barangay_object.name +
+      ", " +
+      this.city_object.name +
+      ", " +
+      this.country_object.name +
+      ", " +
+      this.member.postal_code
+    );
+  },
   },
   created() {
     this.loadBranches();
@@ -3606,6 +3655,10 @@ export default {
       this.member.sketch2_text = this.sketch2_text;
       this.member.sms_switch = this.sms_switch;
       this.member.email_switch = this.email_switch;
+      this.member.present_residential = this.present_residential;
+      this.member.barangay = this.barangay_object.id;
+      this.member.city = this.city_object.id;
+      this.member.country = this.country_object.id;
       console.log(this.member);
       console.log(this.$validator.validate());
       if (
@@ -3637,7 +3690,7 @@ export default {
                 this.$root.$emit("pageLoaded");
                 swal({
                   title: "Error",
-                  text: response.body.error,
+                  text: "Internal Server Error",
                   icon: "error",
                   dangerMode: true,
                 });
@@ -3666,8 +3719,8 @@ export default {
         email: "bismontepeter@gmail.com",
         acc_no: "",
         title: "MS.",
-        nickname: "TEST",
-        first_name: "TEST",
+        nickname: "NICKNAME",
+        first_name: "first_name",
         mid_name: "TEST",
         last_name: "TEST",
         prev_last_name: "TEST",
@@ -3675,7 +3728,7 @@ export default {
         resident: "No",
         resident_citizenship: "filipino",
         age: "23",
-        gender: "Female",
+        gender: "M",
         contact_no: "09092104014",
         contact_last_update: "2021-06-01",
         contact2_no: "09109726319",
@@ -3685,12 +3738,12 @@ export default {
         birthcountry: "PH",
         birthplace: "14",
         civil_stat: "single",
-        membership_status: "New",
-        present_residential: "Dli makita St. Davao City",
+        membership_status: "I",
+        present_residential: "",
         monthly_present: "10,000",
         occupied_present: "2000-01-01",
         last_update_present: "2000-01-01",
-        permanent_address: "Dli makita St. Davao City",
+        permanent_address: "",
         monthly_permanent: "10,000",
         occupied_permanent: "2000-01-01",
         last_update_permanent: "2000-01-01",
@@ -3740,7 +3793,7 @@ export default {
         bn_contact: "888-8888",
         sss: "123456",
         gsis: "",
-        tin: "",
+        tin: "111111",
         otherID1_type: "",
         otherID1_number: "",
         otherID1_issued_date: "",
@@ -3765,9 +3818,9 @@ export default {
         weight: "60",
         approval_date: "",
         enrollment_date: "",
-        barangay: 1,
-        city: 1,
-        country: 1,
+        // barangay: 1,
+        // city: 1,
+        // country: 1,
         postal_code: "8000",
         benef_name_1: "",
         benef_age_1: "",
@@ -3780,9 +3833,8 @@ export default {
       };
     },
     checkCopy() {
-      console.log(this.copyPresent);
-      if (this.copyPresent == "copy") {
-        this.member.permanent_address = this.member.present_residential;
+      if (this.copyPresent == true) {
+        this.member.permanent_address = this.present_residential;
       } else {
         this.member.permanent_address = "";
       }

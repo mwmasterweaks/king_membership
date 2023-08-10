@@ -65,6 +65,27 @@
             <b-spinner class="align-middle"></b-spinner>
             <strong>Loading...</strong>
           </div>
+          <span slot="membership_status" slot-scope="data" v-html="data.value"></span>
+          <template v-slot:cell(membership_status)="row">
+            <span v-if="row.item.membership_status == 'A'">
+             Active
+            </span>
+            <span v-if="row.item.membership_status == 'I'">
+             Pending/Inactive
+            </span>
+            <span v-if="row.item.membership_status == 'C'">
+             Closed
+            </span>
+            <span v-if="row.item.membership_status == 'W'">
+             Withdrawn
+            </span>
+            <span v-if="row.item.membership_status == 'D'">
+             Deceased
+            </span>
+            <span v-if="row.item.membership_status == 'L'">
+             Delisted
+            </span>
+          </template>
           <template slot="table-caption"></template>
         </b-table>
       </div>
@@ -147,7 +168,124 @@ export default {
         name: "",
         description: "",
       },
-      member: {},
+      member: {
+        branch_id: "",
+        email: "",
+        acc_no: "",
+        title: "",
+        nickname: "",
+        first_name: "",
+        mid_name: "",
+        last_name: "",
+        prev_last_name: "",
+        suffix: "",
+        resident: "",
+        resident_citizenship: "",
+        age: "",
+        gender: "",
+        contact_no: "",
+        contact_last_update: "",
+        contact2_no: "",
+        contact2_last_update: "",
+        birthdate: "",
+        nationality: "",
+        birthcountry: "",
+        birthplace: "",
+        civil_stat: "",
+        membership_status: "",
+        monthly_present: "",
+        occupied_present: "",
+        last_update_present: "",
+        permanent_address: "",
+        monthly_permanent: "",
+        occupied_permanent: "",
+        last_update_permanent: "",
+        member_id: 0,
+        dependents_no: 0,
+        children_no: 0,
+        household_no: 0,
+        spouse_name: "",
+        spouse_age: "",
+        spouse_occupation: "",
+        spouse_employer: "",
+        spouse_address: "",
+        mother_title: "",
+        mother_first_name: "",
+        mother_mid_name: "",
+        mother_last_name: "",
+        mother_suffix: "",
+        father_title: "",
+        father_first_name: "",
+        father_mid_name: "",
+        father_last_name: "",
+        father_suffix: "",
+        owned_properties: 0,
+        owned_cars: 0,
+        ownership_present: "",
+        ownership_permanent: "",
+        income_source: "",
+        income_source_arr: [],
+        income_via: "",
+        other_income_via: "",
+        emp_employer: "",
+        emp_nature: "",
+        emp_tin: "",
+        emp_tel_no: "",
+        emp_address: "",
+        emp_position: "",
+        emp_date_employed: "",
+        emp_gross: "",
+        emp_currency: "",
+        emp_period: "",
+        emp_annual: "",
+        emp_occ_status: "",
+        bn_name: "",
+        bn_nature: "",
+        bn_established: "",
+        bn_tin: "",
+        bn_address: "",
+        bn_contact: "",
+        sss: "",
+        gsis: "",
+        tin: "",
+        otherID1_type: "",
+        otherID1_number: "",
+        otherID1_issued_date: "",
+        otherID1_expiry_date: "",
+        otherID1_issue_country: "",
+        otherID1_issue_by: "",
+        otherID1_last_update: "",
+        otherID2_type: "",
+        otherID2_number: "",
+        otherID2_issued_date: "",
+        otherID2_expiry_date: "",
+        otherID2_issue_country: "",
+        otherID2_issue_by: "",
+        otherID2_last_update: "",
+        ref1_name: "",
+        ref1_address: "",
+        ref1_contact: "",
+        ref2_name: "",
+        ref2_address: "",
+        ref2_contact: "",
+        height: "",
+        weight: "",
+        approval_date: "",
+        enrollment_date: "",
+        street: "",
+        postal_code: "",
+        benef_name_1: "",
+        benef_age_1: "",
+        benef_relation_1: "",
+        benef_contact_1: "",
+        benef_name_2: "",
+        benef_age_2: "",
+        benef_relation_2: "",
+        benef_contact_2: "",
+        barangay_object: { name: ""},
+        city_object: { name: ""},
+        country_object: { name: ""}
+      },
       roles: [],
       branches: [],
       authenticatedUser: {},
@@ -160,7 +298,6 @@ export default {
     this.setAuthenticatedUser();
     this.roles = this.$global.getRoles();
     this.loadItems();
-    this.tblisBusy = false;
     this.totalRows = this.items.length;
     this.user = this.$global.getUser();
     this.branches = this.$global.getBranch();
@@ -212,12 +349,19 @@ export default {
       // this.member = item;
       // this.member.member_details = item.member_details;
       // this.$bvModal.show("ModalEditApplication");
-
+      this.$root.$emit("pageLoading");
       var id = item.id;
       this.$http.get("api/Member/" + id).then((response) => {
-        console.log(response.body);
-        this.member = response.body;
+        var temp = response.body
+        const incomeSourceValue = temp.income_source;
+        if (incomeSourceValue === "")
+          temp.income_source_arr = [];
+        else
+          temp.income_source_arr = incomeSourceValue.split(", ");
+        console.log(temp);
+        this.member = temp;
         this.$bvModal.show("ModalEditApplication");
+        this.$root.$emit("pageLoaded");
       });
     },
     handleOk(bvModalEvt) {
@@ -225,9 +369,11 @@ export default {
     },
 
     btnApprove() {
+      this.$root.$emit("pageLoading");
       this.$http
         .post("api/member/accept/" + this.member.id)
         .then((response) => {
+          this.$root.$emit("pageLoaded");
           swal("Member Application #" + this.member.id + "has been approved!", {
             icon: "success",
           });
@@ -235,18 +381,39 @@ export default {
           this.loadItems();
           this.$bvModal.hide("modalEdit");
           this.$root.$emit("Counter");
+        }).catch((response) => {
+          this.$root.$emit("pageLoaded");
+          console.log(response)
+          swal({
+            title: "Error",
+            text: response.body.error,
+            icon: "error",
+            dangerMode: true,
+          });
         });
     },
     btnReject() {
+      this.$root.$emit("pageLoading");
       this.$http
         .post("api/member/reject/" + this.member.id)
         .then((response) => {
+          this.$root.$emit("pageLoaded");
           swal("Member Application #" + this.member.id + "has been rejected!", {
             icon: "warning",
           });
           this.loadItems();
           this.$bvModal.hide("modalEdit");
           this.$root.$emit("Counter");
+        })
+        .catch((response) => {
+          this.$root.$emit("pageLoaded");
+          console.log(response)
+          swal({
+            title: "Error",
+            text: response.body.error,
+            icon: "error",
+            dangerMode: true,
+          });
         });
     },
 
@@ -262,6 +429,8 @@ export default {
             dangerMode: true,
           }).then((update) => {
             if (update) {
+
+              this.$root.$emit("pageLoading");
               var tempdata = {
                 item_edit: this.item_edit,
                 user_id: this.user.id,
@@ -271,6 +440,8 @@ export default {
               this.$http
                 .post("api/UpdateBranch", tempdata)
                 .then((response) => {
+
+                  this.$root.$emit("pageLoaded");
                   this.$global.setBranch(response.body);
                   this.items = response.body;
                   this.totalRows = this.items.length;
@@ -279,14 +450,13 @@ export default {
                   this.tblisBusy = false;
                 })
                 .catch((response) => {
+                  console.log(response);
+                  this.$root.$emit("pageLoaded");
                   swal({
                     title: "Error",
                     text: response.body.error,
                     icon: "error",
                     dangerMode: true,
-                  }).then((value) => {
-                    if (value) {
-                    }
                   });
                 });
             }
@@ -317,17 +487,15 @@ export default {
               this.$bvModal.hide("ModelAdd");
             })
             .catch((response) => {
-              swal({
-                title: "Error",
-                text: response.body.error,
-                icon: "error",
-                dangerMode: true,
-              }).then((value) => {
-                if (value) {
-                  this.$refs.name.focus();
-                }
-              });
-            });
+                  console.log(response);
+                  this.$root.$emit("pageLoaded");
+                  swal({
+                    title: "Error",
+                    text: response.body.error,
+                    icon: "error",
+                    dangerMode: true,
+                  });
+                });
         }
       });
     },
@@ -340,11 +508,13 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
+          this.$root.$emit("pageLoading");
           this.items = [];
           this.tblisBusy = true;
           this.$http
             .delete("api/Branch/" + this.item_edit.id)
             .then((response) => {
+              this.$root.$emit("pageLoaded");
               this.$bvModal.hide("modalEdit");
               swal("Deleted!", "Item has been deleted", "success").then(
                 (value) => {
@@ -356,14 +526,13 @@ export default {
               );
             })
             .catch((response) => {
+              console.log(response);
+              this.$root.$emit("pageLoaded");
               swal({
                 title: "Error",
                 text: response.body.error,
                 icon: "error",
                 dangerMode: true,
-              }).then((value) => {
-                if (value) {
-                }
               });
             });
         }

@@ -1,0 +1,30 @@
+2023-07-23 00:04:06	--	1	--		--	MembershipTypeController	--	store	--	message	--	Create new membership_type: {"name":"aaa","code":"a","updated_at":"2023-07-23 00:04:06","created_at":"2023-07-23 00:04:06","id":1}
+
+2023-07-23 00:04:16	--	1	--		--	MembershipTypeController	--	store	--	message	--	Create new membership_type: {"name":"bbb","code":"b","updated_at":"2023-07-23 00:04:16","created_at":"2023-07-23 00:04:16","id":2}
+
+2023-07-23 00:04:33	--	1	--		--	MembershipTypeController	--	store	--	message	--	Create new membership_type: {"name":"cccc","code":"c","updated_at":"2023-07-23 00:04:33","created_at":"2023-07-23 00:04:33","id":3}
+
+2023-07-23 00:04:41	--	1	--		--	MembershipTypeController	--	update	--	message	--	update membership_type id 1
+From: {"name":"aaa","code":"a"}
+To: {"id":1,"name":"dddd","code":"d","created_at":"2023-07-23 00:04:06","updated_at":"2023-07-23 00:04:41"}
+
+2023-07-23 00:04:58	--		--		--		--	MembershipTypeController	--	destroy	--	message
+
+2023-07-26 14:47:24	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 3
+From: {"name":"Davao Main","description":"Davao Main","code":null,"email":"","contact":""}
+To: {"id":3,"name":"Davao Main","description":"Davao Main","code":"001","email":"davao@king.com","contact":"09123456789","created_at":"2022-02-20 17:28:15","updated_at":"2023-07-26 14:47:24"}
+
+2023-07-26 14:47:45	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 6
+From: {"name":"Panabo","description":"Panabo","code":null,"email":"","contact":""}
+To: {"id":6,"name":"Panabo","description":"Panabo","code":"002","email":"panabo@king.com","contact":"09123456789","created_at":"2022-02-20 17:32:47","updated_at":"2023-07-26 14:47:45"}
+
+2023-07-26 14:48:04	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 7
+From: {"name":"Kidapawan","description":"Kidapawan","code":null,"email":"","contact":""}
+To: {"id":7,"name":"Kidapawan","description":"Kidapawan","code":"005","email":"kidap@king.com","contact":"0912345782","created_at":"2022-04-18 14:44:44","updated_at":"2023-07-26 14:48:04"}
+
+2023-07-26 14:48:31	--	1	--		--	BranchController	--	update	--	message	--	update Branch id 1
+From: {"name":"Head Office","description":"Head Office","code":null,"email":"","contact":""}
+To: {"id":1,"name":"Head Office","description":"Head Office","code":"101","email":"head@king.com","contact":"091254788855","created_at":"2022-02-20 16:25:55","updated_at":"2023-07-26 14:48:31"}
+
+2023-07-31 22:01:49	--	1	--		--	BranchController	--	store	--	message	--	Create new Branch: {"name":"liki","description":"jay liki","email":"bismontepeter@gmail.com","contact":"+639109726319","updated_at":"2023-07-31 22:01:49","created_at":"2023-07-31 22:01:49","id":8}
+

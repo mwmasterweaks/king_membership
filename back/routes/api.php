@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     // Route::resource('Member', 'MemberController');
     Route::resource('Employee', 'EmployeeController');
+    Route::resource('MembershipType', 'MembershipTypeController');
     Route::resource('User', 'UserController');
 
 
@@ -56,6 +57,4 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('UpdateUser', 'UserController@UpdateUser');
     Route::post('UpdateEmployee', 'EmployeeController@UpdateEmployee');
     Route::get('test', 'MemberController@testMail');
-
-
 });

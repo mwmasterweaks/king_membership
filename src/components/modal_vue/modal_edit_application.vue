@@ -17,111 +17,32 @@
         <div class="row" id="print1">
           <div class="col-md-9">
             <div class="rowFields mx-auto row">
-              <!-- <div class="col-lg-5">
-                <p class="msg text-success">
-                  <b>{{ data.membership_status }} Applicant</b>
-                </p>
-              </div> -->
               <div class="col-lg-2">
                 <p class="msg text-success"><b> Status</b></p>
               </div>
-              <div class="col-lg-10">
-                <div
-                  class="pretty p-icon p-curve p-jelly"
-                  style="margin-top: 15px"
+              <div class="col-lg-9">
+
+               <model-list-select
+                  :list="status_list"
+                  option-value="value"
+                  option-text="name"
+                  v-model.trim="data.membership_status"
+                  placeholder="Select Status"
+                  name="membership_status"
+                  v-validate="'required'"
+                ></model-list-select>
+                <small
+                  class="text-danger pull-left"
+                  v-show="errors.has('membership_status')"
+                  >Membership Status is required.</small
                 >
-                  <input
-                    type="radio"
-                    name="membership_status"
-                    value="New"
-                    v-model.trim="data.membership_status"
-                    v-validate="'required'"
-                  />
-                  <div class="state p-success">
-                    <i class="icon mdi mdi-check"></i>
-                    <label> New </label>
-                  </div>
-                </div>
-                <div
-                  class="pretty p-icon p-curve p-jelly"
-                  style="margin-top: 15px"
-                >
-                  <input
-                    type="radio"
-                    name="membership_status"
-                    value="Existing"
-                    v-model.trim="data.membership_status"
-                    v-validate="'required'"
-                  />
-                  <div class="state p-success">
-                    <i class="icon mdi mdi-check"></i>
-                    <label> Existing </label>
-                  </div>
-                </div>
-                <div
-                  class="pretty p-icon p-curve p-jelly"
-                  style="margin-top: 15px"
-                >
-                  <input
-                    type="radio"
-                    name="membership_status"
-                    value="Active"
-                    v-model.trim="data.membership_status"
-                    v-validate="'required'"
-                  />
-                  <div class="state p-success">
-                    <i class="icon mdi mdi-check"></i>
-                    <label> Active </label>
-                  </div>
-                </div>
-                <div
-                  class="pretty p-icon p-curve p-jelly"
-                  style="margin-top: 15px"
-                >
-                  <input
-                    type="radio"
-                    name="membership_status"
-                    value="Not Active"
-                    v-model.trim="data.membership_status"
-                    v-validate="'required'"
-                  />
-                  <div class="state p-success">
-                    <i class="icon mdi mdi-check"></i>
-                    <label> Not Active </label>
-                  </div>
-                </div>
-                <div
-                  class="pretty p-icon p-curve p-jelly"
-                  style="margin-top: 15px"
-                >
-                  <input
-                    type="radio"
-                    name="membership_status"
-                    value="Disabled"
-                    v-model.trim="data.membership_status"
-                    v-validate="'required'"
-                  />
-                  <div class="state p-success">
-                    <i class="icon mdi mdi-check"></i>
-                    <label> Disabled </label>
-                  </div>
-                </div>
-                <div
-                  class="pretty p-icon p-curve p-jelly"
-                  style="margin-top: 15px"
-                >
-                  <small
-                    class="text-danger pull-left"
-                    v-show="errors.has('membership_status')"
-                    >Membership status is required.</small
-                  >
-                </div>
+
               </div>
             </div>
             <br />
             <div
               class="rowFields mx-auto row"
-              v-if="data.membership_status == 'Existing'"
+              v-if="data.membership_status == 'A'"
             >
               <div class="col-lg-2">
                 <p class="msg">Account No.:</p>
@@ -186,6 +107,22 @@
                 >
               </div>
             </div>
+            <div class="rowFields mx-auto row">
+              <div class="col-lg-2">
+                <p class="msg" style="margin-top: 5px">Membership Type:</p>
+              </div>
+              <div class="col-lg-9">
+                <b-form-select
+                  v-model="data.membership_type_id"
+                  :options="membership_type_list"
+                  size="sm"
+                  class="mt-3"
+                  value-field="id"
+                  text-field="name"
+                ></b-form-select>
+              </div>
+            </div>
+
           </div>
           <div class="col-md-3 image-preview" v-if="imageData == ''">
             <img
@@ -471,7 +408,7 @@
                           type="radio"
                           name="gender"
                           ref="gender"
-                          value="Male"
+                          value="M"
                           v-model.trim="data.gender"
                           v-validate="'required'"
                         />
@@ -489,7 +426,7 @@
                           type="radio"
                           name="gender"
                           ref="gender"
-                          value="Female"
+                          value="F"
                           v-model.trim="data.gender"
                           v-validate="'required'"
                         />
@@ -696,7 +633,7 @@
                         <input
                           type="radio"
                           name="civil_stat"
-                          value="single"
+                          value="Single"
                           v-model.trim="data.civil_stat"
                           v-validate="'required'"
                         />
@@ -712,7 +649,7 @@
                         <input
                           type="radio"
                           name="civil_stat"
-                          value="married"
+                          value="MAR"
                           v-model.trim="data.civil_stat"
                           v-validate="'required'"
                         />
@@ -728,7 +665,7 @@
                         <input
                           type="radio"
                           name="civil_stat"
-                          value="widowed"
+                          value="WID"
                           v-model.trim="data.civil_stat"
                           v-validate="'required'"
                         />
@@ -744,7 +681,7 @@
                         <input
                           type="radio"
                           name="civil_stat"
-                          value="separated"
+                          value="SEP"
                           v-model.trim="data.civil_stat"
                           v-validate="'required'"
                         />
@@ -760,7 +697,7 @@
                         <input
                           type="radio"
                           name="civil_stat"
-                          value="live-in"
+                          value="WLIVE"
                           v-model.trim="data.civil_stat"
                           v-validate="'required'"
                         />
@@ -1682,7 +1619,7 @@
                         :list="countries"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="data.country"
+                        v-model.trim="data.country_object"
                         placeholder="Select Country"
                         name="country"
                         v-validate="'required'"
@@ -1703,7 +1640,7 @@
                         :list="cities"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="data.city"
+                        v-model.trim="data.city_object"
                         placeholder="Select City"
                         name="city"
                         v-validate="'required'"
@@ -1724,7 +1661,7 @@
                         :list="barangays"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="data.barangay"
+                        v-model.trim="data.barangay_object"
                         placeholder="Select Barangay"
                         name="barangay"
                         v-validate="'required'"
@@ -1733,6 +1670,32 @@
                         class="text-danger pull-left"
                         v-show="errors.has('barangay')"
                         >Barangay is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Street/House No./Block No:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <input
+                        name="street"
+                        title="Street/House No./Block No./Subdivision"
+                        placeholder="Street/House No./Block No./Subdivision"
+                        v-validate="'required'"
+                        type="text"
+                        v-model.trim="data.street"
+                        @input="
+                          data.street =
+                            $event.target.value.toUpperCase()
+                        "
+                        class="form-control"
+                        v-b-tooltip.hover
+                      />
+                      <small
+                        class="text-danger pull-left"
+                        v-show="errors.has('street')"
+                        >This field is required.</small
                       >
                     </div>
                   </div>
@@ -1767,14 +1730,11 @@
                     </div>
                     <div class="col-lg-8">
                       <textarea
+                        disabled
                         rows="4"
                         name="present_residential"
                         class="form-control"
-                        v-model.trim="data.present_residential"
-                        @input="
-                          data.present_residential =
-                            $event.target.value.toUpperCase()
-                        "
+                        v-model.trim="present_residential"
                         placeholder="Full Address
                         (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
                         Province, Country)"
@@ -1954,6 +1914,7 @@
                     </div>
                     <div class="col-lg-9">
                       <textarea
+                        :disabled="copyPresent"
                         rows="4"
                         name="permanent_address"
                         class="form-control"
@@ -1976,8 +1937,8 @@
                         id="checkbox-1"
                         v-model="copyPresent"
                         name="checkbox-1"
-                        value="copy"
-                        unchecked-value="not_copy"
+                        :value="true"
+                        :unchecked-value="false"
                         style="float: right"
                         @input="checkCopy"
                       >
@@ -2245,8 +2206,7 @@
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
                       <p class="msg">
-                        <span class="red" @click="checker">*</span> Source of
-                        Income:
+                        <span class="red" @click="checker">*</span> Source of Income:
                       </p>
                     </div>
                     <div class="col-lg-9">
@@ -2259,7 +2219,7 @@
                           ref="income_source"
                           type="checkbox"
                           value="Business"
-                          v-model.trim="data.income_source"
+                          v-model.trim="data.income_source_arr"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -2275,7 +2235,7 @@
                           ref="income_source"
                           type="checkbox"
                           value="Employment"
-                          v-model.trim="data.income_source"
+                          v-model.trim="data.income_source_arr"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -2291,7 +2251,7 @@
                           ref="income_source"
                           type="checkbox"
                           value="Pension"
-                          v-model.trim="data.income_source"
+                          v-model.trim="data.income_source_arr"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -2307,7 +2267,7 @@
                           ref="income_source"
                           type="checkbox"
                           value="Remittance"
-                          v-model.trim="data.income_source"
+                          v-model.trim="data.income_source_arr"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -2323,7 +2283,7 @@
                           ref="income_source"
                           type="checkbox"
                           value="Agri"
-                          v-model.trim="data.income_source"
+                          v-model.trim="data.income_source_arr"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -2333,7 +2293,7 @@
                     </div>
                     <!-- <small
                       class="text-danger pull-left"
-                      v-show="data.income_source"
+                      v-show="data.income_source_arr"
                       >This field is required.</small
                     > -->
                   </div>
@@ -2349,7 +2309,7 @@
                         style="margin-top: 15px"
                       >
                         <input
-                          type="checkbox"
+                          type="radio"
                           name="income_via"
                           ref="income_via"
                           v-validate="'required'"
@@ -2435,10 +2395,9 @@
                     >
                   </div>
                   <hr />
-                  <!-- Business Data -->
 
-                  <span>
-                    <!-- <span v-if="income_sources.includes('Business')"> -->
+                  <!-- Business Data -->
+                   <span v-if="data.income_source_arr.includes('Business')">
                     <div class="emp-heading" style="display: flex">
                       <label class="header text-success"> Business Data</label>
                     </div>
@@ -2573,8 +2532,7 @@
                   </span>
 
                   <!-- Employment Data -->
-                  <span>
-                    <!-- <span v-if="income_sources.includes('Employment')"> -->
+                   <span v-if="data.income_source_arr.includes('Employment')">
                     <div class="emp-heading" style="display: flex">
                       <label class="header text-success">
                         Employment Data</label
@@ -2888,6 +2846,7 @@
                       </div>
                     </div>
                   </span>
+
                 </form>
               </div>
             </div>
@@ -3703,7 +3662,7 @@
                 <div class="rowFields mx-auto row">
                   <p class="data-print">
                     <b>Source of Income:</b>
-                    {{ income_sources }}
+                    {{ data.income_source_arr }}
                   </p>
                 </div>
                 <div class="rowFields mx-auto row">
@@ -3860,7 +3819,7 @@
         <!-- <b-button size="sm" variant="info" @click="print"
           >Print Preview</b-button
         > -->
-        <b-button size="sm" variant="info">
+        <!-- <b-button size="sm" variant="info">
           <a
             :href="'/items/' + data.id + '/edit'"
             target="_blank"
@@ -3868,7 +3827,7 @@
           >
             Print a Copy</a
           ></b-button
-        >
+        > -->
 
         <!-- <b-button size="sm" variant="info">
           <router-link tag="span" :to="'/printid/' + data.id + '/edit'">
@@ -3892,11 +3851,38 @@
 
 
     <b-modal id="ModalDate" title="Date of Membership">
-      <b-form-datepicker
-        id="example-datepicker"
-        v-model="data.enrollment_date"
-        class="mb-2"
-      ></b-form-datepicker>
+
+      <div class="rowFields mx-auto row">
+        <div class="col-lg-4">
+          <p class="msg" style="margin-top: 5px">Date Membership:</p>
+        </div>
+         <div class="col-lg-2"></div>
+        <div class="col-lg-6">
+          <b-form-datepicker
+            id="example-datepicker"
+            v-model="data.enrollment_date"
+            class="mb-2"
+          ></b-form-datepicker>
+        </div>
+      </div>
+
+      <div class="rowFields mx-auto row">
+        <div class="col-lg-4">
+          <p class="msg" style="margin-top: 5px">Membership Type:</p>
+        </div>
+         <div class="col-lg-2"></div>
+        <div class="col-lg-6">
+          <b-form-select
+            v-model="data.membership_type_id"
+            :options="membership_type_list"
+            size="sm"
+            class="mt-3"
+            value-field="id"
+            text-field="name"
+          ></b-form-select>
+        </div>
+      </div>
+
       <template slot="modal-footer" slot-scope="{}">
         <b-button
           size="sm"
@@ -3947,7 +3933,14 @@ export default {
   data() {
     return {
       branches: [],
-
+      status_list: [
+        { name: "Active", value: "A"},
+        { name: "Inactive", value: "I"},
+        { name: "Closed", value: "C"},
+        { name: "Withdrawn", value: "W"},
+        { name: "Deceased", value: "D"},
+        { name: "Delisted", value: "L"},
+      ],
       Dateoptions: {
         format: "YYYY-MM-DD",
         useCurrent: false,
@@ -3977,8 +3970,8 @@ export default {
         { value: "Monthly", text: "Monthly" },
         { value: "Annually", text: "Annually" },
       ],
+      membership_type_list: [],
       copyPresent: "not_copy",
-      income_sources: [],
       sms_switch: false,
       email_switch: false,
       countries: [],
@@ -3989,6 +3982,19 @@ export default {
   mounted() {
     this.imageData = "";
     this.branch_name = this.data.branch;
+  },
+  computed: {
+  present_residential() {
+    return this.data.street +
+      " BRGY " +
+      this.data.barangay_object.name +
+      ", " +
+      this.data.city_object.name +
+      ", " +
+      this.data.country_object.name +
+      ", " +
+      this.data.postal_code;
+  },
   },
   created() {
     this.user = this.$global.getUser();
@@ -4010,6 +4016,13 @@ export default {
       } else {
         this.email_switch = false;
       }
+
+      this.$http.get("api/MembershipType").then(function(response) {
+        this.membership_type_list = response.body;
+        var temp = { value: null, name: 'Select Membership Type', disabled: true };
+        this.membership_type_list.unshift(temp);
+
+      });
 
       this.$http.get("api/getCountries").then(function (response) {
         this.countries = response.body;
@@ -4048,19 +4061,24 @@ export default {
     },
 
     update() {
-      var list = this.data.income_source;
+      var temp = JSON.parse(JSON.stringify(this.data));
+      var list = this.data.income_source_arr;
+      console.log(this.data);
       // if (this.imageData != "" || this.imageDataValid1) {
-      this.data.picture = this.imageData;
-      this.data.valid_id_1 = this.imageDataValid1;
-      this.data.valid_id_2 = this.imageDataValid2;
-      this.data.sketch = this.imageDataSketch;
-      this.data.sketch2 = this.imageDataSketch2;
-      this.data.picture_text = this.picture_text;
-      this.data.valid_id_1_text = this.valid_id_1_text;
-      this.data.valid_id_2_text = this.valid_id_2_text;
-      this.data.sketch_text = this.sketch_text;
-      this.data.sketch_text2 = this.sketch_text2;
-      this.data.income_source = list.join(", ");
+      temp.picture = this.imageData;
+      temp.valid_id_1 = this.imageDataValid1;
+      temp.valid_id_2 = this.imageDataValid2;
+      temp.sketch = this.imageDataSketch;
+      temp.sketch2 = this.imageDataSketch2;
+      temp.picture_text = this.picture_text;
+      temp.valid_id_1_text = this.valid_id_1_text;
+      temp.valid_id_2_text = this.valid_id_2_text;
+      temp.sketch_text = this.sketch_text;
+      temp.sketch_text2 = this.sketch_text2;
+
+      temp.present_residential = this.present_residential;
+      if(list.length > 0)
+        temp.income_source = list.join(", ");
 
       if (
         this.data.sss == "" &&
@@ -4074,7 +4092,7 @@ export default {
         this.$validator.validateAll().then((result) => {
           if (result) {
             this.$http
-              .post("api/UpdateMember", this.data)
+              .post("api/UpdateMember", temp)
               .then((response) => {
                 console.log(response.body);
                 swal("This application has been updated!", {
@@ -4136,40 +4154,51 @@ export default {
       this.$bvModal.show("ModalDate");
     },
     btnApprove() {
-      var data = {
-        id: this.data.id,
-        enrollment_date: this.data.enrollment_date,
-        sms_switch: this.sms_switch,
-        email_switch: this.email_switch,
-      };
-      console.log(data);
-      swal({
-        title: "Are you sure?",
-        text: "Do you really want to approve this application",
-        icon: "info",
-        buttons: ["No", "Yes"],
-        dangerMode: true,
-      }).then((approve) => {
-        if (approve) {
+      if(this.data.enrollment_date != null )
+      {
+        if(this.data.membership_type_id != null )
+        {
+          var data = {
+            id: this.data.id,
+            enrollment_date: this.data.enrollment_date,
+            membership_type_id: this.data.membership_type_id,
+            sms_switch: this.sms_switch,
+            email_switch: this.email_switch,
+          };
+          console.log(data);
+          swal({
+            title: "Are you sure?",
+            text: "Do you really want to approve this application",
+            icon: "info",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+          }).then((approve) => {
+            if (approve) {
 
-            this.$root.$emit("pageLoading");
-        this.$http.post("api/member/accept", data).then((response) => {
-        console.log(response.body);
+                this.$root.$emit("pageLoading");
+            this.$http.post("api/member/accept", data).then((response) => {
+            console.log(response.body);
 
-            this.$root.$emit("pageLoaded");
-        swal("Member Application #" + this.data.id + "has been approved!", {
-          icon: "success",
-        });
+                this.$root.$emit("pageLoaded");
+            swal("Member Application #" + this.data.id + "has been approved!", {
+              icon: "success",
+            });
 
-        this.$bvModal.hide("ModalEditApplication");
-        this.$bvModal.hide("ModalDate");
-        this.$root.$emit("Counter");
-        this.$root.$emit("Updated_list");
-      });
-        }
+            this.$bvModal.hide("ModalEditApplication");
+            this.$bvModal.hide("ModalDate");
+            this.$root.$emit("Counter");
+            this.$root.$emit("Updated_list");
+          });
+            }
 
-            this.$root.$emit("pageLoaded");
-      });
+                this.$root.$emit("pageLoaded");
+          });
+      }
+      else
+      swal("Please Select Membership Type");
+    }
+    else
+      swal("Please Select Membership Date");
     },
     btnReject() {
       var data = {
@@ -4211,14 +4240,14 @@ export default {
       window.open(this.$img_path + file);
     },
     checkCopy() {
-      if (this.copyPresent == "copy") {
-        this.data.permanent_address = this.data.present_residential;
+      if (this.copyPresent == true) {
+        this.data.permanent_address = this.present_residential;
       } else {
         this.data.permanent_address = "";
       }
     },
     checker() {
-      console.log(this.data.income_source);
+      console.log(this.data.income_source_arr);
     },
     printform()
     {
