@@ -105,10 +105,6 @@ export default {
             {
               href: "/ManageBranch",
               title: "Branch"
-            },
-            {
-              href: "/ManageMembershipType",
-              title: "Membership Type"
             }
           ]
         };

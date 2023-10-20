@@ -22,7 +22,12 @@ class MemberController extends Controller
 
     public function __construct()
     {
-        $this->mainComand = member::with(['barangay_object', 'city_object', 'country_object', 'branch', 'member_details',  'member_reference', 'member_valid', 'membership_type']);
+        $this->mainComand = member::with([
+            // 'barangay_object.city.province.region.coutry',
+            // 'country_object.regions.provinces.cities.barangays',
+            'barangay_object',
+            'branch', 'member_details',  'member_reference', 'member_valid', 'membership_type'
+        ]);
     }
     public function index()
     {

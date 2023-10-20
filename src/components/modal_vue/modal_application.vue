@@ -31,7 +31,7 @@
                     type="radio"
                     name="membership_status"
                     value="I"
-                    v-model.trim="member.membership_status"
+                    v-model.trim="member.membership_status1"
                     v-validate="'required'"
                   />
                   <div class="state p-success">
@@ -47,7 +47,7 @@
                     type="radio"
                     name="membership_status"
                     value="A"
-                    v-model.trim="member.membership_status"
+                    v-model.trim="member.membership_status1"
                     v-validate="'required'"
                   />
                   <div class="state p-success">
@@ -70,7 +70,7 @@
             <br />
             <div
               class="rowFields mx-auto row"
-              v-if="member.membership_status == 'A'"
+              v-if="member.membership_status1 == 'A'"
             >
               <div class="col-lg-2">
                 <p class="msg">Account No.:</p>
@@ -138,7 +138,7 @@
           <div
             class="col-md-3 image-preview"
             :hidden="
-              member.membership_status == '' ||
+              member.membership_status1 == '' ||
               member.email == '' ||
               member.branch_id == ''
             "
@@ -150,7 +150,7 @@
         <div
           class="row"
           :hidden="
-            member.membership_status == '' ||
+            member.membership_status1 == '' ||
             member.email == '' ||
             member.branch_id == ''
           "
@@ -181,7 +181,7 @@
         <div
           id="tabs"
           :hidden="
-            member.membership_status == '' ||
+            member.membership_status1 == '' ||
             member.email == '' ||
             member.branch_id == ''
           "
@@ -469,11 +469,16 @@
                           <label> Female</label>
                         </div>
                       </div>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('gender')"
-                        >This field is required.</small
+                       <div
+                        class="pretty p-icon p-curve p-jelly"
+                        style="margin-top: 15px"
                       >
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('gender')"
+                          >This field is required.</small
+                        >
+                       </div>
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -598,7 +603,7 @@
                         <input
                           type="radio"
                           name="resident"
-                          value="Yes"
+                          value="1"
                           v-model.trim="member.resident"
                           v-validate="'required'"
                         />
@@ -614,7 +619,7 @@
                         <input
                           type="radio"
                           name="resident"
-                          value="No"
+                          value="2"
                           v-model.trim="member.resident"
                           v-validate="'required'"
                         />
@@ -635,7 +640,7 @@
                         >
                       </div>
                     </div>
-                    <div class="col-lg-4" v-if="member.resident == 'No'">
+                    <div class="col-lg-4" v-if="member.resident == '2'">
                       <input
                         type="text"
                         name="resident_citizenship"
@@ -654,7 +659,7 @@
                       <small
                         class="text-danger pull-left"
                         v-show="
-                          member.resident == 'No' &&
+                          member.resident == '2' &&
                           member.resident_citizenship == ''
                         "
                         >This field is required.</small
@@ -694,7 +699,6 @@
                           name="Civil_status"
                           value="MAR"
                           v-model.trim="member.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -710,7 +714,6 @@
                           name="Civil_status"
                           value="WID"
                           v-model.trim="member.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -726,7 +729,6 @@
                           name="Civil_status"
                           value="SEP"
                           v-model.trim="member.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -742,19 +744,24 @@
                           name="Civil_status"
                           value="WLIVE"
                           v-model.trim="member.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
                           <label> W/Live-in Partner</label>
                         </div>
                       </div>
-                      <small
+                       <div
+                        class="pretty p-icon p-curve p-jelly"
+                        style="margin-top: 15px"
+                      >
+                         <small
                         class="text-danger pull-left"
                         v-show="errors.has('Civil_status')"
-                        >This field is required.</small
-                      >
+                        >Civil Status field is required.</small>
+                      </div>
+
                     </div>
+
                   </div>
 
                   <div class="rowFields mx-auto row">
@@ -1082,8 +1089,9 @@
                     </div>
                     <div class="col-lg-9">
                       <b-form-select
-                        name="title"
-                        ref="title"
+                        name="mother_title"
+                        ref="mother_title"
+                        v-validate="'required'"
                         v-model="member.mother_title"
                         :options="title_options"
                         size="sm"
@@ -1234,8 +1242,9 @@
                     </div>
                     <div class="col-lg-9">
                       <b-form-select
-                        name="title"
-                        ref="title"
+                        name="father_title"
+                        ref="father_title"
+                        v-validate="'required'"
                         v-model="member.father_title"
                         :options="title_options"
                         size="sm"
@@ -1752,70 +1761,121 @@
                 <form>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Country:</p>
+                      <p class="msg"><span class="red">*</span> Country:</p>
                     </div>
                     <div class="col-lg-9">
                       <model-list-select
                         :list="countries"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="country_object"
+                        v-model.trim="country_selected"
                         placeholder="Select Country"
                         name="country"
+                        @input="onChangeCountry()"
+                        autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
                       <small
                         class="text-danger pull-left"
-                        v-show="errors.has('country')"
+                        v-show="country_selected.name == ''"
                         >Country is required.</small
                       >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Municipality/City:</p>
+                      <p class="msg"><span class="red">*</span> Region:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="regions"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="region_selected"
+                        placeholder="Select Region"
+                        name="region"
+                        @input="onChangeRegion()"
+                        autocomplete="off"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="region_selected.name == ''"
+                        >Region is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg"><span class="red">*</span> Province:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="provinces"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="province_selected"
+                        placeholder="Select Province"
+                        name="province"
+                        @input="onChangeProvince()"
+                        autocomplete="off"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="province_selected.name == ''"
+                        >Province is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg"><span class="red">*</span> Municipality/City:</p>
                     </div>
                     <div class="col-lg-9">
                       <model-list-select
                         :list="cities"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="city_object"
+                        v-model.trim="city_selected"
                         placeholder="Select City"
                         name="city"
+                        @input="onChangeCity()"
+                        autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
                       <small
                         class="text-danger pull-left"
-                        v-show="errors.has('city')"
+                        v-show="city_selected.name == ''"
                         >City is required.</small
                       >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Barangay:</p>
+                      <p class="msg"><span class="red">*</span> Barangay:</p>
                     </div>
                     <div class="col-lg-9">
                       <model-list-select
                         :list="barangays"
                         option-value="id"
                         option-text="name"
-                        v-model.trim="barangay_object"
+                        v-model.trim="barangay_selected"
                         placeholder="Select Barangay"
                         name="barangay"
+                        autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
                       <small
                         class="text-danger pull-left"
-                        v-show="errors.has('barangay')"
+                        v-show="barangay_selected.name == ''"
                         >Barangay is required.</small
                       >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Street/House No./Block No:</p>
+                      <p class="msg"><span class="red">*</span> Street/House No./Block No:</p>
                     </div>
                     <div class="col-lg-9">
                       <input
@@ -1841,7 +1901,7 @@
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">Postal Code:</p>
+                      <p class="msg"><span class="red">*</span> Postal Code:</p>
                     </div>
                     <div class="col-lg-9">
                       <input
@@ -1875,9 +1935,7 @@
                         class="form-control"
                         v-validate="'required'"
                         v-model.trim="present_residential"
-                        placeholder="Full Address
-                        (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
-                        Province, Country)"
+                        placeholder="Full Address"
                       ></textarea>
 
                       <small
@@ -1900,6 +1958,7 @@
                           type="radio"
                           name="ownership_present"
                           ref="ownership_present"
+                          v-validate="'required'"
                           value="Owned"
                           v-model.trim="member.ownership_present"
                         />
@@ -1972,12 +2031,15 @@
                           <label> Living w/ Parents or Relatives</label>
                         </div>
                       </div>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('ownership_present')"
-                        >This field is required.</small
-                      >
+
+
                     </div>
+
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('ownership_present')"
+                          >This field is required.</small
+                        >
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
@@ -2077,9 +2139,7 @@
                           member.permanent_address =
                             $event.target.value.toUpperCase()
                         "
-                        placeholder="Full Address
-                        (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
-                        Province, Country)"
+                        placeholder="Full Address"
                       ></textarea>
                       <small
                         class="text-danger pull-left"
@@ -2116,6 +2176,7 @@
                           name="ownership_permanent"
                           ref="ownership_permanent"
                           value="Owned"
+                          v-validate="'required'"
                           v-model.trim="member.ownership_permanent"
                         />
                         <div class="state p-success">
@@ -2187,12 +2248,12 @@
                           <label> Living w/ Parents or Relatives</label>
                         </div>
                       </div>
-                      <small
+                    </div>
+                     <small
                         class="text-danger pull-left"
                         v-show="errors.has('ownership_permanent')"
                         >This field is required.</small
                       >
-                    </div>
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
@@ -2696,9 +2757,7 @@
                               member.bn_address =
                                 $event.target.value.toUpperCase()
                             "
-                            placeholder="Full Address
-                        (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
-                        Province, Country)"
+                            placeholder="Full Address"
                           ></textarea>
                           <small
                             class="text-danger pull-left"
@@ -2861,9 +2920,7 @@
                               member.emp_address =
                                 $event.target.value.toUpperCase()
                             "
-                            placeholder="Full Address
-                      (Unit No, Blk No. Lot No, Sitio/Subdvision/Village, Brgy, Municipality/City,
-                      Province, Country)"
+                            placeholder="Full Address"
                           ></textarea>
 
                           <small
@@ -3415,7 +3472,8 @@ export default {
         birthcountry: "",
         birthplace: "",
         civil_stat: "",
-        membership_status: "",
+        membership_status: "A",
+        membership_status1: "",
         monthly_present: "",
         occupied_present: "",
         last_update_present: "",
@@ -3505,18 +3563,6 @@ export default {
         benef_relation_2: "",
         benef_contact_2: ""
       },
-      barangay_object: {
-        name: "",
-        id: ""
-      },
-      city_object: {
-        name: "",
-        id: ""
-      },
-      country_object: {
-        name: "",
-        id: ""
-      },
       data: [],
       Dateoptions: {
         format: "YYYY-MM-DD",
@@ -3524,9 +3570,18 @@ export default {
       },
       title_options: [
         { value: "", text: "Please select title" },
-        { value: "MS.", text: "MS." },
-        { value: "MRS.", text: "MRS." },
-        { value: "MR.", text: "MR." },
+        { value: "10", text: "Mr." },
+        { value: "11", text: "Ms." },
+        { value: "12", text: "Miss" },
+        { value: "13", text: "Mrs." },
+        { value: "14", text: "Dr." },
+        { value: "15", text: "Prof." },
+        { value: "16", text: "Hon." },
+        { value: "17", text: "Lady" },
+        { value: "18", text: "Major" },
+        { value: "19", text: "Sir" },
+        { value: "20", text: "Madam" },
+        { value: "21", text: "Rev." },
       ],
       income_options: [
         { value: "", text: "Please select period" },
@@ -3557,21 +3612,45 @@ export default {
       sms_switch: false,
       email_switch: false,
       countries: [],
+      regions: [],
+      provinces: [],
       cities: [],
       barangays: [],
+      country_selected: {
+        name: "",
+        id: ""
+      },
+      region_selected: {
+        name: "",
+        id: ""
+      },
+      province_selected: {
+        name: "",
+        id: ""
+      },
+      city_selected: {
+        name: "",
+        id: ""
+      },
+      barangay_selected: {
+        name: "",
+        id: ""
+      }
 
     };
   },
   computed: {
   present_residential() {
+    if(this.barangay_selected != null && this.city_selected != null &&
+    this.country_selected != null && this.member != null )
     return (
       this.member.street +
-      " BRGY " +
-      this.barangay_object.name +
+      " " +
+      this.barangay_selected.name +
       ", " +
-      this.city_object.name +
+      this.city_selected.name +
       ", " +
-      this.country_object.name +
+      this.country_selected.name +
       ", " +
       this.member.postal_code
     );
@@ -3602,12 +3681,12 @@ export default {
       this.$http.get("api/getCountries").then(function (response) {
         this.countries = response.body;
       });
-      this.$http.get("api/getCities").then(function (response) {
-        this.cities = response.body;
-      });
-      this.$http.get("api/getBarangays").then(function (response) {
-        this.barangays = response.body;
-      });
+      // this.$http.get("api/getCities").then(function (response) {
+      //   this.cities = response.body;
+      // });
+      // this.$http.get("api/getBarangays").then(function (response) {
+      //   this.barangays = response.body;
+      // });
     },
 
     previewImage: function (e, image) {
@@ -3656,11 +3735,21 @@ export default {
       this.member.sms_switch = this.sms_switch;
       this.member.email_switch = this.email_switch;
       this.member.present_residential = this.present_residential;
-      this.member.barangay = this.barangay_object.id;
-      this.member.city = this.city_object.id;
-      this.member.country = this.country_object.id;
+      this.member.barangay = this.barangay_selected.id;
+      this.member.city = this.city_selected.id;
+      this.member.province = this.province_selected.id;
+      this.member.region = this.region_selected.id;
+      this.member.country = this.country_selected.id;
+      this.member.membership_status = "A";
       console.log(this.member);
       console.log(this.$validator.validate());
+
+       if(this.barangay_selected.id == '' && this.city_selected.id == '' &&
+    this.province_selected.id == '' && this.region_selected.id == '' && this.country_selected.id == '' )
+    {
+      swal("Warning!", "Please complete the address", "warning");
+    }
+    else
       if (
         this.member.sss == "" &&
         this.member.gsis == "" &&
@@ -3718,14 +3807,14 @@ export default {
         branch_id: 1,
         email: "bismontepeter@gmail.com",
         acc_no: "",
-        title: "MS.",
+        title: "10",
         nickname: "NICKNAME",
         first_name: "first_name",
         mid_name: "TEST",
         last_name: "TEST",
         prev_last_name: "TEST",
         suffix: "",
-        resident: "No",
+        resident: "2",
         resident_citizenship: "filipino",
         age: "23",
         gender: "M",
@@ -3737,8 +3826,8 @@ export default {
         nationality: "Filipino",
         birthcountry: "PH",
         birthplace: "14",
-        civil_stat: "single",
-        membership_status: "I",
+        civil_stat: null,
+        membership_status: "A",
         present_residential: "",
         monthly_present: "10,000",
         occupied_present: "2000-01-01",
@@ -3756,12 +3845,12 @@ export default {
         spouse_occupation: "Korean Superstar",
         spouse_employer: "Wa ko Kabalo",
         spouse_address: "South Korea",
-        mother_title: "MRS.",
+        mother_title: null,
         mother_first_name: "Lolet",
         mother_mid_name: "Polbo",
         mother_last_name: "Monte",
         mother_suffix: "II",
-        father_title: "MR.",
+        father_title: null,
         father_first_name: "Realito",
         father_mid_name: "Resurreccion",
         father_last_name: "Morta",
@@ -3839,6 +3928,76 @@ export default {
         this.member.permanent_address = "";
       }
     },
+    onChangeCountry()
+    {
+      console.log(this.country_selected);
+      this.regions = this.country_selected.regions;
+      this.provinces = [];
+      this.cities = [];
+      this.barangays = [];
+      this.region_selected = {
+        name: "",
+        id: ""
+      };
+      this.province_selected = {
+        name: "",
+        id: ""
+      };
+      this.city_selected = {
+        name: "",
+        id: ""
+      };
+      this.barangay_selected = {
+        name: "",
+        id: ""
+      };
+    },
+    onChangeRegion()
+    {
+      console.log(this.region_selected);
+      this.provinces = this.region_selected.provinces;
+      this.cities = [];
+      this.barangays = [];
+      this.province_selected = {
+        name: "",
+        id: ""
+      };
+      this.city_selected = {
+        name: "",
+        id: ""
+      };
+      this.barangay_selected = {
+        name: "",
+        id: ""
+      };
+    },
+    onChangeProvince()
+    {
+      console.log(this.province_selected);
+      this.cities = this.province_selected.cities;
+      this.barangays = [];
+      this.city_selected = {
+        name: "",
+        id: ""
+      };
+      this.barangay_selected = {
+        name: "",
+        id: ""
+      };
+    },
+    onChangeCity()
+    {
+      console.log(this.city_selected);
+      this.barangays = this.city_selected.barangays;
+      this.barangay_selected = {
+        name: "",
+        id: ""
+      };
+    },
+    clearAddress()
+    {
+      //
+    }
   },
 };
 </script>

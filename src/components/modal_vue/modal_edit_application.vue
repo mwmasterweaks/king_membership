@@ -113,7 +113,7 @@
               </div>
               <div class="col-lg-9">
                 <b-form-select
-                  v-model="data.membership_type_id"
+                  v-model="data.membership_type"
                   :options="membership_type_list"
                   size="sm"
                   class="mt-3"
@@ -557,7 +557,7 @@
                         <input
                           type="radio"
                           name="resident"
-                          value="Yes"
+                          value="1"
                           v-model.trim="data.resident"
                           v-validate="'required'"
                         />
@@ -573,7 +573,7 @@
                         <input
                           type="radio"
                           name="resident"
-                          value="No"
+                          value="2"
                           v-model.trim="data.resident"
                           v-validate="'required'"
                         />
@@ -594,7 +594,7 @@
                         >
                       </div>
                     </div>
-                    <div class="col-lg-4" v-if="data.resident == 'No'">
+                    <div class="col-lg-4" v-if="data.resident == '2'">
                       <input
                         type="text"
                         name="resident_citizenship"
@@ -613,7 +613,7 @@
                       <small
                         class="text-danger pull-left"
                         v-show="
-                          data.resident == 'No' &&
+                          data.resident == '2' &&
                           data.resident_citizenship == ''
                         "
                         >This field is required.</small
@@ -651,7 +651,6 @@
                           name="civil_stat"
                           value="MAR"
                           v-model.trim="data.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -667,7 +666,6 @@
                           name="civil_stat"
                           value="WID"
                           v-model.trim="data.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -683,7 +681,6 @@
                           name="civil_stat"
                           value="SEP"
                           v-model.trim="data.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -699,7 +696,6 @@
                           name="civil_stat"
                           value="WLIVE"
                           v-model.trim="data.civil_stat"
-                          v-validate="'required'"
                         />
                         <div class="state p-success">
                           <i class="icon mdi mdi-check"></i>
@@ -1020,6 +1016,7 @@
                       <b-form-select
                         name="mother_title"
                         ref="mother_title"
+                        v-validate="'required'"
                         v-model="data.mother_title"
                         :options="title_options"
                         size="sm"
@@ -1166,6 +1163,7 @@
                       <b-form-select
                         name="father_title"
                         ref="father_title"
+                        v-validate="'required'"
                         v-model="data.father_title"
                         :options="title_options"
                         size="sm"
@@ -1622,18 +1620,66 @@
                         v-model.trim="data.country_object"
                         placeholder="Select Country"
                         name="country"
+                        @input="onChangeCountry()"
+                        autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
                       <small
                         class="text-danger pull-left"
-                        v-show="errors.has('country')"
+                        v-show="data.country_object.name == ''"
                         >Country is required.</small
                       >
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
                     <div class="col-lg-2">
-                      <p class="msg">City:</p>
+                      <p class="msg">Region:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="regions"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="data.region_object"
+                        placeholder="Select Region"
+                        name="region"
+                        @input="onChangeRegion()"
+                        autocomplete="off"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="data.region_object.name == ''"
+                        >Region is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Province:</p>
+                    </div>
+                    <div class="col-lg-9">
+                      <model-list-select
+                        :list="provinces"
+                        option-value="id"
+                        option-text="name"
+                        v-model.trim="data.province_object"
+                        placeholder="Select Province"
+                        name="province"
+                        @input="onChangeProvince()"
+                        autocomplete="off"
+                        v-validate="'required'"
+                      ></model-list-select>
+                      <small
+                        class="text-danger pull-left"
+                        v-show="data.province_object.name == ''"
+                        >Province is required.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="rowFields mx-auto row">
+                    <div class="col-lg-2">
+                      <p class="msg">Municipality/City:</p>
                     </div>
                     <div class="col-lg-9">
                       <model-list-select
@@ -1643,11 +1689,13 @@
                         v-model.trim="data.city_object"
                         placeholder="Select City"
                         name="city"
+                        @input="onChangeCity()"
+                        autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
                       <small
                         class="text-danger pull-left"
-                        v-show="errors.has('city')"
+                        v-show="data.city_object.name == ''"
                         >City is required.</small
                       >
                     </div>
@@ -1668,7 +1716,7 @@
                       ></model-list-select>
                       <small
                         class="text-danger pull-left"
-                        v-show="errors.has('barangay')"
+                        v-show="data.barangay_object.name == ''"
                         >Barangay is required.</small
                       >
                     </div>
@@ -3322,7 +3370,7 @@
                   </p>
                 </div>
                 <div class="rowFields mx-auto row">
-                  <p class="data-print" v-if="data.resident == 'No'">
+                  <p class="data-print" v-if="data.resident == '2'">
                     <b>Resident:</b> {{ data.resident_citizenship }}
                   </p>
                   <p class="data-print" v-else>
@@ -3873,7 +3921,7 @@
          <div class="col-lg-2"></div>
         <div class="col-lg-6">
           <b-form-select
-            v-model="data.membership_type_id"
+            v-model="data.membership_type"
             :options="membership_type_list"
             size="sm"
             class="mt-3"
@@ -3919,7 +3967,7 @@ import print_preview from "../routes/APPLICATIONS/PrintPreview.vue";
 import print_ids from "../routes/APPLICATIONS/PrintIDs.vue";
 
 export default {
-  props: ["data"],
+  props: ["data", "countries", "regions","provinces","cities","barangays"],
   components: {
     print_preview,
     print_ids,
@@ -3960,9 +4008,18 @@ export default {
       branch_name: {},
       title_options: [
         { value: "", text: "Please select title" },
-        { value: "MS.", text: "MS." },
-        { value: "MRS.", text: "MRS." },
-        { value: "MR.", text: "MR." },
+        { value: "10", text: "Mr." },
+        { value: "11", text: "Ms." },
+        { value: "12", text: "Miss" },
+        { value: "13", text: "Mrs." },
+        { value: "14", text: "Dr." },
+        { value: "15", text: "Prof." },
+        { value: "16", text: "Hon." },
+        { value: "17", text: "Lady" },
+        { value: "18", text: "Major" },
+        { value: "19", text: "Sir" },
+        { value: "20", text: "Madam" },
+        { value: "21", text: "Rev." },
       ],
       income_options: [
         { value: "", text: "Please select period" },
@@ -3970,13 +4027,17 @@ export default {
         { value: "Monthly", text: "Monthly" },
         { value: "Annually", text: "Annually" },
       ],
-      membership_type_list: [],
+      membership_type_list: [
+         { id: "R", name: "Regular" },
+         { id: "A", name: "Associate" },
+         { id: "E", name: "Co-Maker" },
+         { id: "K", name: "Kiddies" },
+         { id: "Y", name: "Youth" },
+         { id: "T", name: "Teen" },
+      ],
       copyPresent: "not_copy",
       sms_switch: false,
       email_switch: false,
-      countries: [],
-      cities: [],
-      barangays: [],
     };
   },
   mounted() {
@@ -3986,7 +4047,7 @@ export default {
   computed: {
   present_residential() {
     return this.data.street +
-      " BRGY " +
+      " " +
       this.data.barangay_object.name +
       ", " +
       this.data.city_object.name +
@@ -4017,16 +4078,6 @@ export default {
         this.email_switch = false;
       }
 
-      this.$http.get("api/MembershipType").then(function(response) {
-        this.membership_type_list = response.body;
-        var temp = { value: null, name: 'Select Membership Type', disabled: true };
-        this.membership_type_list.unshift(temp);
-
-      });
-
-      this.$http.get("api/getCountries").then(function (response) {
-        this.countries = response.body;
-      });
       this.$http.get("api/getCities").then(function (response) {
         this.cities = response.body;
       });
@@ -4075,11 +4126,21 @@ export default {
       temp.valid_id_2_text = this.valid_id_2_text;
       temp.sketch_text = this.sketch_text;
       temp.sketch_text2 = this.sketch_text2;
-
       temp.present_residential = this.present_residential;
+      temp.barangay = this.data.barangay_object.id;
+      temp.city = this.data.city_object.id;
+      temp.province = this.data.province_object.id;
+      temp.region = this.data.region_object.id;
+      temp.country = this.data.country_object.id;
       if(list.length > 0)
         temp.income_source = list.join(", ");
 
+      if(this.data.barangay_object.id != '' && this.data.city_object.id != '' &&
+      this.data.province_object.id != '' && this.data.region_object.id != '' && this.data.country_object.id != '' )
+      {
+        swal("Warning!", "Please complete the address", "warning");
+      }
+      else
       if (
         this.data.sss == "" &&
         this.data.gsis == "" &&
@@ -4156,12 +4217,12 @@ export default {
     btnApprove() {
       if(this.data.enrollment_date != null )
       {
-        if(this.data.membership_type_id != null )
+        if(this.data.membership_type != null )
         {
           var data = {
             id: this.data.id,
             enrollment_date: this.data.enrollment_date,
-            membership_type_id: this.data.membership_type_id,
+            membership_type: this.data.membership_type,
             sms_switch: this.sms_switch,
             email_switch: this.email_switch,
           };
@@ -4259,7 +4320,72 @@ export default {
       // let route = this.$router.resolve({ path: "/printid/"+id+"/edit" });
       // window.open(route.href);
     },
-
+    onChangeCountry()
+    {
+      console.log(this.data.country_object);
+      this.regions = this.data.country_object.regions;
+      this.provinces = [];
+      this.cities = [];
+      this.barangays = [];
+      this.data.region_object = {
+        name: "",
+        id: ""
+      };
+      this.data.province_object = {
+        name: "",
+        id: ""
+      };
+      this.data.city_object = {
+        name: "",
+        id: ""
+      };
+      this.data.barangay_object = {
+        name: "",
+        id: ""
+      };
+    },
+    onChangeRegion()
+    {
+      console.log(this.data.region_object);
+      this.provinces = this.data.region_object.provinces;
+      this.cities = [];
+      this.barangays = [];
+      this.data.province_object = {
+        name: "",
+        id: ""
+      };
+      this.data.city_object = {
+        name: "",
+        id: ""
+      };
+      this.data.barangay_object = {
+        name: "",
+        id: ""
+      };
+    },
+    onChangeProvince()
+    {
+      console.log(this.data.province_object);
+      this.cities = this.data.province_object.cities;
+      this.barangays = [];
+      this.data.city_object = {
+        name: "",
+        id: ""
+      };
+      this.data.barangay_object = {
+        name: "",
+        id: ""
+      };
+    },
+    onChangeCity()
+    {
+      console.log(this.data.city_object);
+      this.barangays = this.data.city_object.barangays;
+      this.data.barangay_object = {
+        name: "",
+        id: ""
+      };
+    }
   },
 };
 </script>

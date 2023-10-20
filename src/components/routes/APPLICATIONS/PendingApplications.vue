@@ -108,7 +108,15 @@
     </div>
 
     <!-- <modal_edit_application></modal_edit_application> -->
-    <modal_edit_application v-bind:data="member"></modal_edit_application>
+    <modal_edit_application
+      v-bind:data="member"
+      v-bind:countries="countries"
+      v-bind:regions="regions"
+      v-bind:provinces="provinces"
+      v-bind:cities="cities"
+      v-bind:barangays="barangays"
+      >
+    </modal_edit_application>
   </div>
 </template>
 <script>
@@ -289,6 +297,11 @@ export default {
       roles: [],
       branches: [],
       authenticatedUser: {},
+      countries: [],
+      regions: [],
+      provinces: [],
+      cities: [],
+      barangays: [],
     };
   },
   beforeCreate() {
@@ -327,6 +340,10 @@ export default {
         });
     },
     load() {
+
+       this.$http.get("api/getCountries").then(function (response) {
+        this.countries = response.body;
+      });
       this.$nextTick(function () {
         setTimeout(function () {}, 100);
       });
@@ -352,17 +369,59 @@ export default {
       this.$root.$emit("pageLoading");
       var id = item.id;
       this.$http.get("api/Member/" + id).then((response) => {
+         const {country, region, province, city } = this.getAddressesOptions(item.barangay_object.id);
         var temp = response.body
         const incomeSourceValue = temp.income_source;
         if (incomeSourceValue === "")
           temp.income_source_arr = [];
         else
           temp.income_source_arr = incomeSourceValue.split(", ");
+
+
+        temp.country_object = country;
+        temp.region_object = region;
+        temp.province_object = province;
+        temp.city_object = city;
         console.log(temp);
         this.member = temp;
         this.$bvModal.show("ModalEditApplication");
         this.$root.$emit("pageLoaded");
       });
+    },
+    getAddressesOptions(barangayID) {
+      const result = {
+        country: null,
+        region: null,
+        province: null,
+        city: null,
+        //barangay: null
+      };
+
+      for (const country of this.countries) {
+        for (const region of country.regions) {
+          for (const province of region.provinces) {
+            for (const city of province.cities) {
+
+              const foundBarangay = city.barangays.find((bar) => bar.id === barangayID);
+              if (foundBarangay) {
+                this.regions = country.regions;
+                this.provinces = region.provinces;
+                this.cities = province.cities;
+                this.barangays = city.barangays;
+
+                result.country= country;
+                result.region= region;
+                result.province= province;
+                result.city= city;
+                //result.barangay= foundBarangay;
+                return result;
+              }
+
+            }
+          }
+        }
+      }
+      return result; // Return an empty result if province not found
     },
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();

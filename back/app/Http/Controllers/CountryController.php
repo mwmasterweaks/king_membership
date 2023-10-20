@@ -2,39 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\branch;
 use App\country;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection;
 use Carbon\Carbon;
-use stdClass;
+use Illuminate\Support\Facades\DB;
 
-
-class BranchController extends Controller
+class CountryController extends Controller
 {
-    private $cname = "BranchController";
+    private $cname = "CountryController";
     public function index()
     {
-        $tbl = branch::all();
-
-        return response()->json($tbl);
-    }
-
-    public function getCountries()
-    {
         $tbl = country::with('regions.provinces.cities.barangays')->get();
+
         return response()->json($tbl);
-    }
-    public function getCities()
-    {
-        $tbl = DB::table('cities')->get();
-        return $tbl;
-    }
-    public function getBarangays()
-    {
-        $tbl = DB::table('barangays')->get();
-        return $tbl;
     }
 
     public function create()
@@ -45,23 +25,22 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         try {
-            // return $request;
-            $data = branch::create($request->all());
-
+            $data = country::create($request->all());
             \Logger::instance()->log(
                 Carbon::now(),
                 $request->user_id,
+                $request->user_name,
                 $this->cname,
                 "store",
                 "message",
-                "Create new Branch: " . $data
+                "Create new country: " . $data
             );
-
             return $this->index();
         } catch (\Exception $ex) {
             \Logger::instance()->logError(
                 Carbon::now(),
                 $request->user_id,
+                $request->user_name,
                 $this->cname,
                 "store",
                 "Error",
@@ -73,45 +52,42 @@ class BranchController extends Controller
 
     public function show($id)
     {
-        $tbl = branch::where("id", $id)->get();
+        $tbl = country::where("id", $id)->get();
 
         return response()->json($tbl);
     }
 
-
-    public function edit(branch $branch)
+    public function edit(country $country)
     {
         //
     }
 
-
-    public function UpdateBranch(Request $request)
+    public function update(Request $request, $id)
     {
         try {
 
-            $id = $request->id;
-            $cmd  = branch::findOrFail($id);
+            $cmd  = country::findOrFail($id);
             $logFrom = $cmd->replicate();
             $input = $request->all();
 
             $cmd->fill($input)->save();
-
             $logTo = $cmd;
 
             \Logger::instance()->log(
                 Carbon::now(),
                 $request->user_id,
+                $request->user_name,
                 $this->cname,
                 "update",
                 "message",
-                "update Branch id " . $id . "\r\nFrom: " . $logFrom . "\r\nTo: " . $logTo
+                "update country id " . $id . "\nFrom: " . $logFrom . "\nTo: " . $logTo
             );
-
             return $this->index();
         } catch (\Exception $ex) {
             \Logger::instance()->logError(
                 Carbon::now(),
                 $request->user_id,
+                $request->user_name,
                 $this->cname,
                 "update",
                 "Error",
@@ -124,8 +100,8 @@ class BranchController extends Controller
     public function destroy($id)
     {
         try {
-            $tbl1 = branch::findOrFail($id);
-            branch::destroy($id);
+            $tbl1 = country::findOrFail($id);
+            country::destroy($id);
 
             \Logger::instance()->log(
                 Carbon::now(),
@@ -134,13 +110,14 @@ class BranchController extends Controller
                 $this->cname,
                 "destroy",
                 "message",
-                "delete Branch id " . $id .
-                    "\nOld Branch: " . $tbl1
+                "delete country id " . $id .
+                    "\nOld country: " . $tbl1
             );
+
 
             return $this->index();
         } catch (\Exception $ex) {
-            \Logger::instance()->logError(
+            \Logger::instance()->log(
                 Carbon::now(),
                 "",
                 "",
