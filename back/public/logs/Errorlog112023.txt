@@ -1,0 +1,2 @@
+2023-11-17 11:56:24	--		--		--	MemberController	--	approve	--	Error	--	SQLSTATE[42S22]: Column not found: 1054 Unknown column 'membership_type_id' in 'field list' (SQL: update `members` set `application_status` = Approved, `membership_status` = A, `enrollment_date` = 2023-11-17, `membership_type_id` = ?, `updated_at` = 2023-11-17 11:56:24 where `id` = 7)
+

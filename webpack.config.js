@@ -8,6 +8,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./Membership/dist"),
     publicPath: "/Membership/dist/",
+    // path: path.resolve(__dirname, "./dist"),
+    // publicPath: "dist/",
     filename: "build.js"
   },
   module: {
@@ -103,12 +105,12 @@ if (process.env.NODE_ENV === "production") {
   ]);
 }
 //vue-bootstrap-datetimepicker
-plugins: [
-  new webpack.ProvidePlugin({
-    Vue: ["vue/dist/vue.esm.js", "default"],
-    jQuery: "jquery",
-    "window.jQuery": "jquery",
-    $: "jquery",
-    moment: "moment"
-  })
-];
+// plugins: [
+//   new webpack.ProvidePlugin({
+//     Vue: ["vue/dist/vue.esm.js", "default"],
+//     jQuery: "jquery",
+//     "window.jQuery": "jquery",
+//     $: "jquery",
+//     moment: "moment"
+//   })
+// ];

@@ -171,6 +171,7 @@
               v-validate="'required'"
               ref="image"
             />
+            or
             <small
               class="text-danger pull-left"
               v-show="this.picture_text == ''"
@@ -3314,15 +3315,14 @@
                         @change="previewImage($event, 'valid-id1')"
                         accept="image/*,application/pdf"
                         class="image-input"
-                        v-validate="'required'"
                         name="Valid_ID_1"
                         ref="image"
                       />
-                      <!-- <small
-                        class="text-danger pull-left"
-                        v-show="this.valid_id_1_text == ''"
-                        >Please upload your photo.</small
-                      > -->
+                      or
+                       <button
+                       type="button"
+                        @click="takePhoto('valid_id1')"
+                        >take photo</button>
                     </div>
                     <div class="col-lg-2"></div>
                     <div class="col-lg-4">
@@ -3339,6 +3339,11 @@
                         name="Valid_ID_2"
                         ref="image"
                       />
+                      or
+                       <button
+                       type="button"
+                        @click="takePhoto('valid_id2')"
+                        >take photo</button>
                       <!-- <small
                         class="text-danger pull-left"
                         v-show="this.valid_id_2_text == ''"
@@ -3362,10 +3367,14 @@
                         @change="previewImage($event, 'sketch')"
                         accept="image/*,application/pdf"
                         class="image-input"
-                        v-validate="'required'"
                         name="Home_Address_Sketch"
                         ref="image"
                       />
+                      or
+                       <button
+                       type="button"
+                        @click="takePhoto('Home_Address_Sketch')"
+                        >take photo</button>
                       <small
                         class="text-danger pull-left"
                         v-show="this.sketch_text == ''"
@@ -3393,9 +3402,14 @@
                         @change="previewImage($event, 'sketch2')"
                         accept="image/*,application/pdf"
                         class="image-input"
-                        name="image"
-                        ref="image"
+                        name="businessAddress"
+                        ref="businessAddress"
                       />
+                       or
+                       <button
+                       type="button"
+                        @click="takePhoto('businessAddress')"
+                        >take photo</button>
                       <small
                         class="text-danger pull-left"
                         v-show="this.sketch2_text == ''"
@@ -3425,6 +3439,7 @@
         </b-button>
       </template>
     </b-modal>
+    <camera v-bind:captured="captured" v-bind:field_name="field_name"></camera>
   </div>
 </template>
 <script>
@@ -3436,6 +3451,7 @@ import SingleDatePicker from "vue-single-date-picker";
 import VueRangedatePicker from "vue-rangedate-picker";
 import PrettyRadio from "pretty-checkbox-vue/radio";
 import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
+import camera from "./modal_camera.vue";
 export default {
   components: {
     "model-list-select": ModelListSelect,
@@ -3444,6 +3460,7 @@ export default {
     "date-picker": datePicker,
     "p-radio": PrettyRadio,
     SingleDatePicker,
+    camera
   },
   data() {
     return {
@@ -3635,7 +3652,8 @@ export default {
       barangay_selected: {
         name: "",
         id: ""
-      }
+      },
+      field_name: null
 
     };
   },
@@ -3696,6 +3714,7 @@ export default {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (e) => {
+        console.log(e);
         if (image == "valid-id1") {
           this.imageDataValid1 = e.target.result;
           this.valid_id_1_text = file_ext;
@@ -3720,6 +3739,7 @@ export default {
     },
 
     register() {
+
       this.member.email_body = document.getElementById("email-body").innerHTML;
 
       this.member.picture = this.imageData;
@@ -3744,50 +3764,57 @@ export default {
       console.log(this.member);
       console.log(this.$validator.validate());
 
-       if(this.barangay_selected.id == '' && this.city_selected.id == '' &&
-    this.province_selected.id == '' && this.region_selected.id == '' && this.country_selected.id == '' )
-    {
-      swal("Warning!", "Please complete the address", "warning");
-    }
-    else
-      if (
-        this.member.sss == "" &&
-        this.member.gsis == "" &&
-        this.member.otherID1_number == "" &&
-        this.member.otherID2_number == ""
-      ) {
-        swal("Warning!", "Input at least one valid ID", "warning");
-      } else {
-        this.$validator.validateAll().then((result) => {
-          if (result) {
-            this.$root.$emit("pageLoading");
-            this.$http
-              .post("api/Member", this.member)
-              .then((response) => {
-                this.$root.$emit("pageLoaded");
-                console.log(response.body);
-                swal(
-                  "Application",
-                  "Submitted successfully! Please check your email for more info.",
-                  "success"
-                ).then((value) => {
-                  window.location.href = this.$sys_path + "/login";
-                });
-              })
-              .catch((response) => {
-                console.log(response.body);
-                this.$root.$emit("pageLoaded");
-                swal({
-                  title: "Error",
-                  text: "Internal Server Error",
-                  icon: "error",
-                  dangerMode: true,
-                });
-              });
-          } else
-            swal("Warning!", "Some data has invalid or no inputs.", "warning");
-        });
+      if(this.barangay_selected.id == '' && this.city_selected.id == '' &&
+      this.province_selected.id == '' && this.region_selected.id == '' && this.country_selected.id == '' )
+      {
+        swal("Warning!", "Please complete the address", "warning");
       }
+      else
+        if (
+          this.member.sss == "" &&
+          this.member.gsis == "" &&
+          this.member.otherID1_number == "" &&
+          this.member.otherID2_number == ""
+        ) {
+          swal("Warning!", "Input at least one valid ID", "warning");
+        } else {
+          if(this.valid_id_1_text == "")
+            swal("Warning!", "Upload at least one valid ID", "warning");
+          else if(this.sketch_text == "")
+           swal("Warning!", "Home Address Sketch is required", "warning");
+          else
+          {
+            this.$validator.validateAll().then((result) => {
+              if (result) {
+                this.$root.$emit("pageLoading");
+                this.$http
+                  .post("api/Member", this.member)
+                  .then((response) => {
+                    this.$root.$emit("pageLoaded");
+                    console.log(response.body);
+                    swal(
+                      "Application",
+                      "Submitted successfully! Please check your email for more info.",
+                      "success"
+                    ).then((value) => {
+                      window.location.href = this.$sys_path + "/login";
+                    });
+                  })
+                  .catch((response) => {
+                    console.log(response.body);
+                    this.$root.$emit("pageLoaded");
+                    swal({
+                      title: "Error",
+                      text: "Internal Server Error",
+                      icon: "error",
+                      dangerMode: true,
+                    });
+                  });
+              } else
+                swal("Warning!", "Some data has invalid or no inputs.", "warning");
+            });
+          }
+        }
       // }
     },
     calcuAge(dateString) {
@@ -3997,6 +4024,30 @@ export default {
     clearAddress()
     {
       //
+    },
+    takePhoto(field){
+      this.field_name = field;
+      this.$bvModal.show("modalCamera");
+
+    },
+    captured(img, field)
+    {
+      if(field == "valid_id1")
+       { this.imageDataValid1 = img;
+        this.valid_id_1_text = "png";
+      }
+      if(field == "valid_id2")
+        {this.imageDataValid2 = img;
+        this.valid_id_2_text = "png";
+        }
+      if(field == "Home_Address_Sketch")
+        {this.imageDataSketch = img;
+        this.sketch_text = "png";
+        }
+      if(field == "businessAddress")
+       { this.imageDataSketch2 = img;
+        this.sketch2_text = "png";
+      }
     }
   },
 };

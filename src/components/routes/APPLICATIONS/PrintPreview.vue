@@ -7,7 +7,7 @@
         <tr style="background-color: rgba(255, 255, 255, 0.8)">
           <td>
             <img
-              src="../../../img/1st_page.png"
+              src="../../../img/1st_page.jpg"
               style="  width: 97%;
                 max-height: 95%;
                 padding: 0;
@@ -974,7 +974,6 @@ export default {
     return {
       user: {},
       roles: [],
-      data: [],
       branch: ""
     };
   },

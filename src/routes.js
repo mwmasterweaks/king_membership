@@ -14,6 +14,7 @@ import PrintIDs from "./components/routes/APPLICATIONS/PrintIDs.vue";
 import Employee from "./components/routes/MANAGEMENT/Employee.vue";
 import Branch from "./components/routes/MANAGEMENT/Branch.vue";
 import MembershipType from "./components/routes/MANAGEMENT/MembershipType.vue";
+import test from "./components/routes/MANAGEMENT/test.vue";
 
 // -----------------PROFILE-------------
 import Profile from "./components/others/profile.vue";
@@ -95,7 +96,13 @@ const router = new VueRouter({
         forAuth: true
       }
     },
-
+    {
+      path: "/test",
+      component: test,
+      meta: {
+        forAuth: true
+      }
+    },
     {
       path: "/Profile",
       component: Profile,

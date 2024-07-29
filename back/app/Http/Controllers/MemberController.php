@@ -534,14 +534,25 @@ class MemberController extends Controller
     {
 
         try {
+
+            $result = DB::table('members')
+                ->select(DB::raw('COALESCE(MAX(CAST(SUBSTRING(account_no, 5) AS UNSIGNED)), 0) as max_number'))
+                ->get();
+
+            $maxNumber = $result[0]->max_number + 1;
+            //branch_code
+            $numString = (string)$maxNumber;
+            // Use str_pad to add '0' prefix and ensure a maximum length of 6
+            $formattedString = str_pad($numString, 6, '0', STR_PAD_LEFT);
             $data = $request;
             DB::table('members')
                 ->where('id', $data->id)
                 ->update([
+                    'account_no' => $data->branch_code . '-' . $formattedString,
                     'application_status' => "Approved",
                     'membership_status'  => "A",
                     'enrollment_date' => $data->enrollment_date,
-                    'membership_type_id' => $data->membership_type_id,
+                    'membership_type' => $data->membership_type,
                     'updated_at' => \Carbon\Carbon::now()
                 ]);
 

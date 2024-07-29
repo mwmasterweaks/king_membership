@@ -1647,11 +1647,14 @@
                         autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
-                      <small
+                      <span v-if="data.region_object != null">
+                         <small
                         class="text-danger pull-left"
                         v-show="data.region_object.name == ''"
                         >Region is required.</small
                       >
+                      </span>
+
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -1670,11 +1673,13 @@
                         autocomplete="off"
                         v-validate="'required'"
                       ></model-list-select>
+                      <span v-if="data.province_object != null">
                       <small
                         class="text-danger pull-left"
                         v-show="data.province_object.name == ''"
                         >Province is required.</small
                       >
+                      </span>
                     </div>
                   </div>
                   <div class="rowFields mx-auto row">
@@ -4078,12 +4083,12 @@ export default {
         this.email_switch = false;
       }
 
-      this.$http.get("api/getCities").then(function (response) {
-        this.cities = response.body;
-      });
-      this.$http.get("api/getBarangays").then(function (response) {
-        this.barangays = response.body;
-      });
+      // this.$http.get("api/getCities").then(function (response) {
+      //   this.cities = response.body;
+      // });
+      // this.$http.get("api/getBarangays").then(function (response) {
+      //   this.barangays = response.body;
+      // });
     },
     previewImage: function (e, image) {
       var fileName = e.target.files[0].name;
@@ -4225,6 +4230,7 @@ export default {
             membership_type: this.data.membership_type,
             sms_switch: this.sms_switch,
             email_switch: this.email_switch,
+            branch_code: this.data.branch.code,
           };
           console.log(data);
           swal({
@@ -4235,24 +4241,20 @@ export default {
             dangerMode: true,
           }).then((approve) => {
             if (approve) {
-
-                this.$root.$emit("pageLoading");
-            this.$http.post("api/member/accept", data).then((response) => {
-            console.log(response.body);
-
+              this.$root.$emit("pageLoading");
+              this.$http.post("api/member/accept", data).then((response) => {
+                console.log(response.body);
                 this.$root.$emit("pageLoaded");
-            swal("Member Application #" + this.data.id + "has been approved!", {
-              icon: "success",
-            });
+                swal("Member Application #" + this.data.id + "has been approved!", {
+                  icon: "success",
+                });
 
-            this.$bvModal.hide("ModalEditApplication");
-            this.$bvModal.hide("ModalDate");
-            this.$root.$emit("Counter");
-            this.$root.$emit("Updated_list");
-          });
+                this.$bvModal.hide("ModalEditApplication");
+                this.$bvModal.hide("ModalDate");
+                this.$root.$emit("Counter");
+                this.$root.$emit("Updated_list");
+              });
             }
-
-                this.$root.$emit("pageLoaded");
           });
       }
       else

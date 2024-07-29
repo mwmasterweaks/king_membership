@@ -63,7 +63,6 @@ export default {
     return {
       user: {},
       roles: [],
-      data: [],
       branch: "",
     };
   },
