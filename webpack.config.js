@@ -6,10 +6,10 @@ require("babel-polyfill");
 module.exports = {
   entry: ["babel-polyfill", "./src/main.js"],
   output: {
-    path: path.resolve(__dirname, "./Membership/dist"),
-    publicPath: "/Membership/dist/",
-    // path: path.resolve(__dirname, "./dist"),
-    // publicPath: "dist/",
+    // path: path.resolve(__dirname, "./Membership/dist"),
+    // publicPath: "/Membership/dist/",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/",
     filename: "build.js"
   },
   module: {

@@ -83,7 +83,7 @@
                   v-b-tooltip.hover
                   placeholder="Please enter your account number"
                   autocomplete="off"
-                  autofocus="on"
+
                   style="margin-top: 5px"
                 />
               </div>
@@ -103,7 +103,7 @@
                   placeholder="Please enter your email"
                   v-validate="'required'"
                   autocomplete="off"
-                  autofocus="on"
+
                   style="margin-top: 5px"
                 />
                 <small
@@ -232,760 +232,544 @@
                 >
               </div>
               <div class="panel-body">
-                <form>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Title:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <b-form-select
-                        name="title"
-                        ref="title"
-                        v-model="member.title"
-                        :options="title_options"
-                        size="sm"
-                        class="mt-3"
-                      ></b-form-select>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('title')"
-                        >This field is required.</small
-                      >
-                      <!-- <input
-                        type="text"
-                        name="title"
-                        ref="title"
-                        v-model.trim="member.title"
-                        @input="
-                          member.title = $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-validate="'required'"
-                        autocomplete="off"
-                        autofocus="on"
-
-                      />
-                      -->
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Nickname:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="Nickname"
-                        ref="Nickname"
-                        v-model.trim="member.nickname"
-                        class="form-control"
-                        v-validate="'required'"
-                        autocomplete="off"
-                        autofocus="on"
-                        @input="
-                          member.nickname = $event.target.value.toUpperCase()
-                        "
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('Nickname')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> First Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="First_Name"
-                        ref="First_Name"
-                        v-model.trim="member.first_name"
-                        class="form-control"
-                        @input="
-                          member.first_name = $event.target.value.toUpperCase()
-                        "
-                        v-validate="'required'"
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('First_Name')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Middle Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="Middle_Name"
-                        ref="Middle_Name"
-                        class="form-control"
-                        v-model.trim="member.mid_name"
-                        @input="
-                          member.mid_name = $event.target.value.toUpperCase()
-                        "
-                        v-validate="'required'"
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('Middle_Name')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Last Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="Last_Name"
-                        ref="Last_Name"
-                        class="form-control"
-                        v-model.trim="member.last_name"
-                        @input="
-                          member.last_name = $event.target.value.toUpperCase()
-                        "
-                        v-validate="'required'"
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('Last_Name')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">Previous Last Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        name="prev_last_name"
-                        ref="prev_last_name"
-                        type="text"
-                        class="form-control"
-                        v-model.trim="member.prev_last_name"
-                        @input="
-                          member.prev_last_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">Suffix:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="suffix"
-                        ref="suffix"
-                        class="form-control"
-                        v-model.trim="member.suffix"
-                        @input="
-                          member.suffix = $event.target.value.toUpperCase()
-                        "
-                        placeholder="Suffix (e.g III, Jr)"
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Age:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <b-form-input
-                        type="number"
-                        name="age"
-                        ref="age"
-                        v-validate="'required|between:3,200'"
-                        class="form-control"
-                        v-model.trim="member.age"
-                        @input="member.age = $event.target.value.toUpperCase()"
-                        title="Age of the member"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('age')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Gender:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="gender"
-                          ref="gender"
-                          value="M"
-                          v-model.trim="member.gender"
+                <b-form>
+                  <b-container class="bv-example-row">
+                    <b-row class="form-row">
+                      <b-col cols="3">
+                        <label for="title">Title <span class="red">*</span> </label>
+                        <b-form-select
+                          id="title"
+                          name="title"
+                          ref="title"
+                          v-model="member.title"
+                          :options="title_options"
                           v-validate="'required'"
-                        />
-
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Male</label>
-                        </div>
-                      </div>
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="gender"
-                          ref="gender"
-                          value="F"
-                          v-model.trim="member.gender"
-                          v-validate="'required'"
-                        />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Female</label>
-                        </div>
-                      </div>
-                       <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
+                          size="sm"
+                        ></b-form-select>
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('gender')"
+                          v-show="errors.has('title')"
                           >This field is required.</small
                         >
-                       </div>
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">
-                        <span class="red">*</span> Date of Birth:
-                      </p>
-                    </div>
-                    <div class="col-lg-9">
-                      <div class="input-group">
-                        <date-picker
-                          v-model.trim="member.birthdate"
-                          :config="Dateoptions"
-                          v-b-tooltip.hover
-                          placeholder="Select Date"
+                      </b-col>
+                      <b-col>
+                        <label for="Nickname">Nickname <span class="red">*</span> </label>
+                        <b-form-input
+                          type="text"
+                          id="Nickname"
+                          name="Nickname"
+                          ref="Nickname"
+                          v-model.trim="member.nickname"
+                          v-validate="'required'"
                           autocomplete="off"
-                          v-validate="'required'"
-                          name="birthdate"
-                          @input="calcuAge(member.birthdate)"
-                        ></date-picker>
-                      </div>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('birthdate')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Nationality:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="nationality"
-                        ref="nationality"
-                        class="form-control"
-                        v-model.trim="member.nationality"
-                        @input="
-                          member.nationality = $event.target.value.toUpperCase()
-                        "
-                        v-validate="'required'"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('nationality')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">
-                        <span class="red">*</span> Country of Birth:
-                      </p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="birthcountry"
-                        ref="birthcountry"
-                        class="form-control"
-                        v-model.trim="member.birthcountry"
-                        @input="
-                          member.birthcountry =
-                            $event.target.value.toUpperCase()
-                        "
-                        v-validate="'required'"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('birthcountry')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">
-                        <span class="red">*</span> Place of Birth:
-                      </p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="birthplace"
-                        ref="birthplace"
-                        class="form-control"
-                        v-model.trim="member.birthplace"
-                        @input="
-                          member.birthplace = $event.target.value.toUpperCase()
-                        "
-                        v-validate="'required'"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('birthplace')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Resident:</p>
-                    </div>
-                    <div class="col-lg-2">
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="resident"
-                          value="1"
-                          v-model.trim="member.resident"
-                          v-validate="'required'"
+                          @input="
+                            member.nickname = $event.target.value.toUpperCase()
+                          "
                         />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Yes</label>
-                        </div>
-                      </div>
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="resident"
-                          value="2"
-                          v-model.trim="member.resident"
-                          v-validate="'required'"
-                        />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> No</label>
-                        </div>
-                      </div>
-
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('resident')"
+                          v-show="errors.has('Nickname')"
                           >This field is required.</small
                         >
-                      </div>
-                    </div>
-                    <div class="col-lg-4" v-if="member.resident == '2'">
-                      <input
-                        type="text"
-                        name="resident_citizenship"
-                        ref="resident_citizenship"
-                        v-model.trim="member.resident_citizenship"
-                        @input="
-                          member.resident_citizenship = $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-validate="'required'"
-                        autocomplete="off"
-                        autofocus="on"
-                        placeholder="Citizenship"
-                        style="margin-top: 5px; margin-left: -20px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="
-                          member.resident == '2' &&
-                          member.resident_citizenship == ''
-                        "
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
+                      </b-col>
+                      <b-col>
+                        <label for="First_Name">First Name <span class="red">*</span></label>
 
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">
-                        <span class="red">*</span> Civil Status:
-                      </p>
-                    </div>
-                    <div class="col-lg-9">
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="Civil_status"
-                          value="Single"
-                          v-model.trim="member.civil_stat"
+                        <b-form-input
+                          type="text"
+                          id="First_Name"
+                          name="First_Name"
+                          ref="First_Name"
+                          v-model.trim="member.first_name"
+                          @input="
+                            member.first_name = $event.target.value.toUpperCase()
+                          "
                           v-validate="'required'"
+                          autocomplete="off"
+
                         />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Single</label>
-                        </div>
-                      </div>
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="Civil_status"
-                          value="MAR"
-                          v-model.trim="member.civil_stat"
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('First_Name')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                    </b-row>
+                    <b-row class="form-row"> <!-- Middle Name, Last Name Previous Last Name -->
+                      <b-col>
+                        <label for="Middle_Name">Middle Name <span class="red">*</span></label>
+                        <b-form-input
+                          type="text"
+                          id="Middle_Name"
+                          name="Middle_Name"
+                          ref="Middle_Name"
+                          class="form-control"
+                          v-model.trim="member.mid_name"
+                          @input="
+                            member.mid_name = $event.target.value.toUpperCase()
+                          "
+                          v-validate="'required'"
+                          autocomplete="off"
+
                         />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Married</label>
-                        </div>
-                      </div>
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="Civil_status"
-                          value="WID"
-                          v-model.trim="member.civil_stat"
-                        />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Widowed</label>
-                        </div>
-                      </div>
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="Civil_status"
-                          value="SEP"
-                          v-model.trim="member.civil_stat"
-                        />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> Separated</label>
-                        </div>
-                      </div>
-                      <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                        <input
-                          type="radio"
-                          name="Civil_status"
-                          value="WLIVE"
-                          v-model.trim="member.civil_stat"
-                        />
-                        <div class="state p-success">
-                          <i class="icon mdi mdi-check"></i>
-                          <label> W/Live-in Partner</label>
-                        </div>
-                      </div>
-                       <div
-                        class="pretty p-icon p-curve p-jelly"
-                        style="margin-top: 15px"
-                      >
-                         <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('Civil_status')"
-                        >Civil Status field is required.</small>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">Height(feet & inches):</p>
-                    </div>
-                    <div class="col-lg-4">
-                      <input
-                        type="text"
-                        name="height"
-                        ref="height"
-                        class="form-control"
-                        v-model.trim="member.height"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-
-                      <!-- <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('height')"
-                        >This field is required.</small
-                      > -->
-                    </div>
-                    <div class="col-lg-2">
-                      <p class="msg">Weight(pounds/kilos):</p>
-                    </div>
-                    <div class="col-lg-4">
-                      <input
-                        type="text"
-                        name="weight"
-                        ref="weight"
-                        class="form-control"
-                        v-model.trim="member.weight"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                      />
-
-                      <!-- <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('weight')"
-                        >This field is required.</small
-                      > -->
-                    </div>
-                  </div>
-
-                  <hr />
-
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-3">
-                      <p class="msg">
-                        <span class="red">*</span> Total No. of Dependents:
-                      </p>
-                    </div>
-                    <div class="col-lg-8">
-                      <b-form-input
-                        name="dependents_no"
-                        ref="dependents_no"
-                        v-validate="'required'"
-                        type="number"
-                        class="form-control"
-                        v-model.trim="member.dependents_no"
-                        @input="
-                          member.dependents_no =
-                            $event.target.value.toUpperCase()
-                        "
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('dependents_no')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg">
-                        <span class="red">*</span> No. of Children:
-                      </p>
-                    </div>
-                    <div class="col-lg-9">
-                      <b-form-input
-                        name="Num_of_Children"
-                        ref="Num_of_Children"
-                        v-validate="'required'"
-                        type="number"
-                        class="form-control"
-                        v-model.trim="member.children_no"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('Num_of_Children')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-3">
-                      <p class="msg">
-                        <span class="red">*</span> No. of Household Members:
-                      </p>
-                    </div>
-                    <div class="col-lg-8">
-                      <b-form-input
-                        name="household_no"
-                        ref="household_no"
-                        type="number"
-                        class="form-control"
-                        v-model.trim="member.household_no"
-                        style="margin-top: 8px"
-                        v-validate="'required'"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('household_no')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-3">
-                      <p class="msg">
-                        <span class="red">*</span> No. of Real Estate Property
-                        Owned:
-                      </p>
-                    </div>
-                    <div class="col-lg-8">
-                      <b-form-input
-                        v-validate="'required'"
-                        name="owned_properties"
-                        ref="owned_properties"
-                        type="number"
-                        class="form-control"
-                        v-model.trim="member.owned_properties"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('owned_properties')"
-                        >Field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-3">
-                      <p class="msg">
-                        <span class="red">*</span> Number of Car(s) owned:
-                      </p>
-                    </div>
-                    <div class="col-lg-8">
-                      <b-form-input
-                        v-validate="'required'"
-                        name="owned_cars"
-                        ref="owned_cars"
-                        type="number"
-                        class="form-control"
-                        v-model.trim="member.owned_cars"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('owned_cars')"
-                        >Field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <span
-                    v-if="
-                      member.civil_stat == 'live-in' ||
-                      member.civil_stat == 'married'
-                    "
-                  >
-                    <hr />
-                    <div class="emp-heading" style="display: flex">
-                      <label class="header text-success">
-                        Spouse Information</label
-                      >
-                    </div>
-                    <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg"><span class="red">*</span> Name:</p>
-                      </div>
-                      <div class="col-lg-9">
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('Middle_Name')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                      <b-col>
+                        <label for="Last_Name">Last Name <span class="red">*</span></label>
                         <input
                           type="text"
-                          name="spouse_name"
-                          ref="spouse_name"
-                          v-validate="'required'"
-                          v-model.trim="member.spouse_name"
-                          @input="
-                            member.spouse_name =
-                              $event.target.value.toUpperCase()
-                          "
+                          id="Last_Name"
+                          name="Last_Name"
+                          ref="Last_Name"
                           class="form-control"
+                          v-model.trim="member.last_name"
+                          @input="
+                            member.last_name = $event.target.value.toUpperCase()
+                          "
+                          v-validate="'required'"
                           autocomplete="off"
-                          autofocus="on"
-                          style="margin-top: 8px"
+
                         />
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('spouse_name')"
+                          v-show="errors.has('Last_Name')"
                           >This field is required.</small
                         >
-                      </div>
-                    </div>
+                      </b-col>
+                      <b-col>
+                        <label for="prev_last_name">Previous Last Name </label>
+                        <b-form-input
+                          id="prev_last_name"
+                          name="prev_last_name"
+                          ref="prev_last_name"
+                          type="text"
+                          class="form-control"
+                          v-model.trim="member.prev_last_name"
+                          @input="
+                            member.prev_last_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          autocomplete="off"
+
+                        />
+                      </b-col>
+                    </b-row>
+                    <b-row  class="form-row"> <!-- suffix, age, gender, dob -->
+                      <b-col cols="2">
+                        <label for="suffix">Suffix </label>
+                        <input
+                          type="text"
+                          id="suffix"
+                          name="suffix"
+                          ref="suffix"
+                          class="form-control"
+                          v-model.trim="member.suffix"
+                          @input="
+                            member.suffix = $event.target.value.toUpperCase()
+                          "
+                          placeholder="Suffix (e.g III, Jr)"
+                          autocomplete="off"
+
+                        />
+                      </b-col>
+                      <b-col cols="2">
+                        <label for="age">Age <span class="red">*</span></label>
+                        <b-form-input
+                          type="number"
+                          id="age"
+                          name="age"
+                          ref="age"
+                          v-validate="'required|between:3,200'"
+                          class="form-control"
+                          v-model.trim="member.age"
+                          @input="member.age = $event.target.value.toUpperCase()"
+                          title="Age of the member"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('age')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                      <b-col>
+                        <label>Gender <span class="red">*</span></label>
+                        <br>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            id="gender"
+                            name="gender"
+                            ref="gender"
+                            value="M"
+                            v-model.trim="member.gender"
+                            v-validate="'required'"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Male</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            name="gender"
+                            ref="gender"
+                            value="F"
+                            v-model.trim="member.gender"
+                            v-validate="'required'"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Female</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly" >
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('gender')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </b-col>
+                      <b-col>
+                        <label for="birthdate">Date of Birth <span class="red">*</span></label>
+                        <div class="input-group">
+                          <date-picker
+                            v-model.trim="member.birthdate"
+                            :config="Dateoptions"
+                            v-b-tooltip.hover
+                            placeholder="Select Date"
+                            autocomplete="off"
+                            v-validate="'required'"
+                            id="birthdate"
+                            name="birthdate"
+                            @input="calcuAge(member.birthdate)"
+                          ></date-picker>
+                        </div>
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('birthdate')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                    </b-row>
+                    <b-row  class="form-row"> <!--  Country of Birth, Place of Birth -->
+                      <b-col>
+                        <label for="birthcountry">Country of Birth <span class="red">*</span></label>
+                        <b-form-input
+                          type="text"
+                          id="birthcountry"
+                          name="birthcountry"
+                          ref="birthcountry"
+                          class="form-control"
+                          v-model.trim="member.birthcountry"
+                          @input="
+                            member.birthcountry =
+                              $event.target.value.toUpperCase()
+                          "
+                          v-validate="'required'"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('birthcountry')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                      <b-col>
+                        <label for="birthplace">Place of Birth <span class="red">*</span></label>
+                        <b-form-input
+                          type="text"
+                          id="birthplace"
+                          name="birthplace"
+                          ref="birthplace"
+                          class="form-control"
+                          v-model.trim="member.birthplace"
+                          @input="
+                            member.birthplace = $event.target.value.toUpperCase()
+                          "
+                          v-validate="'required'"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('birthplace')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                    </b-row>
+                    <b-row  class="form-row"> <!-- Nationality,Citizenship, Resident -->
+                      <b-col>
+                        <label for="nationality">Nationality <span class="red">*</span></label>
+                        <b-form-input
+                          type="text"
+                          id="nationality"
+                          name="nationality"
+                          ref="nationality"
+                          v-model.trim="member.nationality"
+                          @input="
+                            member.nationality = $event.target.value.toUpperCase()
+                          "
+                          v-validate="'required'"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('nationality')"
+                          >This field is required.</small
+                        >
+                      </b-col>
+                      <b-col>
+                        <label>Resident <span class="red">*</span></label>
+                        <br>
+                        <div
+                          class="pretty p-icon p-curve p-jelly"
+                        >
+                          <input
+                            type="radio"
+                            name="resident"
+                            value="1"
+                            v-model.trim="member.resident"
+                            v-validate="'required'"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Yes</label>
+                          </div>
+                        </div>
+                        <div
+                          class="pretty p-icon p-curve p-jelly"
+                        >
+                          <input
+                            type="radio"
+                            name="resident"
+                            value="2"
+                            v-model.trim="member.resident"
+                            v-validate="'required'"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> No</label>
+                          </div>
+                        </div>
+
+                        <div
+                          class="pretty p-icon p-curve p-jelly"
+                        >
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('resident')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </b-col>
+                      <b-col>
+                          <label>Citizenship <span class="red">*</span></label>
+                          <b-form-input
+                            type="text"
+                            id="resident_citizenship"
+                            name="resident_citizenship"
+                            v-model.trim="member.resident_citizenship"
+                            @input="
+                              member.resident_citizenship = $event.target.value.toUpperCase()
+                            "
+                            v-validate="'required'"
+                            autocomplete="off"
+                            placeholder="Citizenship"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="
+                              member.resident == '2' &&
+                              member.resident_citizenship == ''
+                            "
+                            >This field is required.</small
+                          >
+                      </b-col>
+                    </b-row>
+                    <b-row  class="form-row"> <!-- Civil Status -->
+                      <b-col>
+                        <label for="Civil_status">Civil Status <span class="red">*</span></label>
+                        <br>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            id="Civil_status"
+                            name="Civil_status"
+                            value="Single"
+                            v-model.trim="member.civil_stat"
+                            v-validate="'required'"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Single</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            name="Civil_status"
+                            value="MAR"
+                            v-model.trim="member.civil_stat"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Married</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            name="Civil_status"
+                            value="WID"
+                            v-model.trim="member.civil_stat"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Widowed</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            name="Civil_status"
+                            value="SEP"
+                            v-model.trim="member.civil_stat"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> Separated</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <input
+                            type="radio"
+                            name="Civil_status"
+                            value="WLIVE"
+                            v-model.trim="member.civil_stat"
+                          />
+                          <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label> W/Live-in Partner</label>
+                          </div>
+                        </div>
+                        <div class="pretty p-icon p-curve p-jelly">
+                          <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('Civil_status')"
+                          >Civil Status field is required.</small>
+                        </div>
+
+                      </b-col>
+                    </b-row>
+                    <b-row  class="form-row">
+                      <b-col>
+
+                      </b-col>
+                      <b-col>
+
+                      </b-col>
+                      <b-col>
+
+                      </b-col>
+                    </b-row>//last
+                    <label for="Last">Last <span class="red">*</span></label>
+
+
+
+
+
+
+
                     <div class="rowFields mx-auto row">
                       <div class="col-lg-2">
-                        <p class="msg"><span class="red">*</span> Age:</p>
+                        <p class="msg">
+                          <span class="red">*</span> Civil Status:
+                        </p>
                       </div>
                       <div class="col-lg-9">
+
+                      </div>
+
+                    </div>
+
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg">Height(feet & inches):</p>
+                      </div>
+                      <div class="col-lg-4">
+                        <input
+                          type="text"
+                          name="height"
+                          ref="height"
+                          class="form-control"
+                          v-model.trim="member.height"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                        />
+
+                        <!-- <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('height')"
+                          >This field is required.</small
+                        > -->
+                      </div>
+                      <div class="col-lg-2">
+                        <p class="msg">Weight(pounds/kilos):</p>
+                      </div>
+                      <div class="col-lg-4">
+                        <input
+                          type="text"
+                          name="weight"
+                          ref="weight"
+                          class="form-control"
+                          v-model.trim="member.weight"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                        />
+
+                        <!-- <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('weight')"
+                          >This field is required.</small
+                        > -->
+                      </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-3">
+                        <p class="msg">
+                          <span class="red">*</span> Total No. of Dependents:
+                        </p>
+                      </div>
+                      <div class="col-lg-8">
                         <b-form-input
-                          name="spouse_age"
-                          ref="spouse_age"
+                          name="dependents_no"
+                          ref="dependents_no"
                           v-validate="'required'"
                           type="number"
                           class="form-control"
-                          v-model.trim="member.spouse_age"
+                          v-model.trim="member.dependents_no"
+                          @input="
+                            member.dependents_no =
+                              $event.target.value.toUpperCase()
+                          "
                           style="margin-top: 8px"
                         />
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('spouse_age')"
+                          v-show="errors.has('dependents_no')"
                           >This field is required.</small
                         >
                       </div>
@@ -993,394 +777,545 @@
                     <div class="rowFields mx-auto row">
                       <div class="col-lg-2">
                         <p class="msg">
-                          <span class="red">*</span> Occupation:
+                          <span class="red">*</span> No. of Children:
                         </p>
                       </div>
                       <div class="col-lg-9">
-                        <input
-                          type="text"
-                          name="spouse_occupation"
-                          ref="spouse_occupation"
+                        <b-form-input
+                          name="Num_of_Children"
+                          ref="Num_of_Children"
                           v-validate="'required'"
-                          v-model.trim="member.spouse_occupation"
-                          @input="
-                            member.spouse_occupation =
-                              $event.target.value.toUpperCase()
-                          "
+                          type="number"
                           class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
+                          v-model.trim="member.children_no"
                           style="margin-top: 8px"
                         />
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('spouse_occupation')"
+                          v-show="errors.has('Num_of_Children')"
                           >This field is required.</small
                         >
                       </div>
                     </div>
                     <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg"><span class="red">*</span> Employer:</p>
+                      <div class="col-lg-3">
+                        <p class="msg">
+                          <span class="red">*</span> No. of Household Members:
+                        </p>
                       </div>
-                      <div class="col-lg-9">
-                        <input
-                          type="text"
-                          name="spouse_employer"
-                          ref="spouse_employer"
-                          v-validate="'required'"
-                          v-model.trim="member.spouse_employer"
-                          @input="
-                            member.spouse_employer =
-                              $event.target.value.toUpperCase()
-                          "
+                      <div class="col-lg-8">
+                        <b-form-input
+                          name="household_no"
+                          ref="household_no"
+                          type="number"
                           class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
+                          v-model.trim="member.household_no"
                           style="margin-top: 8px"
+                          v-validate="'required'"
                         />
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('spouse_employer')"
+                          v-show="errors.has('household_no')"
                           >This field is required.</small
                         >
                       </div>
                     </div>
                     <div class="rowFields mx-auto row">
-                      <div class="col-lg-2">
-                        <p class="msg"><span class="red">*</span> Address:</p>
+                      <div class="col-lg-3">
+                        <p class="msg">
+                          <span class="red">*</span> No. of Real Estate Property
+                          Owned:
+                        </p>
                       </div>
-                      <div class="col-lg-9">
-                        <input
-                          type="text"
-                          name="spouse_address"
-                          ref="spouse_address"
+                      <div class="col-lg-8">
+                        <b-form-input
                           v-validate="'required'"
-                          v-model.trim="member.spouse_address"
-                          @input="
-                            member.spouse_address =
-                              $event.target.value.toUpperCase()
-                          "
+                          name="owned_properties"
+                          ref="owned_properties"
+                          type="number"
                           class="form-control"
-                          v-b-tooltip.hover
-                          autocomplete="off"
-                          autofocus="on"
-                          style="margin-top: 8px"
+                          v-model.trim="member.owned_properties"
                         />
                         <small
                           class="text-danger pull-left"
-                          v-show="errors.has('spouse_address')"
-                          >This field is required.</small
+                          v-show="errors.has('owned_properties')"
+                          >Field is required.</small
                         >
                       </div>
                     </div>
-                  </span>
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-3">
+                        <p class="msg">
+                          <span class="red">*</span> Number of Car(s) owned:
+                        </p>
+                      </div>
+                      <div class="col-lg-8">
+                        <b-form-input
+                          v-validate="'required'"
+                          name="owned_cars"
+                          ref="owned_cars"
+                          type="number"
+                          class="form-control"
+                          v-model.trim="member.owned_cars"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('owned_cars')"
+                          >Field is required.</small
+                        >
+                      </div>
+                    </div>
+                    <span
+                      v-if="
+                        member.civil_stat == 'live-in' ||
+                        member.civil_stat == 'married'
+                      "
+                    >
+                      <hr />
+                      <div class="emp-heading" style="display: flex">
+                        <label class="header text-success">
+                          Spouse Information</label
+                        >
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg"><span class="red">*</span> Name:</p>
+                        </div>
+                        <div class="col-lg-9">
+                          <input
+                            type="text"
+                            name="spouse_name"
+                            ref="spouse_name"
+                            v-validate="'required'"
+                            v-model.trim="member.spouse_name"
+                            @input="
+                              member.spouse_name =
+                                $event.target.value.toUpperCase()
+                            "
+                            class="form-control"
+                            autocomplete="off"
 
-                  <hr />
-                  <div class="emp-heading" style="display: flex">
-                    <label class="header text-success">
-                      Mother's Information
-                    </label>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Title:</p>
+                            style="margin-top: 8px"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('spouse_name')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg"><span class="red">*</span> Age:</p>
+                        </div>
+                        <div class="col-lg-9">
+                          <b-form-input
+                            name="spouse_age"
+                            ref="spouse_age"
+                            v-validate="'required'"
+                            type="number"
+                            class="form-control"
+                            v-model.trim="member.spouse_age"
+                            style="margin-top: 8px"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('spouse_age')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg">
+                            <span class="red">*</span> Occupation:
+                          </p>
+                        </div>
+                        <div class="col-lg-9">
+                          <input
+                            type="text"
+                            name="spouse_occupation"
+                            ref="spouse_occupation"
+                            v-validate="'required'"
+                            v-model.trim="member.spouse_occupation"
+                            @input="
+                              member.spouse_occupation =
+                                $event.target.value.toUpperCase()
+                            "
+                            class="form-control"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+
+                            style="margin-top: 8px"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('spouse_occupation')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg"><span class="red">*</span> Employer:</p>
+                        </div>
+                        <div class="col-lg-9">
+                          <input
+                            type="text"
+                            name="spouse_employer"
+                            ref="spouse_employer"
+                            v-validate="'required'"
+                            v-model.trim="member.spouse_employer"
+                            @input="
+                              member.spouse_employer =
+                                $event.target.value.toUpperCase()
+                            "
+                            class="form-control"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+
+                            style="margin-top: 8px"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('spouse_employer')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </div>
+                      <div class="rowFields mx-auto row">
+                        <div class="col-lg-2">
+                          <p class="msg"><span class="red">*</span> Address:</p>
+                        </div>
+                        <div class="col-lg-9">
+                          <input
+                            type="text"
+                            name="spouse_address"
+                            ref="spouse_address"
+                            v-validate="'required'"
+                            v-model.trim="member.spouse_address"
+                            @input="
+                              member.spouse_address =
+                                $event.target.value.toUpperCase()
+                            "
+                            class="form-control"
+                            v-b-tooltip.hover
+                            autocomplete="off"
+
+                            style="margin-top: 8px"
+                          />
+                          <small
+                            class="text-danger pull-left"
+                            v-show="errors.has('spouse_address')"
+                            >This field is required.</small
+                          >
+                        </div>
+                      </div>
+                    </span>
+
+                    <hr />
+                    <div class="emp-heading" style="display: flex">
+                      <label class="header text-success">
+                        Mother's Information
+                      </label>
                     </div>
-                    <div class="col-lg-9">
-                      <b-form-select
-                        name="mother_title"
-                        ref="mother_title"
-                        v-validate="'required'"
-                        v-model="member.mother_title"
-                        :options="title_options"
-                        size="sm"
-                        class="mt-3"
-                      ></b-form-select>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('mother_title')"
-                        >This field is required.</small
-                      >
-                      <!-- <input
-                        type="text"
-                        name="mother_title"
-                        ref="mother_title"
-                        v-validate="'required'"
-                        v-model.trim="member.mother_title"
-                        @input="
-                          member.mother_title = $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                       -->
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red">*</span> Title:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <b-form-select
+                          name="mother_title"
+                          ref="mother_title"
+                          v-validate="'required'"
+                          v-model="member.mother_title"
+                          :options="title_options"
+                          size="sm"
+                          class="mt-3"
+                        ></b-form-select>
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('mother_title')"
+                          >This field is required.</small
+                        >
+                        <!-- <input
+                          type="text"
+                          name="mother_title"
+                          ref="mother_title"
+                          v-validate="'required'"
+                          v-model.trim="member.mother_title"
+                          @input="
+                            member.mother_title = $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        -->
+                      </div>
                     </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> First Name:</p>
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red">*</span> First Name:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <input
+                          type="text"
+                          name="mother_first_name"
+                          ref="mother_first_name"
+                          v-validate="'required'"
+                          v-model.trim="member.mother_first_name"
+                          @input="
+                            member.mother_first_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('mother_first_name')"
+                          >This field is required.</small
+                        >
+                      </div>
                     </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="mother_first_name"
-                        ref="mother_first_name"
-                        v-validate="'required'"
-                        v-model.trim="member.mother_first_name"
-                        @input="
-                          member.mother_first_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('mother_first_name')"
-                        >This field is required.</small
-                      >
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-3">
+                        <p class="msg">
+                          <span class="red">*</span> Middle Name(Maiden):
+                        </p>
+                      </div>
+                      <div class="col-lg-8">
+                        <input
+                          type="text"
+                          name="mother_mid_name"
+                          ref="mother_mid_name"
+                          v-validate="'required'"
+                          v-model.trim="member.mother_mid_name"
+                          @input="
+                            member.mother_mid_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('mother_mid_name')"
+                          >This field is required.</small
+                        >
+                      </div>
                     </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-3">
-                      <p class="msg">
-                        <span class="red">*</span> Middle Name(Maiden):
-                      </p>
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-3">
+                        <p class="msg">
+                          <span class="red">*</span> Last Name(Maiden):
+                        </p>
+                      </div>
+                      <div class="col-lg-8">
+                        <input
+                          type="text"
+                          name="mother_last_name"
+                          ref="mother_last_name"
+                          v-validate="'required'"
+                          v-model.trim="member.mother_last_name"
+                          @input="
+                            member.mother_last_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('mother_last_name')"
+                          >This field is required.</small
+                        >
+                      </div>
                     </div>
-                    <div class="col-lg-8">
-                      <input
-                        type="text"
-                        name="mother_mid_name"
-                        ref="mother_mid_name"
-                        v-validate="'required'"
-                        v-model.trim="member.mother_mid_name"
-                        @input="
-                          member.mother_mid_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('mother_mid_name')"
-                        >This field is required.</small
-                      >
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red"></span> Suffix:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <input
+                          type="text"
+                          name="mother_suffix"
+                          ref="mother_suffix"
+                          v-model.trim="member.mother_suffix"
+                          @input="
+                            member.mother_suffix =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+                          style="margin-top: 8px"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-3">
-                      <p class="msg">
-                        <span class="red">*</span> Last Name(Maiden):
-                      </p>
+                    <hr />
+                    <div class="emp-heading" style="display: flex">
+                      <label class="header text-success">
+                        Father's Information
+                      </label>
                     </div>
-                    <div class="col-lg-8">
-                      <input
-                        type="text"
-                        name="mother_last_name"
-                        ref="mother_last_name"
-                        v-validate="'required'"
-                        v-model.trim="member.mother_last_name"
-                        @input="
-                          member.mother_last_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('mother_last_name')"
-                        >This field is required.</small
-                      >
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red">*</span> Title:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <b-form-select
+                          name="father_title"
+                          ref="father_title"
+                          v-validate="'required'"
+                          v-model="member.father_title"
+                          :options="title_options"
+                          size="sm"
+                          class="mt-3"
+                        ></b-form-select>
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('father_title')"
+                          >This field is required.</small
+                        >
+                        <!-- <input
+                          type="text"
+                          name="father_title"
+                          ref="father_title"
+                          v-validate="'required'"
+                          v-model.trim="member.father_title"
+                          @input="
+                            member.father_title = $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        -->
+                      </div>
                     </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red"></span> Suffix:</p>
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red">*</span> First Name:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <input
+                          type="text"
+                          name="father_first_name"
+                          ref="father_first_name"
+                          v-validate="'required'"
+                          v-model.trim="member.father_first_name"
+                          @input="
+                            member.father_first_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('father_first_name')"
+                          >This field is required.</small
+                        >
+                      </div>
                     </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="mother_suffix"
-                        ref="mother_suffix"
-                        v-model.trim="member.mother_suffix"
-                        @input="
-                          member.mother_suffix =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red">*</span> Middle Name:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <input
+                          type="text"
+                          name="father_mid_name"
+                          ref="father_mid_name"
+                          v-validate="'required'"
+                          v-model.trim="member.father_mid_name"
+                          @input="
+                            member.father_mid_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('father_mid_name')"
+                          >This field is required.</small
+                        >
+                      </div>
                     </div>
-                  </div>
-                  <hr />
-                  <div class="emp-heading" style="display: flex">
-                    <label class="header text-success">
-                      Father's Information
-                    </label>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Title:</p>
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red">*</span> Last Name:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <input
+                          type="text"
+                          name="father_last_name"
+                          ref="father_last_name"
+                          v-validate="'required'"
+                          v-model.trim="member.father_last_name"
+                          @input="
+                            member.father_last_name =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                        <small
+                          class="text-danger pull-left"
+                          v-show="errors.has('father_last_name')"
+                          >This field is required.</small
+                        >
+                      </div>
                     </div>
-                    <div class="col-lg-9">
-                      <b-form-select
-                        name="father_title"
-                        ref="father_title"
-                        v-validate="'required'"
-                        v-model="member.father_title"
-                        :options="title_options"
-                        size="sm"
-                        class="mt-3"
-                      ></b-form-select>
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('father_title')"
-                        >This field is required.</small
-                      >
-                      <!-- <input
-                        type="text"
-                        name="father_title"
-                        ref="father_title"
-                        v-validate="'required'"
-                        v-model.trim="member.father_title"
-                        @input="
-                          member.father_title = $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      -->
+                    <div class="rowFields mx-auto row">
+                      <div class="col-lg-2">
+                        <p class="msg"><span class="red"></span> Suffix:</p>
+                      </div>
+                      <div class="col-lg-9">
+                        <input
+                          type="text"
+                          name="father_suffix"
+                          ref="father_suffix"
+                          v-model.trim="member.father_suffix"
+                          @input="
+                            member.father_suffix =
+                              $event.target.value.toUpperCase()
+                          "
+                          class="form-control"
+                          v-b-tooltip.hover
+                          autocomplete="off"
+
+                          style="margin-top: 8px"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> First Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="father_first_name"
-                        ref="father_first_name"
-                        v-validate="'required'"
-                        v-model.trim="member.father_first_name"
-                        @input="
-                          member.father_first_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('father_first_name')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Middle Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="father_mid_name"
-                        ref="father_mid_name"
-                        v-validate="'required'"
-                        v-model.trim="member.father_mid_name"
-                        @input="
-                          member.father_mid_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('father_mid_name')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red">*</span> Last Name:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="father_last_name"
-                        ref="father_last_name"
-                        v-validate="'required'"
-                        v-model.trim="member.father_last_name"
-                        @input="
-                          member.father_last_name =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                      <small
-                        class="text-danger pull-left"
-                        v-show="errors.has('father_last_name')"
-                        >This field is required.</small
-                      >
-                    </div>
-                  </div>
-                  <div class="rowFields mx-auto row">
-                    <div class="col-lg-2">
-                      <p class="msg"><span class="red"></span> Suffix:</p>
-                    </div>
-                    <div class="col-lg-9">
-                      <input
-                        type="text"
-                        name="father_suffix"
-                        ref="father_suffix"
-                        v-model.trim="member.father_suffix"
-                        @input="
-                          member.father_suffix =
-                            $event.target.value.toUpperCase()
-                        "
-                        class="form-control"
-                        v-b-tooltip.hover
-                        autocomplete="off"
-                        autofocus="on"
-                        style="margin-top: 8px"
-                      />
-                    </div>
-                  </div>
-                </form>
+                  </b-container>
+                </b-form>
               </div>
             </div>
             <div class="tab-pane" id="Info_2" role="tabpanel">
@@ -1402,7 +1337,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1424,7 +1359,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1446,7 +1381,7 @@
                         v-b-tooltip.hover
                         autocomplete="off"
                         v-validate="'required'"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -1473,7 +1408,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                     </div>
                     <div class="col-lg-2">
@@ -1491,7 +1426,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1566,7 +1501,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1589,7 +1524,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1616,7 +1551,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1639,7 +1574,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1716,7 +1651,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -1739,7 +1674,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <!-- <small
                         class="text-danger pull-left"
@@ -2058,7 +1993,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -2272,7 +2207,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -2359,7 +2294,7 @@
                         placeholder="ex.:639123456789"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -2410,7 +2345,7 @@
                         placeholder="ex.:639123456789"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                     </div>
                   </div>
@@ -2622,7 +2557,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                         placeholder="Others"
                         style="margin-top: 5px; margin-left: -30px"
                       />
@@ -2662,7 +2597,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -2690,7 +2625,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -2737,7 +2672,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                         </div>
                       </div>
@@ -2783,7 +2718,7 @@
                             maxlength="11"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -2822,7 +2757,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                             name="Company_Trade_Name"
                             v-validate="'required'"
                           />
@@ -2852,7 +2787,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -2895,7 +2830,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -2950,7 +2885,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -2999,7 +2934,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -3039,7 +2974,7 @@
                             placeholder="amount"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -3063,7 +2998,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           />
                           <small
                             class="text-danger pull-left"
@@ -3091,7 +3026,7 @@
                             class="form-control"
                             v-b-tooltip.hover
                             autocomplete="off"
-                            autofocus="on"
+
                           /> -->
                           <b-form-select
                             name="emp_occ_status"
@@ -3140,7 +3075,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -3168,7 +3103,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -3192,7 +3127,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -3219,7 +3154,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -3247,7 +3182,7 @@
                         class="form-control"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -3272,7 +3207,7 @@
                         maxlength="11"
                         v-b-tooltip.hover
                         autocomplete="off"
-                        autofocus="on"
+
                       />
                       <small
                         class="text-danger pull-left"
@@ -3842,7 +3777,7 @@ export default {
         prev_last_name: "TEST",
         suffix: "",
         resident: "2",
-        resident_citizenship: "filipino",
+        resident_citizenship: "Filipino",
         age: "23",
         gender: "M",
         contact_no: "09092104014",
@@ -3852,7 +3787,7 @@ export default {
         birthdate: "1998-06-01",
         nationality: "Filipino",
         birthcountry: "PH",
-        birthplace: "14",
+        birthplace: "Davao City",
         civil_stat: null,
         membership_status: "A",
         present_residential: "",
@@ -4053,6 +3988,9 @@ export default {
 };
 </script>
 <style scoped>
+.form-row {
+  margin-bottom: 25px;
+}
 .red {
   color: red;
 }
